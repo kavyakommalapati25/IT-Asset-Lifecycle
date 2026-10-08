@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Reports - IT Asset Lifecycle</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 65px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header button {
+            width: auto;
+            margin: 0;
+            padding: 9px 18px;
+            background: white;
+            color: #087f8c;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .header button:hover {
+            background: #e8f8f8;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 92%;
+            margin: 35px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #087f8c;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 14px;
+            text-align: center;
+        }
+
+        td {
+            padding: 13px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f0fbfb;
+        }
+
+        /* STATUS */
+
+        .status-active {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            color: #087f8c;
+            font-weight: bold;
+        }
+
+        .status-disposed {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-button {
+            padding: 11px 25px;
+            background: #0b5ed7;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: #084298;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+            IT Asset Lifecycle & Maintenance
+        </div>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container">
+
+        <h1>Reports Details</h1>
+
+        <div class="subtitle">
+            IT Asset Lifecycle Reports
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Report ID</th>
+                        <th>Asset ID</th>
+                        <th>Employee ID</th>
+                        <th>Type of Report</th>
+                        <th>Report Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>R001</td>
+                        <td>AST001</td>
+                        <td>EMP001</td>
+                        <td>ASSET</td>
+                        <td class="status-active">ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>R002</td>
+                        <td>AST002</td>
+                        <td>EMP002</td>
+                        <td>MAINTENANCE</td>
+                        <td class="status-completed">COMPLETED</td>
+                    </tr>
+
+                    <tr>
+                        <td>R003</td>
+                        <td>AST003</td>
+                        <td>EMP003</td>
+                        <td>EMI</td>
+                        <td class="status-active">ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>R004</td>
+                        <td>AST004</td>
+                        <td>EMP004</td>
+                        <td>DISPOSAL</td>
+                        <td class="status-disposed">DISPOSED</td>
+                    </tr>
+
+                    <tr>
+                        <td>R005</td>
+                        <td>AST005</td>
+                        <td>EMP005</td>
+                        <td>LIFECYCLE</td>
+                        <td class="status-active">ACTIVE</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- BACK BUTTON -->
+
+        <div class="buttons">
+
+            <button class="back-button" onclick="goDashboard()">
+                Back to Dashboard
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* LOGIN CHECK */
+
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+
+            window.location.href = "index.html";
+
+        }
+
+
+        /* DASHBOARD */
+
+        function goDashboard() {
+
+            window.location.href = "dashboard.html";
+
+        }
+
+
+        /* LOGOUT */
+
+        function logout() {
+
+            sessionStorage.removeItem("loggedIn");
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

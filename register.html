@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Register - IT Asset Lifecycle</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* ===== PAGE BACKGROUND ===== */
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
+        }
+
+
+        /* ===== HEADER ===== */
+
+        .header {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        /* ===== REGISTER BOX ===== */
+
+        .register-box {
+            width: 380px;
+
+            margin: 50px auto;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 120, 140, 0.18);
+
+            text-align: center;
+        }
+
+
+        /* ===== REGISTER TITLE ===== */
+
+        .register-box h1 {
+            margin-bottom: 25px;
+            color: #087f8c;
+        }
+
+
+        /* ===== INPUT FIELDS ===== */
+
+        input {
+            width: 90%;
+
+            padding: 12px;
+
+            margin: 8px 0;
+
+            border: 1px solid #b7dfe2;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            text-align: left;
+
+            outline: none;
+        }
+
+
+        input:focus {
+            border-color: #39a96b;
+
+            box-shadow:
+                0 0 5px rgba(57, 169, 107, 0.25);
+        }
+
+
+        /* ===== REGISTER BUTTON ===== */
+
+        button {
+            width: 96%;
+
+            padding: 13px;
+
+            margin-top: 15px;
+
+            background:
+                linear-gradient(90deg, #0b8f9c, #39a96b);
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        button:hover {
+            background:
+                linear-gradient(90deg, #087f8c, #2d8f5b);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ===== MESSAGE ===== */
+
+        .message {
+            margin-top: 15px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* ===== LOGIN LINK ===== */
+
+        .back-login {
+            margin-top: 18px;
+
+            font-size: 14px;
+
+            color: #555;
+        }
+
+
+        .back-login a {
+            color: #087f8c;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .back-login a:hover {
+            color: #39a96b;
+
+            text-decoration: underline;
+        }
+
+
+        /* ===== MOBILE VIEW ===== */
+
+        @media (max-width: 500px) {
+
+            .register-box {
+                width: 90%;
+
+                margin: 30px auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        IT Asset Lifecycle & Maintenance
+
+    </div>
+
+
+
+    <!-- REGISTER BOX -->
+
+    <div class="register-box">
+
+        <h1>
+            Create Account
+        </h1>
+
+
+        <input
+            type="text"
+            id="fullname"
+            placeholder="Full Name">
+
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username">
+
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email">
+
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password">
+
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password">
+
+
+        <button onclick="registerUser()">
+
+            Register
+
+        </button>
+
+
+        <p
+            id="message"
+            class="message">
+        </p>
+
+
+        <p class="back-login">
+
+            Already registered?
+
+            <a href="index.html">
+                Login here
+            </a>
+
+        </p>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function registerUser() {
+
+            let fullname =
+                document.getElementById("fullname").value;
+
+            let username =
+                document.getElementById("username").value;
+
+            let email =
+                document.getElementById("email").value;
+
+            let password =
+                document.getElementById("password").value;
+
+            let confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            let message =
+                document.getElementById("message");
+
+
+            if (
+                fullname === "" ||
+                username === "" ||
+                email === "" ||
+                password === "" ||
+                confirmPassword === ""
+            ) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Please fill all the fields.";
+
+                return;
+            }
+
+
+            if (password !== confirmPassword) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Passwords do not match.";
+
+                return;
+            }
+
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Registration successful!";
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

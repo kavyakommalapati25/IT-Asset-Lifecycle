@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>EMI - IT Asset Lifecycle</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .form-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            margin-bottom: 30px;
+        }
+
+        .form-box h1 {
+            text-align: center;
+            color: #087f8c;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            color: #087f8c;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #39a96b;
+            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .save-btn {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+        }
+
+        .clear-btn {
+            background: #e8f4f4;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+        .back-btn {
+            background: #ffffff;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .save-btn:hover {
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
+        }
+
+        .clear-btn:hover,
+        .back-btn:hover {
+            background: #e3f9e5;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .report-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            overflow-x: auto;
+        }
+
+        .report-box h2 {
+            color: #087f8c;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            min-width: 1000px;
+        }
+
+        th {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 11px;
+            text-align: center;
+            border-bottom: 1px solid #d5eeee;
+        }
+
+        tr:nth-child(even) {
+            background: #f1fbf8;
+        }
+
+        tr:hover {
+            background: #e3f9e5;
+        }
+
+        @media (max-width: 900px) {
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="header">
+
+        IT Asset Lifecycle & Maintenance
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- EMI FORM -->
+
+        <div class="form-box">
+
+            <h1>EMI Registration</h1>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>Employee ID</label>
+
+                    <input
+                        type="text"
+                        id="emp_id"
+                        placeholder="Enter Employee ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Asset ID</label>
+
+                    <input
+                        type="text"
+                        id="asset_id"
+                        placeholder="Enter Asset ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>EMI ID</label>
+
+                    <input
+                        type="text"
+                        id="emi_id"
+                        placeholder="Enter EMI ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>EMI Type</label>
+
+                    <select id="emi_type">
+
+                        <option value="">
+                            Select EMI Type
+                        </option>
+
+                        <option value="MONTHLY">
+                            MONTHLY
+                        </option>
+
+                        <option value="QUARTERLY">
+                            QUARTERLY
+                        </option>
+
+                        <option value="YEARLY">
+                            YEARLY
+                        </option>
+
+                        <option value="HALF YEAR">
+                            HALF YEAR
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Amount</label>
+
+                    <input
+                        type="text"
+                        id="amount"
+                        placeholder="Enter Amount">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Start Date</label>
+
+                    <input
+                        type="text"
+                        id="date"
+                        placeholder="DD.MM.YYYY">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>End Date</label>
+
+                    <input
+                        type="text"
+                        id="date_end"
+                        placeholder="DD.MM.YYYY">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Status</label>
+
+                    <select id="status">
+
+                        <option value="">
+                            Select Status
+                        </option>
+
+                        <option value="ACTIVE">
+                            ACTIVE
+                        </option>
+
+                        <option value="INACTIVE">
+                            INACTIVE
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="save-btn"
+                    onclick="saveEMI()">
+
+                    Save EMI
+
+                </button>
+
+
+                <button
+                    class="clear-btn"
+                    onclick="clearForm()">
+
+                    Clear
+
+                </button>
+
+
+                <button
+                    class="back-btn"
+                    onclick="goDashboard()">
+
+                    Back to Dashboard
+
+                </button>
+
+            </div>
+
+
+            <p
+                id="message"
+                class="message">
+            </p>
+
+        </div>
+
+
+
+        <!-- EMI REPORT -->
+
+        <div class="report-box">
+
+            <h2>EMI Report</h2>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Employee ID</th>
+                        <th>Asset ID</th>
+                        <th>EMI ID</th>
+                        <th>EMI Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Date End</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>EMP001</td>
+                        <td>AST001</td>
+                        <td>EMI001</td>
+                        <td>MONTHLY</td>
+                        <td>5.000</td>
+                        <td>10.01.2026</td>
+                        <td>13.12.2026</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP010</td>
+                        <td>AST0010</td>
+                        <td>EMI0010</td>
+                        <td>MONTHLY</td>
+                        <td>5.000</td>
+                        <td>01.10.2026</td>
+                        <td>30.09.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP002</td>
+                        <td>AST002</td>
+                        <td>EMI002</td>
+                        <td>MONTHLY</td>
+                        <td>3.500</td>
+                        <td>10.02.2026</td>
+                        <td>13.01.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP003</td>
+                        <td>AST003</td>
+                        <td>EMI003</td>
+                        <td>QUARTERLY</td>
+                        <td>9.000</td>
+                        <td>01.02.2026</td>
+                        <td>29.02.2028</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP004</td>
+                        <td>AST004</td>
+                        <td>EMI004</td>
+                        <td>MONTHLY</td>
+                        <td>4.500</td>
+                        <td>01.04.2026</td>
+                        <td>31.03.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP005</td>
+                        <td>AST005</td>
+                        <td>EMI005</td>
+                        <td>YEARLY</td>
+                        <td>4.800</td>
+                        <td>01.05.2026</td>
+                        <td>01.05.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP006</td>
+                        <td>AST006</td>
+                        <td>EMI006</td>
+                        <td>MONTHLY</td>
+                        <td>6.000</td>
+                        <td>01.06.2026</td>
+                        <td>31.05.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP007</td>
+                        <td>AST007</td>
+                        <td>EMI007</td>
+                        <td>QUARTERLY</td>
+                        <td>12.000</td>
+                        <td>01.07.2026</td>
+                        <td>01.07.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP008</td>
+                        <td>AST008</td>
+                        <td>EMI008</td>
+                        <td>MONTHLY</td>
+                        <td>4.000</td>
+                        <td>01.08.2026</td>
+                        <td>31.07.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMP009</td>
+                        <td>AST009</td>
+                        <td>EMI009</td>
+                        <td>HALF YEAR</td>
+                        <td>18.000</td>
+                        <td>01.09.2026</td>
+                        <td>01.09.2027</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+        /* LOGIN SESSION CHECK */
+
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+
+            window.location.href = "index.html";
+
+        }
+
+
+        /* SAVE EMI */
+
+        function saveEMI() {
+
+            let empId =
+                document.getElementById("emp_id").value;
+
+            let assetId =
+                document.getElementById("asset_id").value;
+
+            let emiId =
+                document.getElementById("emi_id").value;
+
+            let emiType =
+                document.getElementById("emi_type").value;
+
+            let amount =
+                document.getElementById("amount").value;
+
+            let date =
+                document.getElementById("date").value;
+
+            let dateEnd =
+                document.getElementById("date_end").value;
+
+            let status =
+                document.getElementById("status").value;
+
+            let message =
+                document.getElementById("message");
+
+
+            if (
+                empId === "" ||
+                assetId === "" ||
+                emiId === "" ||
+                emiType === "" ||
+                amount === "" ||
+                date === "" ||
+                dateEnd === "" ||
+                status === ""
+            ) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Please fill all the fields.";
+
+                return;
+
+            }
+
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "EMI record saved successfully!";
+
+        }
+
+
+        /* CLEAR FORM */
+
+        function clearForm() {
+
+            document.getElementById("emp_id").value = "";
+
+            document.getElementById("asset_id").value = "";
+
+            document.getElementById("emi_id").value = "";
+
+            document.getElementById("emi_type").value = "";
+
+            document.getElementById("amount").value = "";
+
+            document.getElementById("date").value = "";
+
+            document.getElementById("date_end").value = "";
+
+            document.getElementById("status").value = "";
+
+            document.getElementById("message").innerHTML = "";
+
+        }
+
+
+        /* BACK TO DASHBOARD */
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

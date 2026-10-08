@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Maintenance - IT Asset Lifecycle</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1150px;
+            margin: 35px auto;
+        }
+
+        .form-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            margin-bottom: 30px;
+        }
+
+        .form-box h1 {
+            text-align: center;
+            color: #087f8c;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            color: #087f8c;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #39a96b;
+            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .save-btn {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+        }
+
+        .clear-btn {
+            background: #e8f4f4;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+        .back-btn {
+            background: #ffffff;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .save-btn:hover {
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
+        }
+
+        .clear-btn:hover,
+        .back-btn:hover {
+            background: #e3f9e5;
+        }
+        .status-section {
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    background: #f1fbf8;
+    border-radius: 12px;
+    border: 1px solid #d5eeee;
+}
+
+.status-section h2 {
+    color: #087f8c;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.status-btn {
+    padding: 12px 22px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pending-btn {
+    background: #e6a700;
+}
+
+.progress-btn {
+    background: #0b8f9c;
+}
+
+.completed-btn {
+    background: #39a96b;
+}
+
+.status-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .report-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            overflow-x: auto;
+        }
+
+        .report-box h2 {
+            color: #087f8c;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            min-width: 800px;
+        }
+
+        th {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 11px;
+            text-align: center;
+            border-bottom: 1px solid #d5eeee;
+        }
+
+        tr:nth-child(even) {
+            background: #f1fbf8;
+        }
+
+        tr:hover {
+            background: #e3f9e5;
+        }
+
+        @media (max-width: 900px) {
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="header">
+
+        IT Asset Lifecycle & Maintenance
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- MAINTENANCE FORM -->
+
+        <div class="form-box">
+
+            <h1>Maintenance Registration</h1>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>Maintenance ID</label>
+
+                    <input
+                        type="text"
+                        id="main_id"
+                        placeholder="Enter Maintenance ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Employee ID</label>
+
+                    <input
+                        type="text"
+                        id="emp_id"
+                        placeholder="Enter Employee ID">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Employee Details</label>
+
+                    <input
+                        type="text"
+                        id="emp_det"
+                        placeholder="Enter Employee Details">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Maintenance Type</label>
+
+                    <input
+                        type="text"
+                        id="main_type"
+                        placeholder="Enter Maintenance Type">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Maintenance Cost</label>
+
+                    <input
+                        type="text"
+                        id="main_cost"
+                        placeholder="Enter Maintenance Cost">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Maintenance Status</label>
+
+                    <select id="main_status">
+<option value="">
+    Select Status
+</option>
+
+<option value="PENDING">
+    PENDING
+</option>
+
+<option value="IN PROGRESS">
+    IN PROGRESS
+</option>
+
+<option value="COMPLETED">
+    COMPLETED
+</option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+    <button
+        class="save-btn"
+        onclick="saveMaintenance()">
+
+        Save Maintenance
+
+    </button>
+
+    <button
+        class="clear-btn"
+        onclick="clearForm()">
+
+        Clear
+
+    </button>
+
+</div>
+
+
+<div class="status-section">
+
+    <h2>Update Maintenance Status</h2>
+
+    <button
+        class="status-btn pending-btn"
+        onclick="updateStatus('PENDING')">
+
+        PENDING
+
+    </button>
+
+    <button
+        class="status-btn progress-btn"
+        onclick="updateStatus('IN PROGRESS')">
+
+        IN PROGRESS
+
+    </button>
+
+    <button
+        class="status-btn completed-btn"
+        onclick="updateStatus('COMPLETED')">
+
+        COMPLETED
+
+    </button>
+
+</div>
+
+
+<div class="buttons">
+
+    <button
+        class="back-btn"
+        onclick="goDashboard()">
+
+        Back to Dashboard
+
+    </button>
+
+</div>
+            <p
+                id="message"
+                class="message">
+            </p>
+
+        </div>
+
+
+
+        <!-- MAINTENANCE REPORT -->
+
+        <div class="report-box">
+
+            <h2>Maintenance Report</h2>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Maintenance ID</th>
+                        <th>Employee ID</th>
+                        <th>Employee Details</th>
+                        <th>Maintenance Type</th>
+                        <th>Maintenance Cost</th>
+                        <th>Maintenance Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>1001</td>
+                        <td>2222</td>
+                        <td>6666</td>
+                        <td>555</td>
+                        <td>555</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>11</td>
+                        <td>22</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>111</td>
+                        <td>11</td>
+                        <td></td>
+                        <td>LLL</td>
+                        <td>8500</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>122</td>
+                        <td>11</td>
+                        <td>..</td>
+                        <td>////</td>
+                        <td>....</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>1222</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>2000</td>
+                        <td>1001</td>
+                        <td>5548</td>
+                        <td>GFS</td>
+                        <td>0000</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>22222</td>
+                        <td>22222</td>
+                        <td>2222</td>
+                        <td>222</td>
+                        <td>333</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>22222222</td>
+                        <td>1003</td>
+                        <td>1002</td>
+                        <td>SCREEN</td>
+                        <td>8888</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>A100</td>
+                        <td>M1001</td>
+                        <td></td>
+                        <td>HARDWARE</td>
+                        <td>5800</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>M001</td>
+                        <td>1001</td>
+                        <td>1001</td>
+                        <td>SOFTWARE</td>
+                        <td>500</td>
+                        <td>COMPLETED</td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>M002</td>
+                        <td>1002</td>
+                        <td>1002</td>
+                        <td>HARDWARE</td>
+                        <td>1000</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>M003</td>
+                        <td>1003</td>
+                        <td>1003</td>
+                        <td>NETWORK</td>
+                        <td>750</td>
+                        <td></td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>M004</td>
+                        <td>A004</td>
+                        <td>E004</td>
+                        <td>SOFTWARE</td>
+                        <td>600</td>
+                        <td></td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+        /* LOGIN SESSION CHECK */
+
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+
+            window.location.href = "index.html";
+
+        }
+
+
+        /* SAVE MAINTENANCE */
+
+        function saveMaintenance() {
+
+            let mainId =
+                document.getElementById("main_id").value;
+
+            let empId =
+                document.getElementById("emp_id").value;
+
+            let empDet =
+                document.getElementById("emp_det").value;
+
+            let mainType =
+                document.getElementById("main_type").value;
+
+            let mainCost =
+                document.getElementById("main_cost").value;
+
+            let mainStatus =
+                document.getElementById("main_status").value;
+
+            let message =
+                document.getElementById("message");
+
+
+            if (
+                mainId === "" ||
+                empId === "" ||
+                empDet === "" ||
+                mainType === "" ||
+                mainCost === "" ||
+                mainStatus === ""
+            ) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Please fill all the fields.";
+
+                return;
+
+            }
+
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Maintenance record saved successfully!";
+
+        }
+
+
+        /* CLEAR FORM */
+
+        function clearForm() {
+
+            document.getElementById("main_id").value = "";
+
+            document.getElementById("emp_id").value = "";
+
+            document.getElementById("emp_det").value = "";
+
+            document.getElementById("main_type").value = "";
+
+            document.getElementById("main_cost").value = "";
+
+            document.getElementById("main_status").value = "";
+
+            document.getElementById("message").innerHTML = "";
+
+        }
+
+
+        /* BACK TO DASHBOARD */
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+        function updateStatus(status) {
+
+            let mainId =
+                document.getElementById("main_id").value;
+
+            let statusField =
+                document.getElementById("main_status");
+
+            let message =
+                document.getElementById("message");
+
+
+            if (mainId === "") {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Please enter Maintenance ID first.";
+
+                return;
+
+            }
+
+
+            // Update the Maintenance Status field
+
+            statusField.value = status;
+
+
+            // Display success message
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Maintenance " + mainId +
+                " status updated to " + status + ".";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
