@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
 
-    <title>IT Asset Lifecycle & Maintenance - Dashboard</title>
-
+    <title>IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM</title>
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -13,32 +14,37 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f4f7;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
         }
 
         .header {
-            height: 70px;
-            background: #0a6ed1;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-        }
-
-        .title {
-            font-size: 22px;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
             font-weight: bold;
+            position: relative;
         }
 
         .logout {
+            position: absolute;
+            right: 25px;
+            top: 17px;
             background: white;
-            color: #0a6ed1;
+            color: #087f8c;
             border: none;
-            padding: 10px 18px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            background: #e3f9e5;
+            transform: translateY(-2px);
         }
 
         .welcome {
@@ -47,10 +53,12 @@
 
         .welcome h1 {
             margin-bottom: 5px;
+            color: #087f8c;
         }
 
         .welcome p {
-            color: #666;
+            color: #4f6f72;
+            font-size: 16px;
         }
 
         .container {
@@ -64,17 +72,20 @@
         }
 
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 16px;
             text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 120, 140, 0.15);
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
+            border: 1px solid #d5eeee;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(57, 169, 107, 0.25);
+            border-color: #8bd5c0;
         }
 
         .icon {
@@ -84,26 +95,42 @@
 
         .card h2 {
             margin: 5px 0;
+            color: #087f8c;
         }
 
         .card p {
             color: #666;
+            font-size: 14px;
         }
 
         @media (max-width: 800px) {
+
             .cards {
                 grid-template-columns: 1fr;
             }
+
+            .logout {
+                position: static;
+                margin-top: 15px;
+            }
+
+            .header {
+                padding-bottom: 15px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
     <div class="header">
 
         <div class="title">
-            IT Asset Lifecycle & Maintenance
+            IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM
         </div>
 
         <button class="logout" onclick="logout()">
@@ -129,44 +156,80 @@
         <div class="cards">
 
             <div class="card" onclick="openModule('Employee')">
+
                 <div class="icon">👤</div>
+
                 <h2>Employee</h2>
-                <p>Employee Registration</p>
+
+                <p>
+                    Employee Registration
+                </p>
+
             </div>
 
 
             <div class="card" onclick="openModule('Asset')">
+
                 <div class="icon">💻</div>
+
                 <h2>Asset</h2>
-                <p>Asset Registration</p>
+
+                <p>
+                    Asset Registration
+                </p>
+
             </div>
 
 
             <div class="card" onclick="openModule('Maintenance')">
+
                 <div class="icon">🔧</div>
+
                 <h2>Maintenance</h2>
-                <p>Asset Maintenance</p>
+
+                <p>
+                    Asset Maintenance
+                </p>
+
             </div>
 
 
             <div class="card" onclick="openModule('EMI')">
+
                 <div class="icon">💰</div>
+
                 <h2>EMI</h2>
-                <p>EMI Management</p>
+
+                <p>
+                    EMI Management
+                </p>
+
             </div>
 
 
             <div class="card" onclick="openModule('Disposal')">
+
                 <div class="icon">♻️</div>
+
                 <h2>Disposal</h2>
-                <p>Asset Disposal</p>
+
+                <p>
+                    Asset Disposal
+                </p>
+
             </div>
 
 
             <div class="card" onclick="openModule('Reports')">
+
                 <div class="icon">📊</div>
+
                 <h2>Reports</h2>
-                <p>View Asset Reports</p>
+
+                <p>
+                    View Asset Reports
+                </p>
+
             </div>
 
         </div>
@@ -175,39 +238,69 @@
 
 
     <script>
-    function openModule(moduleName) {
 
-        if (moduleName === "Disposal") {
+        /* ==============================
+           LOGIN SESSION CHECK
+        ============================== */
 
-            window.location.href = "disposal.html";
-
-        }
-
-        else if (moduleName === "Employee") {
-
-            window.location.href = "employee.html";
-
-        }
-
-        else {
-
-            alert(
-                moduleName +
-                " module will be connected here."
-            );
-
-        }
-
-    }
-
-
-        function logout() {
+        if (sessionStorage.getItem("loggedIn") !== "true") {
 
             window.location.href = "index.html";
 
         }
 
+
+        /* ==============================
+           MODULE NAVIGATION
+        ============================== */
+        function openModule(moduleName) {
+
+            if (moduleName === "Employee") {
+
+                window.location.href = "employee.html";
+
+            }
+
+            else if (moduleName === "Asset") {
+
+                window.location.href = "asset.html";
+
+            }
+
+            else if (moduleName === "Maintenance") {
+
+                window.location.href = "maintenance.html";
+
+            }
+
+            else if (moduleName === "EMI") {
+
+                window.location.href = "emi.html";
+
+            }
+
+            else if (moduleName === "Disposal") {
+
+                window.location.href = "disposal.html";
+
+            }
+
+            else if (moduleName === "Reports") {
+                window.location.href = "reports.html";
+            }
+
+        }
+        /* ==============================
+           LOGOUT
+        ============================== */
+
+        function logout() {
+            sessionStorage.removeItem("loggedIn");
+            window.location.href = "index.html";
+        }
+
     </script>
 
 </body>
-</html>
+
+</html>s

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-
-    <title>IT Asset Lifecycle & Maintenance</title>
+    <title>IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -13,13 +14,13 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f4f7;
-            height: 100vh;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
         }
 
         .header {
             height: 65px;
-            background: #0a6ed1;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
             display: flex;
             align-items: center;
@@ -36,17 +37,18 @@
         }
 
         .login-box {
-            width: 420px;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            width: 360px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            text-align: center;
         }
 
         .login-box h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #222;
+            color: #087f8c;
+            margin-bottom: 25px;
         }
 
         .subtitle {
@@ -64,11 +66,14 @@
         }
 
         input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 15px;
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: left;
+            box-sizing: border-box;
         }
 
         input:focus {
@@ -77,20 +82,20 @@
         }
 
         button {
-            width: 100%;
-            margin-top: 28px;
+            width: 96%;
             padding: 13px;
-            border: none;
-            border-radius: 6px;
-            background: #0a6ed1;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
+            border: none;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
         }
 
         button:hover {
-            background: #085caf;
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
         }
 
         #message {
@@ -98,18 +103,47 @@
             margin-top: 18px;
             font-weight: bold;
         }
+
+        .login-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .register-text {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #0b5ed7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
     </style>
+
 </head>
 
 <body>
 
     <div class="header">
-        IT Asset Lifecycle & Maintenance
+        IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM
     </div>
 
     <div class="main">
 
         <div class="login-box">
+
+            <img src="logo.png"
+                 class="login-logo"
+                 alt="IT Asset Lifecycle Logo">
 
             <h1>Welcome</h1>
 
@@ -135,42 +169,62 @@
                 Login
             </button>
 
+            <p class="register-text">
+                Not registered?
+                <a href="register.html">Register here</a>
+            </p>
+
             <div id="message"></div>
 
         </div>
 
     </div>
 
+
     <script>
 
-        function login() {
+    function login() {
 
-            var username =
-                document.getElementById("username").value;
+        var username =
+            document.getElementById("username").value.trim();
 
-            var password =
-                document.getElementById("password").value;
+        var password =
+            document.getElementById("password").value.trim();
 
-            var message =
-                document.getElementById("message");
+        var message =
+            document.getElementById("message");
 
-            if (username === "admin" &&
-                password === "admin123") {
+        if (username === "admin" &&
+            password === "admin123") {
 
-                message.style.color = "green";
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Login successful!";
+
+            // Create login session
+            sessionStorage.setItem("loggedIn", "true");
+
+            // Open Dashboard
+            setTimeout(function() {
 
                 window.location.href = "dashboard.html";
 
-            } else {
+            }, 500);
 
-                message.style.color = "red";
+        }
+        else {
 
-                message.innerHTML =
-                    "Invalid username or password.";
-            }
+            message.style.color = "red";
+
+            message.innerHTML =
+                "Invalid username or password.";
+
         }
 
-    </script>
+    }
 
+</script>
 </body>
+
 </html>

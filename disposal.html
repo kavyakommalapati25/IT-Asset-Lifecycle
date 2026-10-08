@@ -1,214 +1,334 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
     <meta charset="UTF-8">
 
     <title>Disposal - IT Asset Lifecycle</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
+
+        /* ===== PAGE BACKGROUND ===== */
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f4f7;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
         }
+
+
+        /* ===== HEADER ===== */
 
         .header {
-            height: 70px;
-            background: #0a6ed1;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-        }
-
-        .title {
+            padding: 18px;
+            text-align: center;
             font-size: 22px;
             font-weight: bold;
         }
 
-        .back {
-            background: white;
-            color: #0a6ed1;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+
+        /* ===== MAIN CONTAINER ===== */
 
         .container {
             width: 90%;
             max-width: 1100px;
-            margin: 30px auto;
+            margin: 35px auto;
         }
+
+
+        /* ===== FORM BOX ===== */
 
         .form-box {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            margin-bottom: 30px;
         }
 
-        h1 {
-            margin-top: 0;
-            color: #222;
-        }
 
-        .subtitle {
-            color: #666;
+        .form-box h1 {
+            text-align: center;
+            color: #087f8c;
             margin-bottom: 25px;
         }
+
+
+        /* ===== FORM GRID ===== */
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 18px;
         }
 
-        label {
-            display: block;
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .form-group label {
             margin-bottom: 7px;
+            color: #087f8c;
             font-weight: bold;
         }
+
 
         input,
         select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #bbb;
-            border-radius: 5px;
-            font-size: 15px;
+            padding: 11px;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
         }
 
+
+        input:focus,
+        select:focus {
+            border-color: #39a96b;
+            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
+        }
+
+
+        /* ===== BUTTONS ===== */
+
         .buttons {
+            text-align: center;
             margin-top: 25px;
         }
 
-        .save {
-            background: #0a6ed1;
-            color: white;
-            border: none;
+
+        button {
             padding: 12px 25px;
-            border-radius: 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+
+        .save-btn {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+        }
+
+
+        .clear-btn {
+            background: #e8f4f4;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+
+        .back-btn {
+            background: #ffffff;
+            color: #087f8c;
+            border: 1px solid #b7dfe2;
+        }
+
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+
+        .save-btn:hover {
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
+        }
+
+
+        .clear-btn:hover,
+        .back-btn:hover {
+            background: #e3f9e5;
+        }
+
+
+        /* ===== MESSAGE ===== */
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
             font-weight: bold;
         }
 
-        .clear {
-            background: #777;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
+
+        /* ===== REPORT BOX ===== */
+
+        .report-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            overflow-x: auto;
         }
 
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
+
+        .report-box h2 {
+            color: #087f8c;
+            margin-top: 0;
         }
+
+
+        /* ===== TABLE ===== */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+
+        th {
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+
+        td {
+            padding: 11px;
+            text-align: center;
+            border-bottom: 1px solid #d5eeee;
+        }
+
+
+        tr:nth-child(even) {
+            background: #f1fbf8;
+        }
+
+
+        tr:hover {
+            background: #e3f9e5;
+        }
+
+
+        /* ===== MOBILE VIEW ===== */
 
         @media (max-width: 700px) {
+
             .form-grid {
                 grid-template-columns: 1fr;
             }
+
+            .container {
+                width: 95%;
+            }
+
         }
-        table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    margin-top: 15px;
-}
 
-th,
-td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-th {
-    background: #0a6ed1;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background: #f7f7f7;
-}
     </style>
+
 </head>
+
 
 <body>
 
+
+    <!-- HEADER -->
+
     <div class="header">
 
-        <div class="title">
-            IT Asset Lifecycle & Maintenance
-        </div>
-
-        <button class="back" onclick="goBack()">
-            ← Dashboard
-        </button>
+        IT Asset Lifecycle & Maintenance
 
     </div>
 
 
+
+    <!-- MAIN CONTAINER -->
+
     <div class="container">
+
+
+        <!-- DISPOSAL FORM -->
 
         <div class="form-box">
 
-            <h1>♻️ Disposal Form</h1>
-
-            <div class="subtitle">
-                Enter the details of the asset disposal
-            </div>
+            <h1>
+                Disposal Registration
+            </h1>
 
 
             <div class="form-grid">
 
-                <div>
-                    <label>Disposal ID</label>
+
+                <!-- DISPOSAL ID -->
+
+                <div class="form-group">
+
+                    <label>
+                        Disposal ID
+                    </label>
 
                     <input
                         type="text"
-                        id="disposalId"
+                        id="disposal_id"
                         placeholder="Enter Disposal ID">
+
                 </div>
 
 
-                <div>
-                    <label>Asset ID</label>
+                <!-- ASSET ID -->
+
+                <div class="form-group">
+
+                    <label>
+                        Asset ID
+                    </label>
 
                     <input
                         type="text"
-                        id="assetId"
+                        id="asset_id"
                         placeholder="Enter Asset ID">
+
                 </div>
 
 
-                <div>
-                    <label>Disposal Date</label>
+                <!-- DISPOSAL DATE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Disposal Date
+                    </label>
 
                     <input
                         type="text"
-                        id="disposalDate"
+                        id="disposal_date"
                         placeholder="DD.MM.YYYY">
+
                 </div>
 
 
-                <div>
-                    <label>Disposal Type</label>
+                <!-- DISPOSAL TYPE -->
 
-                    <select id="disposalType">
+                <div class="form-group">
+
+                    <label>
+                        Disposal Type
+                    </label>
+
+                    <select id="disposal_type">
 
                         <option value="">
-                            Select Type
+                            Select Disposal Type
                         </option>
 
                         <option value="SOLD">
@@ -224,13 +344,19 @@ tr:nth-child(even) {
                         </option>
 
                     </select>
+
                 </div>
 
 
-                <div>
-                    <label>Disposal Status</label>
+                <!-- DISPOSAL STATUS -->
 
-                    <select id="disposalStatus">
+                <div class="form-group">
+
+                    <label>
+                        Disposal Status
+                    </label>
+
+                    <select id="disposal_status">
 
                         <option value="">
                             Select Status
@@ -245,144 +371,225 @@ tr:nth-child(even) {
                         </option>
 
                     </select>
+
                 </div>
+
 
             </div>
 
+
+            <!-- BUTTONS -->
 
             <div class="buttons">
 
-                <button class="save" onclick="saveDisposal()">
+                <button
+                    class="save-btn"
+                    onclick="saveDisposal()">
+
                     Save Disposal
+
                 </button>
 
-                <button class="clear" onclick="clearForm()">
+
+                <button
+                    class="clear-btn"
+                    onclick="clearForm()">
+
                     Clear
+
+                </button>
+
+
+                <button
+                    class="back-btn"
+                    onclick="goDashboard()">
+
+                    Back to Dashboard
+
                 </button>
 
             </div>
 
 
-            <div id="message"></div>
-            <h2 style="margin-top:40px;">Disposal Report</h2>
-
-<table id="disposalTable">
-
-    <tr>
-        <th>Disposal ID</th>
-        <th>Asset ID</th>
-        <th>Disposal Date</th>
-        <th>Disposal Type</th>
-        <th>Disposal Status</th>
-    </tr>
-
-    <tr>
-        <td>6001</td>
-        <td>1001</td>
-        <td>20.09.2026</td>
-        <td>SOLD</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6002</td>
-        <td>1002</td>
-        <td>22.09.2026</td>
-        <td>DONATED</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6003</td>
-        <td>1003</td>
-        <td>25.09.2026</td>
-        <td>SCRAPPED</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6004</td>
-        <td>1004</td>
-        <td>28.09.2026</td>
-        <td>SCRAPPED</td>
-        <td>DISPOSED</td>
-    </tr>
-
-    <tr>
-        <td>6005</td>
-        <td>1005</td>
-        <td>29.09.2026</td>
-        <td>SOLD</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6006</td>
-        <td>1006</td>
-        <td>30.09.2026</td>
-        <td>DONATED</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6007</td>
-        <td>1007</td>
-        <td>30.09.2026</td>
-        <td>SCRAPPED</td>
-        <td>DISPOSED</td>
-    </tr>
-
-    <tr>
-        <td>6008</td>
-        <td>1008</td>
-        <td>01.10.2026</td>
-        <td>SOLD</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6009</td>
-        <td>1009</td>
-        <td>02.10.2026</td>
-        <td>DONATED</td>
-        <td>COMPLETED</td>
-    </tr>
-
-    <tr>
-        <td>6010</td>
-        <td>1010</td>
-        <td>02.10.2026</td>
-        <td>SCRAPPED</td>
-        <td>DISPOSED</td>
-    </tr>
-
-</table>
+            <p
+                id="message"
+                class="message">
+            </p>
 
         </div>
+
+
+
+        <!-- DISPOSAL REPORT -->
+
+        <div class="report-box">
+
+            <h2>
+                Disposal Report
+            </h2>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Disposal ID
+                        </th>
+
+                        <th>
+                            Asset ID
+                        </th>
+
+                        <th>
+                            Disposal Date
+                        </th>
+
+                        <th>
+                            Disposal Type
+                        </th>
+
+                        <th>
+                            Disposal Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+                        <td>6001</td>
+                        <td>1001</td>
+                        <td>20.09.2026</td>
+                        <td>SOLD</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6002</td>
+                        <td>1002</td>
+                        <td>22.09.2026</td>
+                        <td>DONATED</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6003</td>
+                        <td>1003</td>
+                        <td>25.09.2026</td>
+                        <td>SCRAPPED</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6004</td>
+                        <td>1004</td>
+                        <td>28.09.2026</td>
+                        <td>SCRAPPED</td>
+                        <td>DISPOSED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6005</td>
+                        <td>1005</td>
+                        <td>29.09.2026</td>
+                        <td>SOLD</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6006</td>
+                        <td>1006</td>
+                        <td>30.09.2026</td>
+                        <td>DONATED</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6007</td>
+                        <td>1007</td>
+                        <td>30.09.2026</td>
+                        <td>SCRAPPED</td>
+                        <td>DISPOSED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6008</td>
+                        <td>1008</td>
+                        <td>01.10.2026</td>
+                        <td>SOLD</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6009</td>
+                        <td>1009</td>
+                        <td>02.10.2026</td>
+                        <td>DONATED</td>
+                        <td>COMPLETED</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>6010</td>
+                        <td>1010</td>
+                        <td>02.10.2026</td>
+                        <td>SCRAPPED</td>
+                        <td>DISPOSED</td>
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
 
     </div>
 
 
+
+    <!-- JAVASCRIPT -->
+
     <script>
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+        window.location.href = "index.html";
+    }
+
 
         function saveDisposal() {
 
-            var disposalId =
-                document.getElementById("disposalId").value;
+            let disposalId =
+                document.getElementById("disposal_id").value;
 
-            var assetId =
-                document.getElementById("assetId").value;
+            let assetId =
+                document.getElementById("asset_id").value;
 
-            var disposalDate =
-                document.getElementById("disposalDate").value;
+            let disposalDate =
+                document.getElementById("disposal_date").value;
 
-            var disposalType =
-                document.getElementById("disposalType").value;
+            let disposalType =
+                document.getElementById("disposal_type").value;
 
-            var disposalStatus =
-                document.getElementById("disposalStatus").value;
+            let disposalStatus =
+                document.getElementById("disposal_status").value;
 
-            var message =
+            let message =
                 document.getElementById("message");
 
 
@@ -400,6 +607,7 @@ tr:nth-child(even) {
                     "Please fill all the fields.";
 
                 return;
+
             }
 
 
@@ -408,52 +616,39 @@ tr:nth-child(even) {
             message.innerHTML =
                 "Disposal record saved successfully!";
 
-
-            console.log(
-                "Disposal ID: " + disposalId
-            );
-
-            console.log(
-                "Asset ID: " + assetId
-            );
-
-            console.log(
-                "Disposal Date: " + disposalDate
-            );
-
-            console.log(
-                "Disposal Type: " + disposalType
-            );
-
-            console.log(
-                "Disposal Status: " + disposalStatus
-            );
         }
+
 
 
         function clearForm() {
 
-            document.getElementById("disposalId").value = "";
+            document.getElementById("disposal_id").value = "";
 
-            document.getElementById("assetId").value = "";
+            document.getElementById("asset_id").value = "";
 
-            document.getElementById("disposalDate").value = "";
+            document.getElementById("disposal_date").value = "";
 
-            document.getElementById("disposalType").value = "";
+            document.getElementById("disposal_type").value = "";
 
-            document.getElementById("disposalStatus").value = "";
+            document.getElementById("disposal_status").value = "";
 
             document.getElementById("message").innerHTML = "";
-        }
-
-
-        function goBack() {
-
-            window.location.href = "dashboard.html";
 
         }
+
+
+
+        function goDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
 
     </script>
 
+
 </body>
+
 </html>
