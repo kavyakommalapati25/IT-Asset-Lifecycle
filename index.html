@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>IT Asset Lifecycle & Maintenance</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            height: 100vh;
+        }
+
+        .header {
+            height: 65px;
+            background: #0a6ed1;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 35px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .main {
+            height: calc(100vh - 65px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 420px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0a6ed1;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 28px;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #0a6ed1;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #085caf;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        IT Asset Lifecycle & Maintenance
+    </div>
+
+    <div class="main">
+
+        <div class="login-box">
+
+            <h1>Welcome</h1>
+
+            <div class="subtitle">
+                Login to access the Asset Management System
+            </div>
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password">
+
+            <button onclick="login()">
+                Login
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function login() {
+
+            var username =
+                document.getElementById("username").value;
+
+            var password =
+                document.getElementById("password").value;
+
+            var message =
+                document.getElementById("message");
+
+            if (username === "admin" &&
+                password === "admin123") {
+
+                message.style.color = "green";
+
+                window.location.href = "dashboard.html";
+
+            } else {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Invalid username or password.";
+            }
+        }
+
+    </script>
+
+</body>
+</html>

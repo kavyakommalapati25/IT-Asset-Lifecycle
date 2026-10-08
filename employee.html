@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employee - IT Asset Lifecycle</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+        }
+
+        /* Header */
+
+        .header {
+            background-color: #0b5ed7;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .back-btn {
+            background-color: white;
+            color: #0b5ed7;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .title {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form */
+
+        .form-box {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .save-btn {
+            background-color: #0b5ed7;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .clear-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Employee report */
+
+        .report-box {
+            margin-top: 30px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background-color: #0b5ed7;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:hover {
+            background-color: #f2f6fc;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Header -->
+
+<div class="header">
+
+    <h2>IT Asset Lifecycle & Maintenance</h2>
+
+    <button class="back-btn"
+            onclick="window.location.href='dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+
+<!-- Main -->
+
+<div class="container">
+
+    <h2 class="title">Employee Management</h2>
+
+
+    <!-- Employee Form -->
+
+    <div class="form-box">
+
+        <h3>Employee Details</h3>
+
+        <div class="form-grid">
+
+
+            <!-- EMP_ID -->
+
+            <div>
+
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    id="empId"
+                    placeholder="Enter Employee ID">
+
+            </div>
+
+
+            <!-- EMP_NAME -->
+
+            <div>
+
+                <label>Employee Name</label>
+
+                <input
+                    type="text"
+                    id="empName"
+                    placeholder="Enter Employee Name">
+
+            </div>
+
+
+            <!-- DEP_ID -->
+
+            <div>
+
+                <label>Department ID</label>
+
+                <input
+                    type="number"
+                    id="depId"
+                    placeholder="Enter Department ID">
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div>
+
+                <label>Email</label>
+
+                <input
+                    type="text"
+                    id="email"
+                    placeholder="Enter Email">
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div>
+
+                <label>Phone Number</label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Enter Phone Number"
+                    maxlength="10">
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div>
+
+                <label>Status</label>
+
+                <select id="status">
+
+                    <option value="">Select Status</option>
+
+                    <option value="ACTIVE">ACTIVE</option>
+
+                    <option value="INACTIVE">INACTIVE</option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="buttons">
+
+            <button
+                class="save-btn"
+                onclick="saveEmployee()">
+                Save Employee
+            </button>
+
+            <button
+                class="clear-btn"
+                onclick="clearForm()">
+                Clear
+            </button>
+
+        </div>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <!-- Employee Report -->
+
+    <div class="report-box">
+
+        <h3>Employee Report</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee Name</th>
+
+                    <th>Department ID</th>
+
+                    <th>Email</th>
+
+                    <th>Phone</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <!-- Sample data -->
+
+                <tr>
+
+                    <td>1001</td>
+
+                    <td>Ravi Kumar</td>
+
+                    <td>101</td>
+
+                    <td>ravi@abc.com</td>
+
+                    <td>9876543210</td>
+
+                    <td>ACTIVE</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>1002</td>
+
+                    <td>Priya</td>
+
+                    <td>102</td>
+
+                    <td>priya@abc.com</td>
+
+                    <td>9876543211</td>
+
+                    <td>ACTIVE</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>1003</td>
+
+                    <td>Anu</td>
+
+                    <td>103</td>
+
+                    <td>anu@abc.com</td>
+
+                    <td>9876543212</td>
+
+                    <td>ACTIVE</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+function saveEmployee() {
+
+    let empId =
+        document.getElementById("empId").value;
+
+    let empName =
+        document.getElementById("empName").value;
+
+    let depId =
+        document.getElementById("depId").value;
+
+    let email =
+        document.getElementById("email").value;
+
+    let phone =
+        document.getElementById("phone").value;
+
+    let status =
+        document.getElementById("status").value;
+
+
+    let message =
+        document.getElementById("message");
+
+
+    /* Validation */
+
+    if (
+        empId === "" ||
+        empName === "" ||
+        depId === "" ||
+        email === "" ||
+        phone === "" ||
+        status === ""
+    ) {
+
+        message.style.color = "red";
+
+        message.innerHTML =
+            "Please fill all Employee fields.";
+
+        return;
+    }
+
+
+    /* Phone validation */
+
+    if (phone.length !== 10) {
+
+        message.style.color = "red";
+
+        message.innerHTML =
+            "Phone number must contain 10 digits.";
+
+        return;
+    }
+
+
+    /* Success message */
+
+    message.style.color = "green";
+
+    message.innerHTML =
+        "Employee record saved successfully!";
+
+}
+
+
+function clearForm() {
+
+    document.getElementById("empId").value = "";
+
+    document.getElementById("empName").value = "";
+
+    document.getElementById("depId").value = "";
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("phone").value = "";
+
+    document.getElementById("status").value = "";
+
+    document.getElementById("message").innerHTML = "";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>a

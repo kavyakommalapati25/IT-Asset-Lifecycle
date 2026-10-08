@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>IT Asset Lifecycle & Maintenance - Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+        }
+
+        .header {
+            height: 70px;
+            background: #0a6ed1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logout {
+            background: white;
+            color: #0a6ed1;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .welcome {
+            padding: 30px 40px 10px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+            color: #666;
+        }
+
+        .container {
+            padding: 20px 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin: 5px 0;
+        }
+
+        .card p {
+            color: #666;
+        }
+
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="title">
+            IT Asset Lifecycle & Maintenance
+        </div>
+
+        <button class="logout" onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="welcome">
+
+        <h1>Dashboard</h1>
+
+        <p>
+            Welcome to the IT Asset Management System
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="cards">
+
+            <div class="card" onclick="openModule('Employee')">
+                <div class="icon">👤</div>
+                <h2>Employee</h2>
+                <p>Employee Registration</p>
+            </div>
+
+
+            <div class="card" onclick="openModule('Asset')">
+                <div class="icon">💻</div>
+                <h2>Asset</h2>
+                <p>Asset Registration</p>
+            </div>
+
+
+            <div class="card" onclick="openModule('Maintenance')">
+                <div class="icon">🔧</div>
+                <h2>Maintenance</h2>
+                <p>Asset Maintenance</p>
+            </div>
+
+
+            <div class="card" onclick="openModule('EMI')">
+                <div class="icon">💰</div>
+                <h2>EMI</h2>
+                <p>EMI Management</p>
+            </div>
+
+
+            <div class="card" onclick="openModule('Disposal')">
+                <div class="icon">♻️</div>
+                <h2>Disposal</h2>
+                <p>Asset Disposal</p>
+            </div>
+
+
+            <div class="card" onclick="openModule('Reports')">
+                <div class="icon">📊</div>
+                <h2>Reports</h2>
+                <p>View Asset Reports</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+    function openModule(moduleName) {
+
+        if (moduleName === "Disposal") {
+
+            window.location.href = "disposal.html";
+
+        }
+
+        else if (moduleName === "Employee") {
+
+            window.location.href = "employee.html";
+
+        }
+
+        else {
+
+            alert(
+                moduleName +
+                " module will be connected here."
+            );
+
+        }
+
+    }
+
+
+        function logout() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

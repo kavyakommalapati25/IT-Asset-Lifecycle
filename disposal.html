@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Disposal - IT Asset Lifecycle</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+        }
+
+        .header {
+            height: 70px;
+            background: #0a6ed1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .back {
+            background: white;
+            color: #0a6ed1;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #222;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        .save {
+            background: #0a6ed1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .clear {
+            background: #777;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #0a6ed1;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f7f7f7;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="title">
+            IT Asset Lifecycle & Maintenance
+        </div>
+
+        <button class="back" onclick="goBack()">
+            ← Dashboard
+        </button>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="form-box">
+
+            <h1>♻️ Disposal Form</h1>
+
+            <div class="subtitle">
+                Enter the details of the asset disposal
+            </div>
+
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Disposal ID</label>
+
+                    <input
+                        type="text"
+                        id="disposalId"
+                        placeholder="Enter Disposal ID">
+                </div>
+
+
+                <div>
+                    <label>Asset ID</label>
+
+                    <input
+                        type="text"
+                        id="assetId"
+                        placeholder="Enter Asset ID">
+                </div>
+
+
+                <div>
+                    <label>Disposal Date</label>
+
+                    <input
+                        type="text"
+                        id="disposalDate"
+                        placeholder="DD.MM.YYYY">
+                </div>
+
+
+                <div>
+                    <label>Disposal Type</label>
+
+                    <select id="disposalType">
+
+                        <option value="">
+                            Select Type
+                        </option>
+
+                        <option value="SOLD">
+                            SOLD
+                        </option>
+
+                        <option value="DONATED">
+                            DONATED
+                        </option>
+
+                        <option value="SCRAPPED">
+                            SCRAPPED
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Disposal Status</label>
+
+                    <select id="disposalStatus">
+
+                        <option value="">
+                            Select Status
+                        </option>
+
+                        <option value="COMPLETED">
+                            COMPLETED
+                        </option>
+
+                        <option value="DISPOSED">
+                            DISPOSED
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button class="save" onclick="saveDisposal()">
+                    Save Disposal
+                </button>
+
+                <button class="clear" onclick="clearForm()">
+                    Clear
+                </button>
+
+            </div>
+
+
+            <div id="message"></div>
+            <h2 style="margin-top:40px;">Disposal Report</h2>
+
+<table id="disposalTable">
+
+    <tr>
+        <th>Disposal ID</th>
+        <th>Asset ID</th>
+        <th>Disposal Date</th>
+        <th>Disposal Type</th>
+        <th>Disposal Status</th>
+    </tr>
+
+    <tr>
+        <td>6001</td>
+        <td>1001</td>
+        <td>20.09.2026</td>
+        <td>SOLD</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6002</td>
+        <td>1002</td>
+        <td>22.09.2026</td>
+        <td>DONATED</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6003</td>
+        <td>1003</td>
+        <td>25.09.2026</td>
+        <td>SCRAPPED</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6004</td>
+        <td>1004</td>
+        <td>28.09.2026</td>
+        <td>SCRAPPED</td>
+        <td>DISPOSED</td>
+    </tr>
+
+    <tr>
+        <td>6005</td>
+        <td>1005</td>
+        <td>29.09.2026</td>
+        <td>SOLD</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6006</td>
+        <td>1006</td>
+        <td>30.09.2026</td>
+        <td>DONATED</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6007</td>
+        <td>1007</td>
+        <td>30.09.2026</td>
+        <td>SCRAPPED</td>
+        <td>DISPOSED</td>
+    </tr>
+
+    <tr>
+        <td>6008</td>
+        <td>1008</td>
+        <td>01.10.2026</td>
+        <td>SOLD</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6009</td>
+        <td>1009</td>
+        <td>02.10.2026</td>
+        <td>DONATED</td>
+        <td>COMPLETED</td>
+    </tr>
+
+    <tr>
+        <td>6010</td>
+        <td>1010</td>
+        <td>02.10.2026</td>
+        <td>SCRAPPED</td>
+        <td>DISPOSED</td>
+    </tr>
+
+</table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function saveDisposal() {
+
+            var disposalId =
+                document.getElementById("disposalId").value;
+
+            var assetId =
+                document.getElementById("assetId").value;
+
+            var disposalDate =
+                document.getElementById("disposalDate").value;
+
+            var disposalType =
+                document.getElementById("disposalType").value;
+
+            var disposalStatus =
+                document.getElementById("disposalStatus").value;
+
+            var message =
+                document.getElementById("message");
+
+
+            if (
+                disposalId === "" ||
+                assetId === "" ||
+                disposalDate === "" ||
+                disposalType === "" ||
+                disposalStatus === ""
+            ) {
+
+                message.style.color = "red";
+
+                message.innerHTML =
+                    "Please fill all the fields.";
+
+                return;
+            }
+
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Disposal record saved successfully!";
+
+
+            console.log(
+                "Disposal ID: " + disposalId
+            );
+
+            console.log(
+                "Asset ID: " + assetId
+            );
+
+            console.log(
+                "Disposal Date: " + disposalDate
+            );
+
+            console.log(
+                "Disposal Type: " + disposalType
+            );
+
+            console.log(
+                "Disposal Status: " + disposalStatus
+            );
+        }
+
+
+        function clearForm() {
+
+            document.getElementById("disposalId").value = "";
+
+            document.getElementById("assetId").value = "";
+
+            document.getElementById("disposalDate").value = "";
+
+            document.getElementById("disposalType").value = "";
+
+            document.getElementById("disposalStatus").value = "";
+
+            document.getElementById("message").innerHTML = "";
+        }
+
+
+        function goBack() {
+
+            window.location.href = "dashboard.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
