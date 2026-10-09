@@ -1,21 +1,15 @@
+
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - IT Asset Lifecycle</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
-
-
-        /* ===== PAGE BACKGROUND ===== */
 
         body {
             margin: 0;
@@ -23,9 +17,6 @@
             background: linear-gradient(135deg, #dff6ff, #e3f9e5);
             min-height: 100vh;
         }
-
-
-        /* ===== HEADER ===== */
 
         .header {
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
@@ -36,282 +27,277 @@
             font-weight: bold;
         }
 
-
-        /* ===== REGISTER BOX ===== */
-
         .register-box {
-            width: 380px;
-
+            width: 420px;
+            max-width: calc(100% - 30px);
             margin: 50px auto;
-
-            background: rgba(255, 255, 255, 0.95);
-
+            background: rgba(255, 255, 255, 0.96);
             padding: 30px;
-
-            border-radius: 16px;
-
-            box-shadow:
-                0 8px 25px rgba(0, 120, 140, 0.18);
-
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
             text-align: center;
         }
 
-
-        /* ===== REGISTER TITLE ===== */
-
         .register-box h1 {
-            margin-bottom: 25px;
+            margin: 20px 0 28px;
             color: #087f8c;
+            font-size: 36px;
         }
-
-
-        /* ===== INPUT FIELDS ===== */
 
         input {
-            width: 90%;
-
-            padding: 12px;
-
-            margin: 8px 0;
-
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
             border: 1px solid #b7dfe2;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            text-align: left;
-
+            border-radius: 9px;
+            font-size: 15px;
             outline: none;
+            background: white;
         }
-
 
         input:focus {
             border-color: #39a96b;
-
-            box-shadow:
-                0 0 5px rgba(57, 169, 107, 0.25);
+            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
         }
 
-
-        /* ===== REGISTER BUTTON ===== */
-
         button {
-            width: 96%;
-
-            padding: 13px;
-
-            margin-top: 15px;
-
-            background:
-                linear-gradient(90deg, #0b8f9c, #39a96b);
-
+            width: 100%;
+            padding: 14px;
+            margin-top: 16px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
-
             border: none;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
+            border-radius: 9px;
+            font-size: 17px;
             font-weight: bold;
-
             cursor: pointer;
-
             transition: 0.3s;
         }
 
-
         button:hover {
-            background:
-                linear-gradient(90deg, #087f8c, #2d8f5b);
-
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
             transform: translateY(-2px);
         }
 
-
-        /* ===== MESSAGE ===== */
-
-        .message {
-            margin-top: 15px;
-
-            font-size: 14px;
-
-            font-weight: bold;
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
         }
 
-
-        /* ===== LOGIN LINK ===== */
+        .message {
+            margin-top: 16px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
 
         .back-login {
-            margin-top: 18px;
-
-            font-size: 14px;
-
+            margin-top: 22px;
+            font-size: 15px;
             color: #555;
         }
 
-
         .back-login a {
             color: #087f8c;
-
             font-weight: bold;
-
             text-decoration: none;
         }
 
-
         .back-login a:hover {
             color: #39a96b;
-
             text-decoration: underline;
         }
 
-
-        /* ===== MOBILE VIEW ===== */
-
         @media (max-width: 500px) {
-
             .register-box {
-                width: 90%;
-
                 margin: 30px auto;
+                padding: 24px;
             }
 
+            .register-box h1 {
+                font-size: 30px;
+            }
+
+            .header {
+                font-size: 18px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-
-    <!-- HEADER -->
-
     <div class="header">
-
-        IT Asset Lifecycle & Maintenance
-
+        IT Asset Lifecycle &amp; Maintenance
     </div>
-
-
-
-    <!-- REGISTER BOX -->
 
     <div class="register-box">
 
-        <h1>
-            Create Account
-        </h1>
+        <h1>Create Account</h1>
 
+        <form id="registerForm">
 
-        <input
-            type="text"
-            id="fullname"
-            placeholder="Full Name">
+            <input
+                type="text"
+                id="fullname"
+                placeholder="Full Name"
+                autocomplete="name"
+                required
+            >
 
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                autocomplete="username"
+                minlength="3"
+                required
+            >
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Username">
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
 
+            <input
+                type="password"
+                id="password"
+                placeholder="Password (minimum 6 characters)"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Email">
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
 
+            <button type="submit" id="registerButton">
+                Register
+            </button>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password">
+        </form>
 
-
-        <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password">
-
-
-        <button onclick="registerUser()">
-
-            Register
-
-        </button>
-
-
-        <p
-            id="message"
-            class="message">
-        </p>
-
+        <p id="message" class="message" role="status" aria-live="polite"></p>
 
         <p class="back-login">
-
             Already registered?
-
-            <a href="index.html">
-                Login here
-            </a>
-
+            <a href="index.html">Login here</a>
         </p>
 
     </div>
 
-
-
-    <!-- JAVASCRIPT -->
-
     <script>
+        const registerForm = document.getElementById("registerForm");
+        const message = document.getElementById("message");
+        const registerButton = document.getElementById("registerButton");
 
-        
-function registerUser() {
-    const fullname = document.getElementById("fullname").value.trim();
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const message = document.getElementById("message");
+        registerForm.addEventListener("submit", function(event) {
+            event.preventDefault();
 
-    if (!fullname || !username || !email || !password || !confirmPassword) {
-        message.style.color = "red";
-        message.textContent = "Please fill all the fields.";
-        return;
-    }
+            const fullname = document.getElementById("fullname").value.trim();
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (password !== confirmPassword) {
-        message.style.color = "red";
-        message.textContent = "Passwords do not match.";
-        return;
-    }
+            message.textContent = "";
+            message.style.color = "red";
 
-    const users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
+            if (!fullname || !username || !email || !password || !confirmPassword) {
+                message.textContent = "Please fill in all fields.";
+                return;
+            }
 
-    if (username.toLowerCase() === "admin" ||
-        users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
-        message.style.color = "red";
-        message.textContent = "Username already exists. Choose another.";
-        return;
-    }
+            if (username.length < 3) {
+                message.textContent = "Username must contain at least 3 characters.";
+                return;
+            }
 
-    users.push({ fullname, username, email, password });
-    localStorage.setItem("assetUsers", JSON.stringify(users));
+            if (password.length < 6) {
+                message.textContent = "Password must contain at least 6 characters.";
+                return;
+            }
 
-    message.style.color = "green";
-    message.textContent = "Registration successful! Please login.";
+            if (password !== confirmPassword) {
+                message.textContent = "Passwords do not match.";
+                return;
+            }
 
-    document.getElementById("fullname").value = "";
-    document.getElementById("username").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("confirmPassword").value = "";
-}
+            try {
+                const users = JSON.parse(
+                    localStorage.getItem("assetUsers") || "[]"
+                );
 
+                if (!Array.isArray(users)) {
+                    throw new Error("Invalid user data");
+                }
+
+                const usernameExists = users.some(user =>
+                    user.username.toLowerCase() === username.toLowerCase()
+                );
+
+                if (username.toLowerCase() === "admin" || usernameExists) {
+                    message.textContent =
+                        "Username already exists. Please choose another.";
+                    return;
+                }
+
+                const emailExists = users.some(user =>
+                    user.email.toLowerCase() === email.toLowerCase()
+                );
+
+                if (emailExists) {
+                    message.textContent =
+                        "This email is already registered.";
+                    return;
+                }
+
+                const newUser = {
+                    fullname: fullname,
+                    username: username,
+                    email: email,
+                    password: password
+                };
+
+                users.push(newUser);
+
+                localStorage.setItem("assetUsers", JSON.stringify(users));
+
+                message.style.color = "green";
+                message.textContent =
+                    "Registration successful! Redirecting to login...";
+
+                registerButton.disabled = true;
+
+                setTimeout(function() {
+                    window.location.href = "index.html";
+                }, 1500);
+
+            } catch (error) {
+                console.error("Registration error:", error);
+
+                message.style.color = "red";
+                message.textContent =
+                    "Registration failed. Please try again.";
+            } finally {
+                // Button stays disabled briefly only after successful registration.
+                if (message.style.color !== "green") {
+                    registerButton.disabled = false;
+                }
+            }
+        });
     </script>
-</body>
 
+</body>
 </html>
