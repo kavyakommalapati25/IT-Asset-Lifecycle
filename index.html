@@ -181,29 +181,48 @@
     </div>
 
 <script>
+
 function login() {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
     const message = document.getElementById("message");
 
+    if (!username || !password) {
+        message.style.color = "red";
+        message.textContent = "Please enter username and password.";
+        return;
+    }
+
     // Existing admin login
-    const isAdmin = username === "admin" && password === "admin123";
-
-    // Registered user login
-    const users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
-
-    const registeredUser = users.find(user =>
-        user.username.toLowerCase() === username.toLowerCase() &&
-        user.password === password
-    );
-
-    if (isAdmin || registeredUser) {
+    if (username === "admin" && password === "admin123") {
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("currentUser", "admin");
         message.style.color = "green";
         message.textContent = "Login successful!";
 
-        sessionStorage.setItem("loggedIn", "true");
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 500);
+        return;
+    }
 
-        setTimeout(function() {
+    // Check registered users
+    const users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
+
+    const user = users.find(
+        item =>
+            item.username.toLowerCase() === username.toLowerCase() &&
+            item.password === password
+    );
+
+    if (user) {
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("currentUser", user.username);
+
+        message.style.color = "green";
+        message.textContent = "Login successful!";
+
+        setTimeout(() => {
             window.location.href = "dashboard.html";
         }, 500);
     } else {
