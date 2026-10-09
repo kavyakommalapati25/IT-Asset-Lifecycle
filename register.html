@@ -268,64 +268,48 @@
 
     <script>
 
-        function registerUser() {
+        
+function registerUser() {
+    const fullname = document.getElementById("fullname").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const message = document.getElementById("message");
 
-            let fullname =
-                document.getElementById("fullname").value;
+    if (!fullname || !username || !email || !password || !confirmPassword) {
+        message.style.color = "red";
+        message.textContent = "Please fill all the fields.";
+        return;
+    }
 
-            let username =
-                document.getElementById("username").value;
+    if (password !== confirmPassword) {
+        message.style.color = "red";
+        message.textContent = "Passwords do not match.";
+        return;
+    }
 
-            let email =
-                document.getElementById("email").value;
+    const users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
 
-            let password =
-                document.getElementById("password").value;
+    if (username.toLowerCase() === "admin" ||
+        users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
+        message.style.color = "red";
+        message.textContent = "Username already exists. Choose another.";
+        return;
+    }
 
-            let confirmPassword =
-                document.getElementById("confirmPassword").value;
+    users.push({ fullname, username, email, password });
+    localStorage.setItem("assetUsers", JSON.stringify(users));
 
-            let message =
-                document.getElementById("message");
+    message.style.color = "green";
+    message.textContent = "Registration successful! Please login.";
 
-
-            if (
-                fullname === "" ||
-                username === "" ||
-                email === "" ||
-                password === "" ||
-                confirmPassword === ""
-            ) {
-
-                message.style.color = "red";
-
-                message.innerHTML =
-                    "Please fill all the fields.";
-
-                return;
-            }
-
-
-            if (password !== confirmPassword) {
-
-                message.style.color = "red";
-
-                message.innerHTML =
-                    "Passwords do not match.";
-
-                return;
-            }
-
-
-            message.style.color = "green";
-
-            message.innerHTML =
-                "Registration successful!";
-
-        }
-
-
-    </script>
+    document.getElementById("fullname").value = "";
+    document.getElementById("username").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("confirmPassword").value = "";
+}
 
 
 </body>
