@@ -1,20 +1,13 @@
+
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee - IT Asset Lifecycle</title>
 
     <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        /* ===== PAGE BACKGROUND ===== */
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -22,9 +15,6 @@
             background: linear-gradient(135deg, #dff6ff, #e3f9e5);
             min-height: 100vh;
         }
-
-
-        /* ===== HEADER ===== */
 
         .header {
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
@@ -35,26 +25,19 @@
             font-weight: bold;
         }
 
-
-        /* ===== MAIN CONTAINER ===== */
-
         .container {
             width: 90%;
             max-width: 1100px;
             margin: 35px auto;
         }
 
-
-        /* ===== FORM BOX ===== */
-
-        .form-box {
-            background: rgba(255, 255, 255, 0.95);
+        .form-box, .report-box {
+            background: rgba(255,255,255,.96);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            box-shadow: 0 8px 25px rgba(0,120,140,.18);
             margin-bottom: 30px;
         }
-
 
         .form-box h1 {
             text-align: center;
@@ -62,54 +45,45 @@
             margin-bottom: 25px;
         }
 
-
-        /* ===== FORM GRID ===== */
-
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 18px;
         }
 
-
         .form-group {
             display: flex;
             flex-direction: column;
         }
 
-
-        .form-group label {
+        label {
             margin-bottom: 7px;
             color: #087f8c;
             font-weight: bold;
         }
 
-
-        input,
-        select {
+        input, select {
             width: 100%;
             padding: 11px;
             border: 1px solid #b7dfe2;
             border-radius: 8px;
             font-size: 14px;
+        }
+
+        input:focus, select:focus {
             outline: none;
-        }
-
-
-        input:focus,
-        select:focus {
             border-color: #39a96b;
-            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
         }
 
-
-        /* ===== BUTTONS ===== */
+        input[readonly] {
+            background: #e8f4ff;
+            font-weight: bold;
+        }
 
         .buttons {
             text-align: center;
             margin-top: 25px;
         }
-
 
         button {
             padding: 12px 25px;
@@ -119,15 +93,12 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
         }
-
 
         .save-btn {
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
         }
-
 
         .clear-btn {
             background: #e8f4f4;
@@ -135,31 +106,13 @@
             border: 1px solid #b7dfe2;
         }
 
-
         .back-btn {
-            background: #ffffff;
+            background: white;
             color: #087f8c;
             border: 1px solid #b7dfe2;
         }
 
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-
-        .save-btn:hover {
-            background: linear-gradient(90deg, #087f8c, #2d8f5b);
-        }
-
-
-        .clear-btn:hover,
-        .back-btn:hover {
-            background: #e3f9e5;
-        }
-
-
-        /* ===== MESSAGE ===== */
+        button:hover { opacity: .85; }
 
         .message {
             text-align: center;
@@ -167,32 +120,20 @@
             font-weight: bold;
         }
 
-
-        /* ===== REPORT BOX ===== */
-
         .report-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
             overflow-x: auto;
         }
-
 
         .report-box h2 {
             color: #087f8c;
             margin-top: 0;
         }
 
-
-        /* ===== TABLE ===== */
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-
 
         th {
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
@@ -201,483 +142,340 @@
             text-align: center;
         }
 
-
         td {
             padding: 11px;
             text-align: center;
             border-bottom: 1px solid #d5eeee;
         }
 
-
-        tr:nth-child(even) {
-            background: #f1fbf8;
-        }
-
-
-        tr:hover {
-            background: #e3f9e5;
-        }
-
-
-        /* ===== MOBILE VIEW ===== */
+        tr:nth-child(even) { background: #f1fbf8; }
+        tr:hover { background: #e3f9e5; }
 
         @media (max-width: 700px) {
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                width: 95%;
-            }
-
+            .form-grid { grid-template-columns: 1fr; }
+            .container { width: 95%; }
+            .form-box, .report-box { padding: 18px; }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<div class="header">
+    IT Asset Lifecycle &amp; Maintenance
+</div>
 
-    <!-- HEADER -->
+<div class="container">
 
-    <div class="header">
+    <div class="form-box">
+        <h1>Employee Registration</h1>
 
-        IT Asset Lifecycle & Maintenance
-
-    </div>
-
-
-
-    <!-- MAIN CONTAINER -->
-
-    <div class="container">
-
-
-        <!-- EMPLOYEE FORM -->
-
-        <div class="form-box">
-
-            <h1>
-                Employee Registration
-            </h1>
-
-
+        <form id="employeeForm">
             <div class="form-grid">
 
-
-                <!-- EMPLOYEE ID -->
-
                 <div class="form-group">
-
-                    <label>
-                        Employee ID
-                    </label>
-
-                    <input
-                        type="text"
-                        id="emp_id"
-                        placeholder="Enter Employee ID">
-
+                    <label for="emp_id">Employee ID</label>
+                    <input type="text" id="emp_id" readonly>
                 </div>
 
-
-                <!-- EMPLOYEE NAME -->
-
                 <div class="form-group">
-
-                    <label>
-                        Employee Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="emp_name"
-                        placeholder="Enter Employee Name">
-
+                    <label for="emp_name">Employee Name</label>
+                    <input type="text" id="emp_name"
+                           placeholder="Enter Employee Name" required>
                 </div>
 
-
-                <!-- DEPARTMENT ID -->
-
                 <div class="form-group">
-
-                    <label>
-                        Department ID
-                    </label>
-
-                    <input
-                        type="text"
-                        id="dep_id"
-                        placeholder="Enter Department ID">
-
+                    <label for="dep_id">Department ID</label>
+                    <input type="text" id="dep_id"
+                           placeholder="Enter Department ID" required>
                 </div>
 
-
-                <!-- EMAIL -->
-
                 <div class="form-group">
-
-                    <label>
-                        Email
-                    </label>
-
-                    <input
-                        type="text"
-                        id="email"
-                        placeholder="Enter Email">
-
+                    <label for="email">Email</label>
+                    <input type="email" id="email"
+                           placeholder="Enter Email" required>
                 </div>
 
-
-                <!-- PHONE -->
-
                 <div class="form-group">
-
-                    <label>
-                        Phone Number
-                    </label>
-
-                    <input
-                        type="text"
-                        id="phone"
-                        placeholder="Enter Phone Number">
-
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone"
+                           placeholder="Enter Phone Number"
+                           pattern="[0-9]{10}"
+                           maxlength="10" required>
                 </div>
 
-
-                <!-- STATUS -->
-
                 <div class="form-group">
-
-                    <label>
-                        Status
-                    </label>
-
-                    <select id="status">
-
-                        <option value="">
-                            Select Status
-                        </option>
-
-                        <option value="ACTIVE">
-                            ACTIVE
-                        </option>
-
-                        <option value="INACTIVE">
-                            INACTIVE
-                        </option>
-
+                    <label for="status">Status</label>
+                    <select id="status" required>
+                        <option value="">Select Status</option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
                     </select>
-
                 </div>
-
 
             </div>
-
-
-            <!-- BUTTONS -->
 
             <div class="buttons">
-
-                <button
-                    class="save-btn"
-                    onclick="saveEmployee()">
-
+                <button type="submit" class="save-btn">
                     Save Employee
-
                 </button>
 
-
-                <button
-                    class="clear-btn"
-                    onclick="clearForm()">
-
+                <button type="button" class="clear-btn"
+                        onclick="clearForm()">
                     Clear
-
                 </button>
 
-
-                <button
-                    class="back-btn"
-                    onclick="goDashboard()">
-
+                <button type="button" class="back-btn"
+                        onclick="goDashboard()">
                     Back to Dashboard
-
                 </button>
-
             </div>
+        </form>
 
-
-            <p
-                id="message"
-                class="message">
-            </p>
-
-        </div>
-
-
-
-        <!-- EMPLOYEE REPORT -->
-
-        <div class="report-box">
-
-            <h2>
-                Employee Report
-            </h2>
-
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Employee ID
-                        </th>
-
-                        <th>
-                            Employee Name
-                        </th>
-
-                        <th>
-                            Department ID
-                        </th>
-
-                        <th>
-                            Email
-                        </th>
-
-                        <th>
-                            Phone
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                    <tr>
-                        <td>1001</td>
-                        <td>SK THOWFIK BASHA</td>
-                        <td>10</td>
-                        <td>ABCDEF@</td>
-                        <td>7569081161</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1002</td>
-                        <td>SK HASMA</td>
-                        <td>20</td>
-                        <td>GHIJKLM@</td>
-                        <td>6308897651</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1003</td>
-                        <td>K RAVINDRA</td>
-                        <td>30</td>
-                        <td>ASDFGHJ@</td>
-                        <td>9908855642</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1004</td>
-                        <td>ASHOK</td>
-                        <td>40</td>
-                        <td>ASHOK@GMAI</td>
-                        <td>9876543210</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1005</td>
-                        <td>RAHUL</td>
-                        <td>50</td>
-                        <td>RAHUL@GMAI</td>
-                        <td>9876543211</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1006</td>
-                        <td>PRIYA</td>
-                        <td>60</td>
-                        <td>PRIYA@GMAI</td>
-                        <td>9876543212</td>
-                        <td>INACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1007</td>
-                        <td>PRIYA</td>
-                        <td>10</td>
-                        <td>PRIYA@GMAI</td>
-                        <td>9876543210</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1008</td>
-                        <td>ANJALI</td>
-                        <td>80</td>
-                        <td>ANJALI@GMAI</td>
-                        <td>9876543214</td>
-                        <td>INACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1009</td>
-                        <td>MAHESH</td>
-                        <td>90</td>
-                        <td>MAHESH@GMAI</td>
-                        <td>9876543215</td>
-                        <td>ACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1010</td>
-                        <td>DIVYA</td>
-                        <td>100</td>
-                        <td>DIVYA@GMAI</td>
-                        <td>9876543216</td>
-                        <td>INACTIVE</td>
-                    </tr>
-
-
-                    <tr>
-                        <td>E008</td>
-                        <td>RIYA</td>
-                        <td>22</td>
-                        <td>RIYA@GMAIL</td>
-                        <td>8888888888</td>
-                        <td></td>
-                    </tr>
-
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
+        <p id="message" class="message"
+           role="status" aria-live="polite"></p>
     </div>
 
+    <div class="report-box">
+        <h2>Employee Report</h2>
 
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Department ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
 
-    <!-- JAVASCRIPT -->
+            <tbody id="employeeRows">
+                <tr>
+                    <td>1001</td><td>SK THOWFIK BASHA</td>
+                    <td>10</td><td>ABCDEF@</td>
+                    <td>7569081161</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1002</td><td>SK HASMA</td>
+                    <td>20</td><td>GHIJKLM@</td>
+                    <td>6308897651</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1003</td><td>K RAVINDRA</td>
+                    <td>30</td><td>ASDFGHJ@</td>
+                    <td>9908855642</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1004</td><td>ASHOK</td>
+                    <td>40</td><td>ASHOK@GMAI</td>
+                    <td>9876543210</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1005</td><td>RAHUL</td>
+                    <td>50</td><td>RAHUL@GMAI</td>
+                    <td>9876543211</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1006</td><td>PRIYA</td>
+                    <td>60</td><td>PRIYA@GMAI</td>
+                    <td>9876543212</td><td>INACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1007</td><td>PRIYA</td>
+                    <td>10</td><td>PRIYA@GMAI</td>
+                    <td>9876543210</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1008</td><td>ANJALI</td>
+                    <td>80</td><td>ANJALI@GMAI</td>
+                    <td>9876543214</td><td>INACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1009</td><td>MAHESH</td>
+                    <td>90</td><td>MAHESH@GMAI</td>
+                    <td>9876543215</td><td>ACTIVE</td>
+                </tr>
+                <tr>
+                    <td>1010</td><td>DIVYA</td>
+                    <td>100</td><td>DIVYA@GMAI</td>
+                    <td>9876543216</td><td>INACTIVE</td>
+                </tr>
+                <tr>
+                    <td>E008</td><td>RIYA</td>
+                    <td>22</td><td>RIYA@GMAIL</td>
+                    <td>8888888888</td><td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <script>
+</div>
 
+<script>
+    const employeeForm = document.getElementById("employeeForm");
+    const employeeRows = document.getElementById("employeeRows");
+    const message = document.getElementById("message");
 
-        function saveEmployee() {
+    const STORAGE_KEY = "itEmployees";
 
-            let empId =
-                document.getElementById("emp_id").value;
+    // Read saved employee records safely.
+    function getEmployees() {
+        try {
+            const data = JSON.parse(
+                localStorage.getItem(STORAGE_KEY) || "[]"
+            );
+            return Array.isArray(data) ? data : [];
+        } catch (error) {
+            return [];
+        }
+    }
 
-            let empName =
-                document.getElementById("emp_name").value;
+    // Generate the next ID using IDs already in the report
+    // and IDs saved in browser storage.
+    function generateEmployeeId() {
+        let maxId = 0;
 
-            let depId =
-                document.getElementById("dep_id").value;
+        employeeRows.querySelectorAll("tr").forEach(row => {
+            const id = row.cells[0]?.textContent.trim() || "";
+            const match = id.match(/^E(\d+)$/i);
 
-            let email =
-                document.getElementById("email").value;
+            if (match) {
+                maxId = Math.max(maxId, Number(match[1]));
+            }
+        });
 
-            let phone =
-                document.getElementById("phone").value;
+        getEmployees().forEach(employee => {
+            const match = String(employee.empId || "")
+                .match(/^E(\d+)$/i);
 
-            let status =
-                document.getElementById("status").value;
+            if (match) {
+                maxId = Math.max(maxId, Number(match[1]));
+            }
+        });
 
-            let message =
-                document.getElementById("message");
+        return "E" + String(maxId + 1).padStart(3, "0");
+    }
 
+    // Add one employee row safely.
+    function addEmployeeRow(employee, isSavedRecord) {
+        const row = employeeRows.insertRow();
 
-            if (
-                empId === "" ||
-                empName === "" ||
-                depId === "" ||
-                email === "" ||
-                phone === "" ||
-                status === ""
-            ) {
+        if (isSavedRecord) {
+            row.dataset.savedRow = "true";
+        }
 
-                message.style.color = "red";
+        [
+            employee.empId,
+            employee.empName,
+            employee.depId,
+            employee.email,
+            employee.phone,
+            employee.status
+        ].forEach(value => {
+            row.insertCell().textContent = value || "";
+        });
+    }
 
-                message.innerHTML =
-                    "Please fill all the fields.";
+    // Load saved records without removing existing sample rows.
+    function renderSavedEmployees() {
+        employeeRows.querySelectorAll(
+            'tr[data-saved-row="true"]'
+        ).forEach(row => row.remove());
 
-                return;
+        getEmployees().forEach(employee => {
+            addEmployeeRow(employee, true);
+        });
+    }
 
+    // Show the next ID in the form.
+    function setNextEmployeeId() {
+        document.getElementById("emp_id").value =
+            generateEmployeeId();
+    }
+
+    // Save employee when the form is submitted.
+    employeeForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const employee = {
+            empId: document.getElementById("emp_id").value,
+            empName: document.getElementById("emp_name").value.trim(),
+            depId: document.getElementById("dep_id").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            status: document.getElementById("status").value
+        };
+
+        if (
+            !employee.empName ||
+            !employee.depId ||
+            !employee.email ||
+            !employee.phone ||
+            !employee.status
+        ) {
+            message.style.color = "red";
+            message.textContent = "Please fill all the fields.";
+            return;
+        }
+
+        try {
+            const employees = getEmployees();
+
+            // Prevent saving the same generated ID twice.
+            if (employees.some(item => item.empId === employee.empId)) {
+                setNextEmployeeId();
+                employee.empId =
+                    document.getElementById("emp_id").value;
             }
 
+            employees.push(employee);
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(employees)
+            );
+
+            // Update the report immediately.
+            renderSavedEmployees();
 
             message.style.color = "green";
+            message.textContent =
+                "Employee " + employee.empId +
+                " registered successfully!";
 
-            message.innerHTML =
-                "Employee record saved successfully!";
+            // Clear the form and prepare the next ID.
+            employeeForm.reset();
+            setNextEmployeeId();
 
+        } catch (error) {
+            console.error("Employee save error:", error);
+            message.style.color = "red";
+            message.textContent =
+                "Unable to save employee. Please try again.";
         }
+    });
 
+    function clearForm() {
+        employeeForm.reset();
+        message.textContent = "";
+        setNextEmployeeId();
+    }
 
+    function goDashboard() {
+        window.location.href = "dashboard.html";
+    }
 
-        function clearForm() {
+    // Keep existing login protection.
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+        window.location.replace("index.html");
+    }
 
-            document.getElementById("emp_id").value = "";
-
-            document.getElementById("emp_name").value = "";
-
-            document.getElementById("dep_id").value = "";
-
-            document.getElementById("email").value = "";
-
-            document.getElementById("phone").value = "";
-
-            document.getElementById("status").value = "";
-
-            document.getElementById("message").innerHTML = "";
-
-        }
-
-        if (sessionStorage.getItem("loggedIn") !== "true") {
-            window.location.href = "index.html";
-        }
-
-        function goDashboard() {
-
-            window.location.href =
-                "dashboard.html";
-
-        }
-
-
-    </script>
-
+    // Load existing saved records and generate the first ID.
+    renderSavedEmployees();
+    setNextEmployeeId();
+</script>
 
 </body>
-
 </html>
