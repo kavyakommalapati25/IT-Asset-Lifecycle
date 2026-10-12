@@ -1,17 +1,12 @@
+```html
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta charset="UTF-8">
-
     <title>Reports - IT Asset Lifecycle</title>
 
     <style>
-
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -20,18 +15,18 @@
             min-height: 100vh;
         }
 
-        /* HEADER */
-
         .header {
-            height: 65px;
+            min-height: 65px;
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 35px;
+            padding: 12px 35px;
             font-size: 22px;
             font-weight: bold;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .header button {
@@ -47,11 +42,7 @@
             font-weight: bold;
         }
 
-        .header button:hover {
-            background: #e8f8f8;
-        }
-
-        /* MAIN CONTAINER */
+        .header button:hover { background: #e8f8f8; }
 
         .container {
             width: 92%;
@@ -75,11 +66,71 @@
             margin-bottom: 30px;
         }
 
-        /* TABLE */
-
-        .table-container {
-            overflow-x: auto;
+        .form-section {
+            padding: 22px;
+            background: #f5fcfc;
+            border: 1px solid #ccebea;
+            border-radius: 12px;
+            margin-bottom: 30px;
         }
+
+        h2 {
+            color: #087f8c;
+            font-size: 21px;
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5d5;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .full-width { grid-column: 1 / -1; }
+
+        .submit-button {
+            padding: 12px 25px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:hover { opacity: 0.9; }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .table-container { overflow-x: auto; }
 
         table {
             width: 100%;
@@ -100,11 +151,7 @@
             border-bottom: 1px solid #ddd;
         }
 
-        tr:hover {
-            background-color: #f0fbfb;
-        }
-
-        /* STATUS */
+        tr:hover { background-color: #f0fbfb; }
 
         .status-active {
             color: #198754;
@@ -120,8 +167,6 @@
             color: #dc3545;
             font-weight: bold;
         }
-
-        /* BUTTONS */
 
         .buttons {
             text-align: center;
@@ -139,153 +184,211 @@
             cursor: pointer;
         }
 
-        .back-button:hover {
-            background: #084298;
+        .back-button:hover { background: #084298; }
+
+        @media (max-width: 650px) {
+            .container { padding: 18px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: auto; }
         }
-
     </style>
-
 </head>
 
 <body>
 
     <!-- HEADER -->
-
     <div class="header">
-
-        <div>
-            IT Asset Lifecycle & Maintenance
-        </div>
-
-        <button onclick="logout()">
-            Logout
-        </button>
-
+        <span>IT Asset Lifecycle &amp; Maintenance Management</span>
+        <button type="button" onclick="goBack()">Back to Dashboard</button>
     </div>
-
-
-    <!-- MAIN CONTENT -->
 
     <div class="container">
+        <h1>Reports Management</h1>
+        <p class="subtitle">
+            Report Program: ZREPORT_APP_164 | Register and view report details
+        </p>
 
-        <h1>Reports Details</h1>
+        <!-- REPORT REGISTRATION FORM -->
+        <div class="form-section">
+            <h2>Register Report Details</h2>
 
-        <div class="subtitle">
-            IT Asset Lifecycle Reports
+            <form id="reportForm">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="reportType">Report Type *</label>
+                        <select id="reportType" required>
+                            <option value="">Select Report Type</option>
+                            <option value="Employee Report">Employee Report</option>
+                            <option value="Asset Report">Asset Report</option>
+                            <option value="Maintenance Report">Maintenance Report</option>
+                            <option value="EMI Report">EMI Report</option>
+                            <option value="Disposal Report">Disposal Report</option>
+                            <option value="Complete Asset Report">Complete Asset Report</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDate">Report Date *</label>
+                        <input type="date" id="reportDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="referenceId">Employee / Asset ID</label>
+                        <input type="text" id="referenceId"
+                               placeholder="Enter employee or asset ID">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportStatus">Report Status *</label>
+                        <select id="reportStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Disposed">Disposed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="reportDescription">Report Description *</label>
+                        <textarea id="reportDescription"
+                                  placeholder="Enter report details"
+                                  required></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="submit-button">
+                            Register Report
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="message" class="message" role="status"></div>
         </div>
 
+        <!-- REPORT TABLE -->
+        <h2>Registered Report Details</h2>
 
         <div class="table-container">
-
             <table>
-
                 <thead>
-
                     <tr>
-                        <th>Report ID</th>
-                        <th>Asset ID</th>
-                        <th>Employee ID</th>
-                        <th>Type of Report</th>
-                        <th>Report Status</th>
+                        <th>Registration ID</th>
+                        <th>Report Type</th>
+                        <th>Report Date</th>
+                        <th>Employee / Asset ID</th>
+                        <th>Description</th>
+                        <th>Status</th>
                     </tr>
-
                 </thead>
-
-
-                <tbody>
-
-                    <tr>
-                        <td>R001</td>
-                        <td>AST001</td>
-                        <td>EMP001</td>
-                        <td>ASSET</td>
-                        <td class="status-active">ACTIVE</td>
-                    </tr>
-
-                    <tr>
-                        <td>R002</td>
-                        <td>AST002</td>
-                        <td>EMP002</td>
-                        <td>MAINTENANCE</td>
-                        <td class="status-completed">COMPLETED</td>
-                    </tr>
-
-                    <tr>
-                        <td>R003</td>
-                        <td>AST003</td>
-                        <td>EMP003</td>
-                        <td>EMI</td>
-                        <td class="status-active">ACTIVE</td>
-                    </tr>
-
-                    <tr>
-                        <td>R004</td>
-                        <td>AST004</td>
-                        <td>EMP004</td>
-                        <td>DISPOSAL</td>
-                        <td class="status-disposed">DISPOSED</td>
-                    </tr>
-
-                    <tr>
-                        <td>R005</td>
-                        <td>AST005</td>
-                        <td>EMP005</td>
-                        <td>LIFECYCLE</td>
-                        <td class="status-active">ACTIVE</td>
-                    </tr>
-
-                </tbody>
-
+                <tbody id="reportTableBody"></tbody>
             </table>
-
         </div>
-
-
-        <!-- BACK BUTTON -->
 
         <div class="buttons">
-
-            <button class="back-button" onclick="goDashboard()">
+            <button type="button" class="back-button" onclick="goBack()">
                 Back to Dashboard
             </button>
-
         </div>
-
     </div>
 
-
     <script>
+        const STORAGE_KEY = "itAssetRegisteredReports";
 
-        /* LOGIN CHECK */
-
-        if (sessionStorage.getItem("loggedIn") !== "true") {
-
-            window.location.href = "index.html";
-
+        function getReports() {
+            try {
+                const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+                return Array.isArray(data) ? data : [];
+            } catch (error) {
+                return [];
+            }
         }
 
+        function renderReports() {
+            const tbody = document.getElementById("reportTableBody");
+            tbody.replaceChildren();
 
-        /* DASHBOARD */
+            getReports().forEach(function(report) {
+                const row = document.createElement("tr");
 
-        function goDashboard() {
+                [
+                    report.registrationId,
+                    report.reportType,
+                    report.reportDate,
+                    report.referenceId || "-",
+                    report.description,
+                    report.status
+                ].forEach(function(value, index) {
+                    const cell = document.createElement("td");
+                    cell.textContent = value || "-";
 
+                    if (index === 5) {
+                        if (value === "Active") cell.className = "status-active";
+                        if (value === "Completed") cell.className = "status-completed";
+                        if (value === "Disposed") cell.className = "status-disposed";
+                    }
+
+                    row.appendChild(cell);
+                });
+
+                tbody.appendChild(row);
+            });
+
+            if (tbody.children.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+                cell.colSpan = 6;
+                cell.textContent = "No report details registered yet.";
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            }
+        }
+
+        document.getElementById("reportDate").value =
+            new Date().toISOString().slice(0, 10);
+
+        document.getElementById("reportForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const reports = getReports();
+            const report = {
+                registrationId: "RPT-" + Date.now(),
+                reportType: document.getElementById("reportType").value,
+                reportDate: document.getElementById("reportDate").value,
+                referenceId: document.getElementById("referenceId").value.trim(),
+                description: document.getElementById("reportDescription").value.trim(),
+                status: document.getElementById("reportStatus").value
+            };
+
+            reports.unshift(report);
+
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+            } catch (error) {
+                document.getElementById("message").textContent =
+                    "Unable to save in this browser. Check browser storage settings.";
+                return;
+            }
+
+            document.getElementById("message").textContent =
+                "Report registered successfully! Registration ID: " + report.registrationId;
+
+            document.getElementById("reportForm").reset();
+            document.getElementById("reportDate").value =
+                new Date().toISOString().slice(0, 10);
+
+            renderReports();
+        });
+
+        function goBack() {
+            // Change dashboard.html if your dashboard file has another name.
             window.location.href = "dashboard.html";
-
         }
 
-
-        /* LOGOUT */
-
-        function logout() {
-
-            sessionStorage.removeItem("loggedIn");
-
-            window.location.href = "index.html";
-
-        }
-
+        renderReports();
     </script>
 
 </body>
-
 </html>
+```
