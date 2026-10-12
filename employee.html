@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,9 @@
     <title>Employee - IT Asset Lifecycle</title>
 
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -31,11 +32,12 @@
             margin: 35px auto;
         }
 
-        .form-box, .report-box {
-            background: rgba(255,255,255,.96);
+        .form-box,
+        .report-box {
+            background: rgba(255, 255, 255, 0.96);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,120,140,.18);
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
             margin-bottom: 30px;
         }
 
@@ -62,7 +64,8 @@
             font-weight: bold;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 11px;
             border: 1px solid #b7dfe2;
@@ -70,7 +73,8 @@
             font-size: 14px;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #39a96b;
         }
@@ -112,12 +116,15 @@
             border: 1px solid #b7dfe2;
         }
 
-        button:hover { opacity: .85; }
+        button:hover {
+            opacity: 0.85;
+        }
 
         .message {
             text-align: center;
             margin-top: 15px;
             font-weight: bold;
+            overflow-wrap: anywhere;
         }
 
         .report-box {
@@ -148,334 +155,472 @@
             border-bottom: 1px solid #d5eeee;
         }
 
-        tr:nth-child(even) { background: #f1fbf8; }
-        tr:hover { background: #e3f9e5; }
+        tr:nth-child(even) {
+            background: #f1fbf8;
+        }
+
+        tr:hover {
+            background: #e3f9e5;
+        }
 
         @media (max-width: 700px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .container { width: 95%; }
-            .form-box, .report-box { padding: 18px; }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .form-box,
+            .report-box {
+                padding: 18px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="header">
-    IT Asset Lifecycle &amp; Maintenance
-</div>
-
-<div class="container">
-
-    <div class="form-box">
-        <h1>Employee Registration</h1>
-
-        <form id="employeeForm">
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label for="emp_id">Employee ID</label>
-                    <input type="text" id="emp_id" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label for="emp_name">Employee Name</label>
-                    <input type="text" id="emp_name"
-                           placeholder="Enter Employee Name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="dep_id">Department ID</label>
-                    <input type="text" id="dep_id"
-                           placeholder="Enter Department ID" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email"
-                           placeholder="Enter Email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone"
-                           placeholder="Enter Phone Number"
-                           pattern="[0-9]{10}"
-                           maxlength="10" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" required>
-                        <option value="">Select Status</option>
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="INACTIVE">INACTIVE</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="buttons">
-                <button type="submit" class="save-btn">
-                    Save Employee
-                </button>
-
-                <button type="button" class="clear-btn"
-                        onclick="clearForm()">
-                    Clear
-                </button>
-
-                <button type="button" class="back-btn"
-                        onclick="goDashboard()">
-                    Back to Dashboard
-                </button>
-            </div>
-        </form>
-
-        <p id="message" class="message"
-           role="status" aria-live="polite"></p>
+    <div class="header">
+        IT Asset Lifecycle &amp; Maintenance
     </div>
 
-    <div class="report-box">
-        <h2>Employee Report</h2>
+    <div class="container">
 
-        <table id="employeeTable">
-            <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>Employee Name</th>
-                    <th>Department ID</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+        <div class="form-box">
+            <h1>Employee Registration</h1>
 
-            <tbody id="employeeRows">
-                <tr>
-                    <td>1001</td><td>SK THOWFIK BASHA</td>
-                    <td>10</td><td>ABCDEF@</td>
-                    <td>7569081161</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1002</td><td>SK HASMA</td>
-                    <td>20</td><td>GHIJKLM@</td>
-                    <td>6308897651</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1003</td><td>K RAVINDRA</td>
-                    <td>30</td><td>ASDFGHJ@</td>
-                    <td>9908855642</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1004</td><td>ASHOK</td>
-                    <td>40</td><td>ASHOK@GMAI</td>
-                    <td>9876543210</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1005</td><td>RAHUL</td>
-                    <td>50</td><td>RAHUL@GMAI</td>
-                    <td>9876543211</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1006</td><td>PRIYA</td>
-                    <td>60</td><td>PRIYA@GMAI</td>
-                    <td>9876543212</td><td>INACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1007</td><td>PRIYA</td>
-                    <td>10</td><td>PRIYA@GMAI</td>
-                    <td>9876543210</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1008</td><td>ANJALI</td>
-                    <td>80</td><td>ANJALI@GMAI</td>
-                    <td>9876543214</td><td>INACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1009</td><td>MAHESH</td>
-                    <td>90</td><td>MAHESH@GMAI</td>
-                    <td>9876543215</td><td>ACTIVE</td>
-                </tr>
-                <tr>
-                    <td>1010</td><td>DIVYA</td>
-                    <td>100</td><td>DIVYA@GMAI</td>
-                    <td>9876543216</td><td>INACTIVE</td>
-                </tr>
-                <tr>
-                    <td>E008</td><td>RIYA</td>
-                    <td>22</td><td>RIYA@GMAIL</td>
-                    <td>8888888888</td><td></td>
-                </tr>
-            </tbody>
-        </table>
+            <form id="employeeForm">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="emp_id">Employee ID</label>
+                        <input type="text" id="emp_id" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emp_name">Employee Name</label>
+                        <input
+                            type="text"
+                            id="emp_name"
+                            placeholder="Enter Employee Name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dep_id">Department ID</label>
+                        <input
+                            type="text"
+                            id="dep_id"
+                            placeholder="Enter Department ID"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter Email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter Phone Number"
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" required>
+                            <option value="">Select Status</option>
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="save-btn">
+                        Save Employee
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-btn"
+                        onclick="clearForm()"
+                    >
+                        Clear
+                    </button>
+
+                    <button
+                        type="button"
+                        class="back-btn"
+                        onclick="goDashboard()"
+                    >
+                        Back to Dashboard
+                    </button>
+                </div>
+            </form>
+
+            <p
+                id="message"
+                class="message"
+                role="status"
+                aria-live="polite"
+            ></p>
+        </div>
+
+        <div class="report-box">
+            <h2>Employee Report</h2>
+
+            <table id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Registration Number</th>
+                        <th>Employee Name</th>
+                        <th>Department ID</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="employeeRows">
+                    <tr>
+                        <td>1001</td>
+                        <td>—</td>
+                        <td>SK THOWFIK BASHA</td>
+                        <td>10</td>
+                        <td>ABCDEF@</td>
+                        <td>7569081161</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1002</td>
+                        <td>—</td>
+                        <td>SK HASMA</td>
+                        <td>20</td>
+                        <td>GHIJKLM@</td>
+                        <td>6308897651</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1003</td>
+                        <td>—</td>
+                        <td>K RAVINDRA</td>
+                        <td>30</td>
+                        <td>ASDFGHJ@</td>
+                        <td>9908855642</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1004</td>
+                        <td>—</td>
+                        <td>ASHOK</td>
+                        <td>40</td>
+                        <td>ASHOK@GMAI</td>
+                        <td>9876543210</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1005</td>
+                        <td>—</td>
+                        <td>RAHUL</td>
+                        <td>50</td>
+                        <td>RAHUL@GMAI</td>
+                        <td>9876543211</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1006</td>
+                        <td>—</td>
+                        <td>PRIYA</td>
+                        <td>60</td>
+                        <td>PRIYA@GMAI</td>
+                        <td>9876543212</td>
+                        <td>INACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1007</td>
+                        <td>—</td>
+                        <td>PRIYA</td>
+                        <td>10</td>
+                        <td>PRIYA@GMAI</td>
+                        <td>9876543210</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1008</td>
+                        <td>—</td>
+                        <td>ANJALI</td>
+                        <td>80</td>
+                        <td>ANJALI@GMAI</td>
+                        <td>9876543214</td>
+                        <td>INACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1009</td>
+                        <td>—</td>
+                        <td>MAHESH</td>
+                        <td>90</td>
+                        <td>MAHESH@GMAI</td>
+                        <td>9876543215</td>
+                        <td>ACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>1010</td>
+                        <td>—</td>
+                        <td>DIVYA</td>
+                        <td>100</td>
+                        <td>DIVYA@GMAI</td>
+                        <td>9876543216</td>
+                        <td>INACTIVE</td>
+                    </tr>
+
+                    <tr>
+                        <td>E008</td>
+                        <td>—</td>
+                        <td>RIYA</td>
+                        <td>22</td>
+                        <td>RIYA@GMAIL</td>
+                        <td>8888888888</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-</div>
+    <script>
+        const employeeForm = document.getElementById("employeeForm");
+        const employeeRows = document.getElementById("employeeRows");
+        const message = document.getElementById("message");
 
-<script>
-    const employeeForm = document.getElementById("employeeForm");
-    const employeeRows = document.getElementById("employeeRows");
-    const message = document.getElementById("message");
+        const STORAGE_KEY = "itEmployees";
 
-    const STORAGE_KEY = "itEmployees";
+        // Read employee records saved in browser storage.
+        function getEmployees() {
+            try {
+                const data = JSON.parse(
+                    localStorage.getItem(STORAGE_KEY) || "[]"
+                );
 
-    // Read saved employee records safely.
-    function getEmployees() {
-        try {
-            const data = JSON.parse(
-                localStorage.getItem(STORAGE_KEY) || "[]"
-            );
-            return Array.isArray(data) ? data : [];
-        } catch (error) {
-            return [];
-        }
-    }
-
-    // Generate the next ID using IDs already in the report
-    // and IDs saved in browser storage.
-    function generateEmployeeId() {
-        let maxId = 0;
-
-        employeeRows.querySelectorAll("tr").forEach(row => {
-            const id = row.cells[0]?.textContent.trim() || "";
-            const match = id.match(/^E(\d+)$/i);
-
-            if (match) {
-                maxId = Math.max(maxId, Number(match[1]));
+                return Array.isArray(data) ? data : [];
+            } catch (error) {
+                return [];
             }
-        });
-
-        getEmployees().forEach(employee => {
-            const match = String(employee.empId || "")
-                .match(/^E(\d+)$/i);
-
-            if (match) {
-                maxId = Math.max(maxId, Number(match[1]));
-            }
-        });
-
-        return "E" + String(maxId + 1).padStart(3, "0");
-    }
-
-    // Add one employee row safely.
-    function addEmployeeRow(employee, isSavedRecord) {
-        const row = employeeRows.insertRow();
-
-        if (isSavedRecord) {
-            row.dataset.savedRow = "true";
         }
 
-        [
-            employee.empId,
-            employee.empName,
-            employee.depId,
-            employee.email,
-            employee.phone,
-            employee.status
-        ].forEach(value => {
-            row.insertCell().textContent = value || "";
-        });
-    }
+        // Generate the next employee ID.
+        function generateEmployeeId() {
+            let maxId = 0;
 
-    // Load saved records without removing existing sample rows.
-    function renderSavedEmployees() {
-        employeeRows.querySelectorAll(
-            'tr[data-saved-row="true"]'
-        ).forEach(row => row.remove());
+            employeeRows.querySelectorAll("tr").forEach(row => {
+                const id = row.cells[0]?.textContent.trim() || "";
+                const match = id.match(/^E(\d+)$/i);
 
-        getEmployees().forEach(employee => {
-            addEmployeeRow(employee, true);
-        });
-    }
+                if (match) {
+                    maxId = Math.max(maxId, Number(match[1]));
+                }
+            });
 
-    // Show the next ID in the form.
-    function setNextEmployeeId() {
-        document.getElementById("emp_id").value =
-            generateEmployeeId();
-    }
+            getEmployees().forEach(employee => {
+                const match = String(employee.empId || "")
+                    .match(/^E(\d+)$/i);
 
-    // Save employee when the form is submitted.
-    employeeForm.addEventListener("submit", function(event) {
-        event.preventDefault();
+                if (match) {
+                    maxId = Math.max(maxId, Number(match[1]));
+                }
+            });
 
-        const employee = {
-            empId: document.getElementById("emp_id").value,
-            empName: document.getElementById("emp_name").value.trim(),
-            depId: document.getElementById("dep_id").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            phone: document.getElementById("phone").value.trim(),
-            status: document.getElementById("status").value
-        };
-
-        if (
-            !employee.empName ||
-            !employee.depId ||
-            !employee.email ||
-            !employee.phone ||
-            !employee.status
-        ) {
-            message.style.color = "red";
-            message.textContent = "Please fill all the fields.";
-            return;
+            return "E" + String(maxId + 1).padStart(3, "0");
         }
 
-        try {
+        // Generate a unique registration number.
+        function generateRegistrationNumber() {
+            const year = new Date().getFullYear();
+            const key = "itRegistrationSequence_" + year;
+
             const employees = getEmployees();
+            let maxNumber = Number(localStorage.getItem(key) || 0);
 
-            // Prevent saving the same generated ID twice.
-            if (employees.some(item => item.empId === employee.empId)) {
-                setNextEmployeeId();
-                employee.empId =
-                    document.getElementById("emp_id").value;
+            employees.forEach(employee => {
+                const match = String(employee.registrationNumber || "")
+                    .match(/^ITREG\d{4}-(\d+)$/);
+
+                if (match) {
+                    maxNumber = Math.max(
+                        maxNumber,
+                        Number(match[1])
+                    );
+                }
+            });
+
+            const nextNumber = maxNumber + 1;
+
+            localStorage.setItem(key, String(nextNumber));
+
+            return "ITREG" + year + "-" +
+                String(nextNumber).padStart(4, "0");
+        }
+
+        // Add employee details to the report table.
+        function addEmployeeRow(employee, isSavedRecord) {
+            const row = employeeRows.insertRow();
+
+            if (isSavedRecord) {
+                row.dataset.savedRow = "true";
             }
 
-            employees.push(employee);
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(employees)
-            );
-
-            // Update the report immediately.
-            renderSavedEmployees();
-
-            message.style.color = "green";
-            message.textContent =
-                "Employee " + employee.empId +
-                " registered successfully!";
-
-            // Clear the form and prepare the next ID.
-            employeeForm.reset();
-            setNextEmployeeId();
-
-        } catch (error) {
-            console.error("Employee save error:", error);
-            message.style.color = "red";
-            message.textContent =
-                "Unable to save employee. Please try again.";
+            [
+                employee.empId,
+                employee.registrationNumber || "—",
+                employee.empName,
+                employee.depId,
+                employee.email,
+                employee.phone,
+                employee.status
+            ].forEach(value => {
+                row.insertCell().textContent = value || "";
+            });
         }
-    });
 
-    function clearForm() {
-        employeeForm.reset();
-        message.textContent = "";
+        // Display saved employees in the report.
+        function renderSavedEmployees() {
+            employeeRows.querySelectorAll(
+                'tr[data-saved-row="true"]'
+            ).forEach(row => row.remove());
+
+            getEmployees().forEach(employee => {
+                addEmployeeRow(employee, true);
+            });
+        }
+
+        // Display the next employee ID.
+        function setNextEmployeeId() {
+            document.getElementById("emp_id").value =
+                generateEmployeeId();
+        }
+
+        // Save employee details.
+        employeeForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const employee = {
+                empId: document.getElementById("emp_id").value,
+                registrationNumber: "",
+                empName: document.getElementById("emp_name").value.trim(),
+                depId: document.getElementById("dep_id").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                status: document.getElementById("status").value
+            };
+
+            if (
+                !employee.empName ||
+                !employee.depId ||
+                !employee.email ||
+                !employee.phone ||
+                !employee.status
+            ) {
+                message.style.color = "red";
+                message.textContent = "Please fill all the fields.";
+                return;
+            }
+
+            try {
+                const employees = getEmployees();
+
+                // Prevent duplicate employee IDs.
+                if (employees.some(item => item.empId === employee.empId)) {
+                    setNextEmployeeId();
+
+                    employee.empId =
+                        document.getElementById("emp_id").value;
+                }
+
+                // Generate registration number.
+                employee.registrationNumber =
+                    generateRegistrationNumber();
+
+                // Save employee details.
+                employees.push(employee);
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(employees)
+                );
+
+                // Update report immediately.
+                renderSavedEmployees();
+
+                // Display success message and registration number.
+                message.style.color = "green";
+                message.textContent =
+                    "Registration successful! Employee ID: " +
+                    employee.empId +
+                    " | Registration Number: " +
+                    employee.registrationNumber +
+                    ". Please save this number for reference.";
+
+                // Clear form and prepare the next employee ID.
+                employeeForm.reset();
+                setNextEmployeeId();
+
+            } catch (error) {
+                console.error("Employee save error:", error);
+
+                message.style.color = "red";
+                message.textContent =
+                    "Unable to save employee. Please try again.";
+            }
+        });
+
+        // Clear the form.
+        function clearForm() {
+            employeeForm.reset();
+            message.textContent = "";
+            setNextEmployeeId();
+        }
+
+        // Return to dashboard.
+        function goDashboard() {
+            window.location.href = "dashboard.html";
+        }
+
+        // Login protection.
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+            window.location.replace("index.html");
+        }
+
+        // Load saved records and prepare the first ID.
+        renderSavedEmployees();
         setNextEmployeeId();
-    }
-
-    function goDashboard() {
-        window.location.href = "dashboard.html";
-    }
-
-    // Keep existing login protection.
-    if (sessionStorage.getItem("loggedIn") !== "true") {
-        window.location.replace("index.html");
-    }
-
-    // Load existing saved records and generate the first ID.
-    renderSavedEmployees();
-    setNextEmployeeId();
-</script>
+    </script>
 
 </body>
 </html>
