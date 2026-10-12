@@ -1,393 +1,480 @@
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Reports - IT Asset Lifecycle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Report Request - IT Asset Lifecycle</title>
 
-    <style>
-        * { box-sizing: border-box; }
+<style>
+* { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
-            min-height: 100vh;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+    min-height: 100vh;
+    color: #222;
+}
 
-        .header {
-            min-height: 65px;
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 35px;
-            font-size: 22px;
-            font-weight: bold;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+.header {
+    min-height: 65px;
+    background: linear-gradient(90deg, #0b8f9c, #39a96b);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 21px;
+    font-weight: bold;
+}
 
-        .header button {
-            width: auto;
-            margin: 0;
-            padding: 9px 18px;
-            background: white;
-            color: #087f8c;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-        }
+.header button {
+    background: white;
+    color: #087f8c;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .header button:hover { background: #e8f8f8; }
+.container {
+    width: 92%;
+    max-width: 1250px;
+    margin: 30px auto;
+    padding: 28px;
+    background: rgba(255,255,255,.96);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,120,140,.15);
+}
 
-        .container {
-            width: 92%;
-            margin: 35px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.15);
-        }
+h1 {
+    color: #087f8c;
+    text-align: center;
+    margin: 0 0 8px;
+}
 
-        h1 {
-            text-align: center;
-            color: #087f8c;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 28px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
+.section {
+    background: #f5fcfc;
+    border: 1px solid #d2eeee;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+}
 
-        .form-section {
-            padding: 22px;
-            background: #f5fcfc;
-            border: 1px solid #ccebea;
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
+h2 {
+    color: #087f8c;
+    margin-top: 0;
+    font-size: 21px;
+}
 
-        h2 {
-            color: #087f8c;
-            font-size: 21px;
-            margin-top: 0;
-        }
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 7px;
-            color: #333;
-        }
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5d5;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+}
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #cbd5d5;
-            border-radius: 6px;
-            font-size: 14px;
-            background: white;
-        }
+.form-group textarea {
+    min-height: 90px;
+    resize: vertical;
+}
 
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+.full { grid-column: 1 / -1; }
 
-        .full-width { grid-column: 1 / -1; }
+.primary-btn {
+    background: linear-gradient(90deg, #0b8f9c, #39a96b);
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .submit-button {
-            padding: 12px 25px;
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
-            color: white;
-            border: none;
-            border-radius: 7px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.primary-btn:hover { opacity: .9; }
 
-        .submit-button:hover { opacity: 0.9; }
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 14px;
+    background: #e5f8ed;
+    color: #167343;
+    border-radius: 7px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
 
-        .message {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #198754;
-        }
+.table-wrap { overflow-x: auto; }
 
-        .table-container { overflow-x: auto; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    min-width: 850px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+th {
+    background: linear-gradient(90deg, #0b8f9c, #39a96b);
+    color: white;
+    padding: 13px 10px;
+}
 
-        th {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
-            color: white;
-            padding: 14px;
-            text-align: center;
-        }
+td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
 
-        td {
-            padding: 13px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
+tbody tr:hover { background: #f0fbfb; }
 
-        tr:hover { background-color: #f0fbfb; }
+.status-pending {
+    color: #b77900;
+    font-weight: bold;
+}
 
-        .status-active {
-            color: #198754;
-            font-weight: bold;
-        }
+.status-approved {
+    color: #198754;
+    font-weight: bold;
+}
 
-        .status-completed {
-            color: #087f8c;
-            font-weight: bold;
-        }
+.status-completed {
+    color: #087f8c;
+    font-weight: bold;
+}
 
-        .status-disposed {
-            color: #dc3545;
-            font-weight: bold;
-        }
+.status-rejected {
+    color: #dc3545;
+    font-weight: bold;
+}
 
-        .buttons {
-            text-align: center;
-            margin-top: 30px;
-        }
+.small-btn {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #0b5ed7;
+    color: white;
+}
 
-        .back-button {
-            padding: 11px 25px;
-            background: #0b5ed7;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.bottom {
+    text-align: center;
+    margin-top: 25px;
+}
 
-        .back-button:hover { background: #084298; }
+.back-btn {
+    background: #0b5ed7;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        @media (max-width: 650px) {
-            .container { padding: 18px; }
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: auto; }
-        }
-    </style>
+.note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 12px;
+}
+
+@media(max-width: 650px) {
+    .container { width: 95%; padding: 17px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .full { grid-column: auto; }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <div class="header">
-        <span>IT Asset Lifecycle &amp; Maintenance Management</span>
-        <button type="button" onclick="goBack()">Back to Dashboard</button>
-    </div>
+<div class="header">
+    <span>IT Asset Lifecycle &amp; Maintenance Management</span>
+    <button type="button" onclick="goBack()">Back to Dashboard</button>
+</div>
 
-    <div class="container">
-        <h1>Reports Management</h1>
-        <p class="subtitle">
-            Report Program: ZREPORT_APP_164 | Register and view report details
-        </p>
+<div class="container">
 
-        <!-- REPORT REGISTRATION FORM -->
-        <div class="form-section">
-            <h2>Register Report Details</h2>
+    <h1>Client Report Request Application</h1>
+    <p class="subtitle">
+        Submit a request for employee, asset, maintenance, EMI or disposal reports.
+    </p>
 
-            <form id="reportForm">
-                <div class="form-grid">
+    <div class="section">
+        <h2>Report Request Registration Form</h2>
 
-                    <div class="form-group">
-                        <label for="reportType">Report Type *</label>
-                        <select id="reportType" required>
-                            <option value="">Select Report Type</option>
-                            <option value="Employee Report">Employee Report</option>
-                            <option value="Asset Report">Asset Report</option>
-                            <option value="Maintenance Report">Maintenance Report</option>
-                            <option value="EMI Report">EMI Report</option>
-                            <option value="Disposal Report">Disposal Report</option>
-                            <option value="Complete Asset Report">Complete Asset Report</option>
-                        </select>
-                    </div>
+        <form id="requestForm">
+            <div class="form-grid">
 
-                    <div class="form-group">
-                        <label for="reportDate">Report Date *</label>
-                        <input type="date" id="reportDate" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="referenceId">Employee / Asset ID</label>
-                        <input type="text" id="referenceId"
-                               placeholder="Enter employee or asset ID">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="reportStatus">Report Status *</label>
-                        <select id="reportStatus" required>
-                            <option value="">Select Status</option>
-                            <option value="Active">Active</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Disposed">Disposed</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label for="reportDescription">Report Description *</label>
-                        <textarea id="reportDescription"
-                                  placeholder="Enter report details"
-                                  required></textarea>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <button type="submit" class="submit-button">
-                            Register Report
-                        </button>
-                    </div>
+                <div class="form-group">
+                    <label for="clientName">Client Name *</label>
+                    <input id="clientName" type="text"
+                           placeholder="Enter client name" required maxlength="100">
                 </div>
-            </form>
 
-            <div id="message" class="message" role="status"></div>
-        </div>
+                <div class="form-group">
+                    <label for="clientEmail">Client Email *</label>
+                    <input id="clientEmail" type="email"
+                           placeholder="Enter email address" required maxlength="150">
+                </div>
 
-        <!-- REPORT TABLE -->
-        <h2>Registered Report Details</h2>
+                <div class="form-group">
+                    <label for="reportType">Required Report *</label>
+                    <select id="reportType" required>
+                        <option value="">Select report</option>
+                        <option>Employee Report</option>
+                        <option>Asset Report</option>
+                        <option>Maintenance Report</option>
+                        <option>EMI Report</option>
+                        <option>Disposal Report</option>
+                        <option>Complete Asset Lifecycle Report</option>
+                    </select>
+                </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Registration ID</th>
-                        <th>Report Type</th>
-                        <th>Report Date</th>
-                        <th>Employee / Asset ID</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="reportTableBody"></tbody>
-            </table>
-        </div>
+                <div class="form-group">
+                    <label for="format">Preferred Format *</label>
+                    <select id="format" required>
+                        <option value="">Select format</option>
+                        <option>PDF</option>
+                        <option>Excel</option>
+                        <option>HTML</option>
+                    </select>
+                </div>
 
-        <div class="buttons">
-            <button type="button" class="back-button" onclick="goBack()">
-                Back to Dashboard
-            </button>
-        </div>
+                <div class="form-group">
+                    <label for="fromDate">Report From Date</label>
+                    <input id="fromDate" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="toDate">Report To Date</label>
+                    <input id="toDate" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="referenceId">Employee ID / Asset ID</label>
+                    <input id="referenceId" type="text"
+                           placeholder="Optional reference ID" maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Request Priority *</label>
+                    <select id="priority" required>
+                        <option value="">Select priority</option>
+                        <option>Normal</option>
+                        <option>High</option>
+                        <option>Urgent</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label for="purpose">Report Purpose / Requirements *</label>
+                    <textarea id="purpose"
+                        placeholder="Explain what information you need in the report"
+                        required maxlength="1000"></textarea>
+                </div>
+
+                <div class="form-group full">
+                    <button class="primary-btn" type="submit">
+                        Submit Report Request
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+        <p class="note">
+            Demo version: requests are saved in this browser only.
+        </p>
     </div>
 
-    <script>
-        const STORAGE_KEY = "itAssetRegisteredReports";
+    <h2>Client Report Requests</h2>
 
-        function getReports() {
-            try {
-                const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-                return Array.isArray(data) ? data : [];
-            } catch (error) {
-                return [];
-            }
-        }
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Client Name</th>
+                    <th>Report Type</th>
+                    <th>Format</th>
+                    <th>Priority</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="requestTable">
+                <tr><td colspan="8">Loading requests...</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-        function renderReports() {
-            const tbody = document.getElementById("reportTableBody");
-            tbody.replaceChildren();
+    <div class="bottom">
+        <button class="back-btn" type="button" onclick="goBack()">
+            Back to Dashboard
+        </button>
+    </div>
 
-            getReports().forEach(function(report) {
-                const row = document.createElement("tr");
+</div>
 
-                [
-                    report.registrationId,
-                    report.reportType,
-                    report.reportDate,
-                    report.referenceId || "-",
-                    report.description,
-                    report.status
-                ].forEach(function(value, index) {
-                    const cell = document.createElement("td");
-                    cell.textContent = value || "-";
+<script>
+const STORAGE_KEY = "itAssetClientReportRequests";
 
-                    if (index === 5) {
-                        if (value === "Active") cell.className = "status-active";
-                        if (value === "Completed") cell.className = "status-completed";
-                        if (value === "Disposed") cell.className = "status-disposed";
-                    }
+function loadRequests() {
+    try {
+        const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(value) ? value : [];
+    } catch (error) {
+        return [];
+    }
+}
 
-                    row.appendChild(cell);
-                });
+function saveRequests(requests) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+}
 
-                tbody.appendChild(row);
-            });
+function addCell(row, value) {
+    const cell = document.createElement("td");
+    cell.textContent = value || "-";
+    row.appendChild(cell);
+    return cell;
+}
 
-            if (tbody.children.length === 0) {
-                const row = document.createElement("tr");
-                const cell = document.createElement("td");
-                cell.colSpan = 6;
-                cell.textContent = "No report details registered yet.";
-                row.appendChild(cell);
-                tbody.appendChild(row);
-            }
-        }
+function renderRequests() {
+    const tbody = document.getElementById("requestTable");
+    tbody.replaceChildren();
 
-        document.getElementById("reportDate").value =
-            new Date().toISOString().slice(0, 10);
+    const requests = loadRequests();
 
-        document.getElementById("reportForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    if (requests.length === 0) {
+        const row = document.createElement("tr");
+        const cell = addCell(row, "No requests submitted yet.");
+        cell.colSpan = 8;
+        tbody.appendChild(row);
+        return;
+    }
 
-            const reports = getReports();
-            const report = {
-                registrationId: "RPT-" + Date.now(),
-                reportType: document.getElementById("reportType").value,
-                reportDate: document.getElementById("reportDate").value,
-                referenceId: document.getElementById("referenceId").value.trim(),
-                description: document.getElementById("reportDescription").value.trim(),
-                status: document.getElementById("reportStatus").value
-            };
+    requests.forEach(function(request) {
+        const row = document.createElement("tr");
 
-            reports.unshift(report);
+        addCell(row, request.id);
+        addCell(row, request.clientName);
+        addCell(row, request.reportType);
+        addCell(row, request.format);
+        addCell(row, request.priority);
+        addCell(row, request.requestDate);
 
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
-            } catch (error) {
-                document.getElementById("message").textContent =
-                    "Unable to save in this browser. Check browser storage settings.";
-                return;
-            }
+        const statusCell = addCell(row, request.status);
+        statusCell.className = "status-" + request.status.toLowerCase();
 
-            document.getElementById("message").textContent =
-                "Report registered successfully! Registration ID: " + report.registrationId;
-
-            document.getElementById("reportForm").reset();
-            document.getElementById("reportDate").value =
-                new Date().toISOString().slice(0, 10);
-
-            renderReports();
+        const actionCell = document.createElement("td");
+        const viewButton = document.createElement("button");
+        viewButton.type = "button";
+        viewButton.className = "small-btn";
+        viewButton.textContent = "View";
+        viewButton.addEventListener("click", function() {
+            alert(
+                "Request ID: " + request.id +
+                "\nClient: " + request.clientName +
+                "\nEmail: " + request.clientEmail +
+                "\nReport: " + request.reportType +
+                "\nFormat: " + request.format +
+                "\nPeriod: " + (request.fromDate || "-") + " to " +
+                (request.toDate || "-") +
+                "\nReference: " + (request.referenceId || "-") +
+                "\nPriority: " + request.priority +
+                "\nStatus: " + request.status +
+                "\nPurpose: " + request.purpose
+            );
         });
 
-        function goBack() {
-            // Change dashboard.html if your dashboard file has another name.
-            window.location.href = "dashboard.html";
-        }
+        actionCell.appendChild(viewButton);
+        row.appendChild(actionCell);
+        tbody.appendChild(row);
+    });
+}
 
-        renderReports();
-    </script>
+document.getElementById("requestForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const fromDate = document.getElementById("fromDate").value;
+    const toDate = document.getElementById("toDate").value;
+
+    if (fromDate && toDate && fromDate > toDate) {
+        alert("Report From Date cannot be after Report To Date.");
+        return;
+    }
+
+    const request = {
+        id: "RPT-" + Date.now().toString().slice(-8),
+        clientName: document.getElementById("clientName").value.trim(),
+        clientEmail: document.getElementById("clientEmail").value.trim(),
+        reportType: document.getElementById("reportType").value,
+        format: document.getElementById("format").value,
+        fromDate: fromDate,
+        toDate: toDate,
+        referenceId: document.getElementById("referenceId").value.trim(),
+        priority: document.getElementById("priority").value,
+        purpose: document.getElementById("purpose").value.trim(),
+        requestDate: new Date().toLocaleDateString("en-GB"),
+        status: "Pending"
+    };
+
+    const message = document.getElementById("message");
+
+    try {
+        const requests = loadRequests();
+        requests.unshift(request);
+        saveRequests(requests);
+
+        message.style.display = "block";
+        message.textContent =
+            "Request submitted successfully! Your Request ID is " +
+            request.id + ". Current status: Pending.";
+
+        document.getElementById("requestForm").reset();
+        renderRequests();
+    } catch (error) {
+        message.style.display = "block";
+        message.textContent =
+            "Could not save the request in this browser. Please check browser storage settings.";
+    }
+});
+
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+
+renderRequests();
+</script>
 
 </body>
 </html>
