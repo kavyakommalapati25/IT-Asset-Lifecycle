@@ -665,6 +665,63 @@ td {
     IT Asset Lifecycle, Maintenance and Management System
   </div>
 
+<button onclick="document.getElementById('profileSection').style.display='flex'"
+style="position:fixed;top:115px;right:30px;z-index:99;background:#087f8c;color:white;border:0;border-radius:9px;padding:12px 18px;cursor:pointer;font-weight:bold">
+👤 My Profile
+</button>
+
+<div id="profileSection"
+style="display:none;position:fixed;inset:0;background:#0008;z-index:999;align-items:center;justify-content:center;padding:20px">
+<div style="background:white;padding:25px;border-radius:15px;width:100%;max-width:450px">
+<h2 style="margin-bottom:20px;color:#087f8c">My Profile</h2>
+<form onsubmit="event.preventDefault();saveMyProfile()">
+<label>Name</label>
+<input id="pName" required style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+<label>ID</label>
+<input id="pId" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+<label>Email</label>
+<input id="pEmail" type="email" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+<label>Phone Number</label>
+<input id="pPhone" type="tel" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+<label>Profile Photo</label>
+<input id="pPhoto" type="file" accept="image/*" style="display:block;margin:8px 0 20px">
+<img id="pPreview" alt="Profile preview" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:50%;margin-bottom:15px">
+<div style="display:flex;gap:10px">
+<button type="submit" style="background:#087f8c;color:white;border:0;padding:11px 16px;border-radius:7px">Save Profile</button>
+<button type="button" onclick="document.getElementById('profileSection').style.display='none'" style="padding:11px 16px;border:0;border-radius:7px">Close</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+function saveMyProfile(){
+  const fields={
+    name:document.getElementById('pName').value,
+    id:document.getElementById('pId').value,
+    email:document.getElementById('pEmail').value,
+    phone:document.getElementById('pPhone').value
+  };
+  localStorage.setItem('assetNexaProfile',JSON.stringify(fields));
+  alert('Profile details saved!');
+}
+(function(){
+  const p=JSON.parse(localStorage.getItem('assetNexaProfile')||'{}');
+  document.getElementById('pName').value=p.name||'';
+  document.getElementById('pId').value=p.id||'';
+  document.getElementById('pEmail').value=p.email||'';
+  document.getElementById('pPhone').value=p.phone||'';
+})();
+document.getElementById('pPhoto').addEventListener('change',function(){
+  const f=this.files[0];
+  if(f){
+    const img=document.getElementById('pPreview');
+    img.src=URL.createObjectURL(f);
+    img.style.display='block';
+  }
+});
+</script>
+
  
 </header>
 
