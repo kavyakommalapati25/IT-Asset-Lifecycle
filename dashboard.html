@@ -69,43 +69,14 @@ body {
   text-align: center;
 }
 
-/* PROFILE BUTTON */
-.profile-button {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 7px 12px;
-  border: 1px solid rgba(255,255,255,.45);
-  border-radius: 10px;
-  background: rgba(255,255,255,.13);
-  color: white;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  flex-shrink: 0;
+.profile {
+  text-align: right;
+  font-size: 13px;
 }
 
-.profile-button:hover {
-  background: rgba(255,255,255,.25);
-}
-
-.profile-avatar {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: white;
-  color: var(--primary);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.profile-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.profile small {
+  display: block;
+  margin-bottom: 4px;
 }
 
 .layout {
@@ -551,7 +522,6 @@ td {
   background: var(--primary);
   border: none;
   border-radius: 8px;
-  cursor: pointer;
 }
 
 .footer {
@@ -559,156 +529,6 @@ td {
   color: #94a3b8;
   font-size: 10px;
   padding: 23px 0 5px;
-}
-
-/* PROFILE WINDOW - ADDED FEATURE ONLY */
-.profile-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(15, 35, 50, .55);
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-modal.show {
-  display: flex;
-}
-
-.profile-box {
-  width: 100%;
-  max-width: 480px;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 15px 50px rgba(0,0,0,.2);
-}
-
-.profile-box-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.profile-box-header h2 {
-  font-size: 21px;
-  color: var(--text);
-}
-
-.close-profile {
-  border: none;
-  background: #f1f5f9;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.photo-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-.large-avatar {
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  background: #e1f6f3;
-  color: var(--primary);
-  display: grid;
-  place-items: center;
-  font-size: 36px;
-  font-weight: bold;
-  overflow: hidden;
-  border: 3px solid #d0eee8;
-}
-
-.large-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-label {
-  color: var(--primary);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.photo-label input {
-  display: none;
-}
-
-.profile-field {
-  margin-bottom: 15px;
-}
-
-.profile-field label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 7px;
-  color: #344b62;
-}
-
-.profile-field input {
-  width: 100%;
-  padding: 11px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 13px;
-  outline: none;
-}
-
-.profile-field input:focus {
-  border-color: var(--green);
-}
-
-.profile-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.profile-actions button {
-  padding: 11px 17px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.cancel-profile {
-  background: #edf2f7;
-  color: #344b62;
-}
-
-.save-profile {
-  background: var(--primary);
-  color: white;
-}
-
-.profile-message {
-  display: none;
-  padding: 10px;
-  margin-top: 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  background: #dcf8ec;
-  color: #11794f;
 }
 
 @media (max-width: 1250px) {
@@ -767,13 +587,8 @@ td {
     display: none;
   }
 
-  .profile-button {
-    padding: 6px;
+  .profile {
     font-size: 11px;
-  }
-
-  .profile-button .profile-button-text {
-    display: none;
   }
 
   .sidebar {
@@ -830,10 +645,6 @@ td {
   .section-heading span {
     display: none;
   }
-
-  .profile-box {
-    padding: 18px;
-  }
 }
 </style>
 </head>
@@ -853,13 +664,348 @@ td {
     IT Asset Lifecycle, Maintenance and Management System
   </div>
 
-  <!-- PROFILE BUTTON ADDED -->
-  <button class="profile-button" type="button" onclick="openProfile()">
-    <span class="profile-avatar" id="topProfileAvatar">👤</span>
-    <span class="profile-button-text" id="topProfileName">My Profile</span>
-  </button>
+ 
 </header>
 
-<!-- PROFILE WINDOW ADDED -->
-<div class="profile-modal" id="profileModal" onclick="closeProfileOutside(event)">
-  <div
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="nav-label">WORKSPACE</div>
+
+    <a class="nav-link active" href="dashboard.html">
+      <span class="nav-icon">⌂</span>
+      <span class="nav-text">Dashboard</span>
+    </a>
+
+    <a class="nav-link" href="employee.html">
+      <span class="nav-icon">♙</span>
+      <span class="nav-text">Employee</span>
+    </a>
+
+    <a class="nav-link" href="asset.html">
+      <span class="nav-icon">▣</span>
+      <span class="nav-text">Asset</span>
+    </a>
+
+    <a class="nav-link" href="maintenance.html">
+      <span class="nav-icon">⚒</span>
+      <span class="nav-text">Maintenance</span>
+    </a>
+
+    <a class="nav-link" href="emi.html">
+      <span class="nav-icon">＄</span>
+      <span class="nav-text">EMI</span>
+    </a>
+
+    <a class="nav-link" href="disposal.html">
+      <span class="nav-icon">♻</span>
+      <span class="nav-text">Disposal</span>
+    </a>
+
+    <a class="nav-link" href="reports.html">
+      <span class="nav-icon">▤</span>
+      <span class="nav-text">Reports</span>
+    </a>
+
+    <button class="nav-link logout-link" onclick="logout()">
+      <span class="nav-icon">⇥</span>
+      <span class="nav-text">Logout</span>
+    </button>
+  </aside>
+
+  <main class="main">
+
+    <section class="welcome">
+      <div>
+        <div class="eyebrow">OVERVIEW / WORKSPACE</div>
+        <h1>Dashboard</h1>
+        <p class="subtitle">
+          Welcome to the IT Asset Management System
+        </p>
+      </div>
+
+      <div class="date-box" id="currentDate"></div>
+    </section>
+
+    <div class="section-heading">
+      <h2>System Overview</h2>
+      <span>At-a-glance summary</span>
+    </div>
+
+    <section class="stats">
+
+      <article class="stat-card">
+        <div class="stat-icon blue">♟</div>
+        <h3>Total Employees</h3>
+        <strong>12</strong>
+        <small>Registered employees</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon green">▣</div>
+        <h3>Total Assets</h3>
+        <strong>25</strong>
+        <small>Registered assets</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon orange">⚒</div>
+        <h3>Pending Maintenance</h3>
+        <strong>4</strong>
+        <small>Open complaints</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon purple">▣</div>
+        <h3>Total EMI Records</h3>
+        <strong>18</strong>
+        <small>EMI installments</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon mint">♻</div>
+        <h3>Disposed Assets</h3>
+        <strong>3</strong>
+        <small>Total disposals</small>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon sky">▤</div>
+        <h3>Reports</h3>
+        <strong>6</strong>
+        <small>Available reports</small>
+      </article>
+
+    </section>
+
+    <div class="section-heading">
+      <h2>Analytics &amp; Status</h2>
+      <span>Illustrative sample data</span>
+    </div>
+
+    <section class="charts">
+
+      <article class="panel">
+        <h3>Asset Status</h3>
+        <p class="panel-subtitle">Distribution by current status</p>
+
+        <div class="donut-area">
+          <div class="donut asset-donut">
+            <div class="donut-center">
+              <strong>25</strong>
+              <span>Total Assets</span>
+            </div>
+          </div>
+
+          <ul class="legend">
+            <li><span class="dot" style="background:#3986e8"></span>In Use <b>18</b></li>
+            <li><span class="dot" style="background:#35c48c"></span>Maintenance <b>4</b></li>
+            <li><span class="dot" style="background:#ffbd3d"></span>Disposed <b>3</b></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h3>Maintenance Status</h3>
+        <p class="panel-subtitle">Service request overview</p>
+
+        <div class="bar-chart">
+          <div class="bar-column">
+            <span class="bar-value">4</span>
+            <div class="bar" style="height:44%;background:#f16c79"></div>
+            <span class="bar-label">Open</span>
+          </div>
+
+          <div class="bar-column">
+            <span class="bar-value">3</span>
+            <div class="bar" style="height:33%;background:#ffbd3d"></div>
+            <span class="bar-label">In Progress</span>
+          </div>
+
+          <div class="bar-column">
+            <span class="bar-value">6</span>
+            <div class="bar" style="height:67%;background:#35c48c"></div>
+            <span class="bar-label">Resolved</span>
+          </div>
+
+          <div class="bar-column">
+            <span class="bar-value">9</span>
+            <div class="bar" style="height:100%;background:#3986e8"></div>
+            <span class="bar-label">Closed</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h3>Asset Category</h3>
+        <p class="panel-subtitle">Inventory by equipment type</p>
+
+        <div class="donut-area">
+          <div class="donut category-donut">
+            <div class="donut-center">
+              <strong>25</strong>
+              <span>Assets</span>
+            </div>
+          </div>
+
+          <ul class="legend">
+            <li><span class="dot" style="background:#3986e8"></span>Laptop <b>12</b></li>
+            <li><span class="dot" style="background:#35c48c"></span>Desktop <b>6</b></li>
+            <li><span class="dot" style="background:#ffbd3d"></span>Mobile <b>4</b></li>
+            <li><span class="dot" style="background:#8b65e8"></span>Others <b>3</b></li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="bottom-grid">
+
+      <article class="panel">
+        <div class="activity-header">
+          <div>
+            <h3>Recent Activities</h3>
+            <p class="panel-subtitle">Latest module updates</p>
+          </div>
+
+          <input
+            type="search"
+            class="search"
+            id="activitySearch"
+            placeholder="Search activities..."
+          >
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Module</th>
+                <th>Description</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="activityRows">
+              <tr>
+                <td>07 Oct 2026</td>
+                <td><span class="module-chip">Asset</span></td>
+                <td>Laptop assigned to employee</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+
+              <tr>
+                <td>07 Oct 2026</td>
+                <td><span class="module-chip">Maintenance</span></td>
+                <td>New maintenance complaint</td>
+                <td><span class="status in-progress">In Progress</span></td>
+              </tr>
+
+              <tr>
+                <td>06 Oct 2026</td>
+                <td><span class="module-chip">EMI</span></td>
+                <td>EMI payment received</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+
+              <tr>
+                <td>06 Oct 2026</td>
+                <td><span class="module-chip">Employee</span></td>
+                <td>New employee registered</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+
+              <tr>
+                <td>05 Oct 2026</td>
+                <td><span class="module-chip">Disposal</span></td>
+                <td>Asset disposal recorded</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <aside class="banner">
+        <div class="banner-icon">▧ ⚙</div>
+        <h3>Manage Your Assets Smarter, Not Harder!</h3>
+        <p>
+          Track assets, handle maintenance, manage EMI and disposal
+          — all in one place.
+        </p>
+        <button onclick="openModule('Asset')">
+          Explore Assets →
+        </button>
+      </aside>
+
+    </section>
+
+    <footer class="footer">
+      © 2026 AssetNexa | IT Asset Lifecycle, Maintenance and Management System
+    </footer>
+
+  </main>
+</div>
+
+<script>
+// Preserve login protection.
+if (sessionStorage.getItem("loggedIn") !== "true") {
+  window.location.replace("index.html");
+}
+
+// Display current date.
+document.getElementById("currentDate").textContent =
+  "📅 " + new Date().toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+// Use the username if the login page stores it.
+const storedUser =
+  sessionStorage.getItem("userName") ||
+  sessionStorage.getItem("username");
+
+if (storedUser) {
+  document.getElementById("userName").textContent = storedUser;
+}
+
+// Preserve the existing module page names.
+function openModule(moduleName) {
+  const modulePages = {
+    Employee: "employee.html",
+    Asset: "asset.html",
+    Maintenance: "maintenance.html",
+    EMI: "emi.html",
+    Disposal: "disposal.html",
+    Reports: "reports.html"
+  };
+
+  if (modulePages[moduleName]) {
+    window.location.href = modulePages[moduleName];
+  }
+}
+
+// Search recent activity rows.
+const activitySearch = document.getElementById("activitySearch");
+const activityRows = document.querySelectorAll("#activityRows tr");
+
+activitySearch.addEventListener("input", function () {
+  const query = this.value.toLowerCase().trim();
+
+  activityRows.forEach(function (row) {
+    row.style.display =
+      row.textContent.toLowerCase().includes(query) ? "" : "none";
+  });
+});
+
+// Logout.
+function logout() {
+  sessionStorage.removeItem("loggedIn");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
