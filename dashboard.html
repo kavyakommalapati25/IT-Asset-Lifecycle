@@ -1,977 +1,209 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AssetNexa | Dashboard</title>
-
+<title>AssetNexa Dashboard</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --primary: #087f8c;
-  --green: #18a779;
-  --text: #183451;
-  --muted: #64748b;
-  --bg: #f3f7fb;
-  --border: #e2eaf1;
-}
-
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-.topbar {
-  min-height: 78px;
-  padding: 15px 28px;
-  background: linear-gradient(110deg, #087f8c, #20a879);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.brand h2 {
-  font-size: 22px;
-}
-
-.brand h2 span {
-  color: #c7fff0;
-}
-
-.brand p {
-  font-size: 10px;
-  margin-top: 4px;
-  opacity: .85;
-}
-
-.system-title {
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.profile {
-  text-align: right;
-  font-size: 13px;
-}
-
-.profile small {
-  display: block;
-  margin-bottom: 4px;
-}
-
-.layout {
-  display: flex;
-  min-height: calc(100vh - 78px);
-}
-
-.sidebar {
-  width: 220px;
-  flex-shrink: 0;
-  background: white;
-  border-right: 1px solid var(--border);
-  padding: 22px 12px;
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-label {
-  color: #94a3b8;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 8px 12px;
-}
-
-.nav-link {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  padding: 13px 12px;
-  margin: 3px 0;
-  border-radius: 9px;
-  text-decoration: none;
-  color: #344b62;
-  font-size: 13px;
-  font-weight: 600;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--primary);
-  background: #e1f6f3;
-}
-
-.nav-icon {
-  width: 23px;
-  font-size: 18px;
-  text-align: center;
-}
-
-.logout-link {
-  margin-top: auto;
-}
-
-.main {
-  flex: 1;
-  min-width: 0;
-  padding: 28px;
-}
-
-.welcome {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.eyebrow {
-  color: var(--primary);
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1.4px;
-  margin-bottom: 8px;
-}
-
-.welcome h1 {
-  font-size: 29px;
-  margin-bottom: 7px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.date-box {
-  padding: 12px 15px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: white;
-  font-size: 12px;
-}
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin: 23px 0 14px;
-}
-
-.section-heading h2 {
-  font-size: 17px;
-}
-
-.section-heading span {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 13px;
-}
-
-.stat-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 15px;
-  box-shadow: 0 4px 16px rgba(25, 55, 85, .04);
-}
-
-.stat-icon {
-  width: 39px;
-  height: 39px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  font-size: 20px;
-  margin-bottom: 13px;
-}
-
-.blue { background: #e3f1ff; }
-.green { background: #dcf8ec; }
-.orange { background: #fff0d9; }
-.purple { background: #eee8ff; }
-.mint { background: #dff8f0; }
-.sky { background: #e2f2ff; }
-
-.stat-card h3 {
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.5;
-  min-height: 32px;
-}
-
-.stat-card strong {
-  display: block;
-  font-size: 27px;
-  margin-top: 4px;
-}
-
-.stat-card small {
-  display: block;
-  color: #8795a5;
-  font-size: 10px;
-  margin-top: 6px;
-}
-
-.charts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 15px;
-}
-
-.panel {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 18px;
-  min-width: 0;
-  box-shadow: 0 4px 16px rgba(25, 55, 85, .04);
-}
-
-.panel h3 {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.panel-subtitle {
-  color: var(--muted);
-  font-size: 10px;
-  margin-bottom: 18px;
-}
-
-.donut-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  min-height: 165px;
-}
-
-.donut {
-  width: 135px;
-  height: 135px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-
-.asset-donut {
-  background: conic-gradient(
-    #3986e8 0 72%,
-    #35c48c 72% 88%,
-    #ffbd3d 88% 100%
-  );
-}
-
-.category-donut {
-  background: conic-gradient(
-    #3986e8 0 48%,
-    #35c48c 48% 72%,
-    #ffbd3d 72% 88%,
-    #8b65e8 88% 100%
-  );
-}
-
-.donut::before {
-  content: "";
-  position: absolute;
-  inset: 25px;
-  border-radius: 50%;
-  background: white;
-}
-
-.donut-center {
-  z-index: 1;
-  text-align: center;
-}
-
-.donut-center strong {
-  display: block;
-  font-size: 23px;
-}
-
-.donut-center span {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 3px;
-}
-
-.legend {
-  list-style: none;
-  flex: 1;
-  min-width: 0;
-}
-
-.legend li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 13px 0;
-  font-size: 10px;
-  color: #52677c;
-}
-
-.legend b {
-  margin-left: auto;
-  color: var(--text);
-  font-size: 11px;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.bar-chart {
-  height: 175px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  gap: 12px;
-  border-bottom: 1px solid var(--border);
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 42px,
-    #edf2f6 43px,
-    transparent 44px
-  );
-}
-
-.bar-column {
-  height: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 7px;
-}
-
-.bar-value {
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.bar {
-  width: 65%;
-  max-width: 38px;
-  min-height: 5px;
-  border-radius: 5px 5px 0 0;
-}
-
-.bar-label {
-  height: 30px;
-  text-align: center;
-  font-size: 9px;
-  color: var(--muted);
-}
-
-.bottom-grid {
-  display: grid;
-  grid-template-columns: 1.7fr 1fr;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.activity-header {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 17px;
-}
-
-.activity-header h3 {
-  margin-bottom: 5px;
-}
-
-.search {
-  width: 180px;
-  max-width: 100%;
-  padding: 9px 11px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  outline: none;
-}
-
-.search:focus {
-  border-color: var(--green);
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  white-space: nowrap;
-}
-
-th {
-  background: #f1f6fa;
-  padding: 12px 10px;
-  font-size: 10px;
-}
-
-td {
-  padding: 12px 10px;
-  border-bottom: 1px solid #edf2f6;
-  font-size: 10px;
-  color: #52677c;
-}
-
-.module-chip {
-  background: #edf5ff;
-  color: #3677b8;
-  padding: 5px 7px;
-  border-radius: 6px;
-  font-size: 9px;
-}
-
-.status {
-  padding: 5px 8px;
-  border-radius: 20px;
-  font-size: 9px;
-  font-weight: bold;
-}
-
-.completed {
-  background: #d9f7e8;
-  color: #11794f;
-}
-
-.in-progress {
-  background: #fff0d0;
-  color: #a66a08;
-}
-
-.banner {
-  min-height: 250px;
-  border: 1px solid #ccece5;
-  border-radius: 13px;
-  padding: 24px;
-  background: linear-gradient(135deg, #e6faf5, #effaff);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.banner-icon {
-  font-size: 34px;
-  margin-bottom: 16px;
-}
-
-.banner h3 {
-  font-size: 22px;
-  line-height: 1.35;
-  color: var(--primary);
-  margin-bottom: 12px;
-}
-
-.banner p {
-  font-size: 12px;
-  line-height: 1.7;
-  color: #526b7e;
-}
-
-.banner button {
-  align-self: flex-start;
-  margin-top: 17px;
-  padding: 10px 13px;
-  color: white;
-  background: var(--primary);
-  border: none;
-  border-radius: 8px;
-}
-
-.footer {
-  text-align: center;
-  color: #94a3b8;
-  font-size: 10px;
-  padding: 23px 0 5px;
-}
-
-@media (max-width: 1250px) {
-  .stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .charts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .charts .panel:last-child {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 900px) {
-  .system-title {
-    display: none;
-  }
-
-  .sidebar {
-    width: 72px;
-    padding: 15px 7px;
-  }
-
-  .nav-label,
-  .nav-text {
-    display: none;
-  }
-
-  .nav-link {
-    justify-content: center;
-    padding: 13px 5px;
-  }
-
-  .main {
-    padding: 20px;
-  }
-
-  .bottom-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .topbar {
-    padding: 13px;
-  }
-
-  .brand h2 {
-    font-size: 17px;
-  }
-
-  .brand p {
-    display: none;
-  }
-
-  .profile {
-    font-size: 11px;
-  }
-
-  .sidebar {
-    width: 55px;
-    padding: 10px 4px;
-  }
-
-  .main {
-    padding: 15px 10px;
-  }
-
-  .welcome h1 {
-    font-size: 25px;
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 9px;
-  }
-
-  .stat-card {
-    padding: 12px;
-  }
-
-  .stat-card strong {
-    font-size: 23px;
-  }
-
-  .charts {
-    grid-template-columns: 1fr;
-  }
-
-  .charts .panel:last-child {
-    grid-column: auto;
-  }
-
-  .panel {
-    padding: 13px;
-  }
-
-  .donut {
-    width: 115px;
-    height: 115px;
-  }
-
-  .donut::before {
-    inset: 22px;
-  }
-
-  .legend li {
-    font-size: 9px;
-  }
-
-  .section-heading span {
-    display: none;
-  }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#087f8c;--green:#18a779;--text:#183451;--muted:#64748b;--bg:#f3f7fb;--border:#e2eaf1}
+body{font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+.topbar{min-height:78px;padding:14px 25px;background:linear-gradient(110deg,#087f8c,#20a879);color:white;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{font-size:34px;font-weight:bold}
+.brand h2{font-size:22px}.brand h2 span{color:#c7fff0}.brand p{font-size:10px;margin-top:4px}
+.profile-button{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #ffffff70;border-radius:12px;background:#ffffff20;color:white;cursor:pointer}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:white;color:var(--primary);display:grid;place-items:center;font-weight:bold;font-size:18px}
+.profile-info strong,.profile-info small{display:block}.profile-info strong{font-size:12px}.profile-info small{font-size:10px;margin-top:4px}
+.layout{display:flex;min-height:calc(100vh - 78px)}
+.sidebar{width:220px;flex-shrink:0;background:white;border-right:1px solid var(--border);padding:22px 12px;display:flex;flex-direction:column}
+.nav-label{color:#94a3b8;font-size:10px;font-weight:bold;letter-spacing:1px;padding:8px 12px}
+.nav-link{display:block;padding:13px 12px;margin:3px 0;border-radius:9px;text-decoration:none;color:#344b62;font-size:13px;font-weight:600;border:0;background:transparent;cursor:pointer;text-align:left;width:100%}
+.nav-link:hover,.nav-link.active{color:var(--primary);background:#e1f6f3}.logout-link{margin-top:auto}
+.main{flex:1;min-width:0;padding:28px}
+.welcome{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:25px}
+.eyebrow{color:var(--primary);font-size:10px;font-weight:bold;letter-spacing:1.4px;margin-bottom:8px}
+.welcome h1{font-size:29px;margin-bottom:7px}.subtitle{color:var(--muted);font-size:13px}
+.date-box{padding:12px 15px;border:1px solid var(--border);border-radius:10px;background:white;font-size:12px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:23px 0 14px}.section-heading h2{font-size:17px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.stat-card,.panel{background:white;border:1px solid var(--border);border-radius:13px;padding:18px;box-shadow:0 4px 16px #1937550a}
+.stat-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;font-size:20px;margin-bottom:13px}
+.blue{background:#e3f1ff}.green{background:#dcf8ec}.orange{background:#fff0d9}.purple{background:#eee8ff}.mint{background:#dff8f0}.sky{background:#e2f2ff}
+.stat-card h3{font-size:12px;color:var(--muted);line-height:1.5}.stat-card strong{display:block;font-size:27px;margin-top:4px}.stat-card small{display:block;color:#8795a5;font-size:10px;margin-top:6px}
+.bottom-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:15px;margin-top:18px}
+.panel h3{font-size:15px;margin-bottom:8px}.panel-subtitle{color:var(--muted);font-size:11px;margin-bottom:16px}
+.activity-header{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:15px}
+.search{width:190px;max-width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;outline:none}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}
+th{background:#f1f6fa;padding:12px 10px;font-size:11px}td{padding:12px 10px;border-bottom:1px solid #edf2f6;font-size:11px;color:#52677c}
+.module-chip{background:#edf5ff;color:#3677b8;padding:5px 7px;border-radius:6px;font-size:10px}
+.status{padding:5px 8px;border-radius:20px;font-size:10px;font-weight:bold}.completed{background:#d9f7e8;color:#11794f}.in-progress{background:#fff0d0;color:#a66a08}
+.banner{padding:24px;background:linear-gradient(135deg,#e6faf5,#effaff);border:1px solid #ccece5;border-radius:13px;display:flex;flex-direction:column;justify-content:center;gap:13px}
+.banner .banner-icon{font-size:34px}.banner p{font-size:13px;line-height:1.7;color:#52677c}
+.banner button,.primary-btn{border:0;border-radius:8px;background:var(--primary);color:white;padding:11px 15px;cursor:pointer;font-weight:600}
+.footer{text-align:center;padding:24px 10px;color:#8795a5;font-size:11px}
+.profile-modal{display:none;position:fixed;inset:0;z-index:1000;background:#0f23378c;padding:20px;align-items:center;justify-content:center;overflow-y:auto}
+.profile-modal.show{display:flex}.profile-card{width:100%;max-width:490px;background:white;border-radius:16px;padding:25px;box-shadow:0 15px 45px #0003}
+.profile-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.profile-card-header h2{font-size:21px}
+.profile-close{border:0;background:#edf3f7;border-radius:8px;width:35px;height:35px;cursor:pointer;font-size:22px}
+.profile-photo-area{text-align:center;margin-bottom:22px}
+.profile-photo-preview{width:100px;height:100px;object-fit:cover;border-radius:50%;border:3px solid #d9f3ec;background:#edf8f6;margin-bottom:10px}
+.photo-label{display:block;color:var(--primary);font-size:12px;font-weight:600;cursor:pointer}
+#profilePhoto{display:none}.profile-form-group{margin-bottom:15px}
+.profile-form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:7px}
+.profile-form-group input{width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:13px;outline:none}
+.profile-form-group input:focus{border-color:var(--green)}
+.profile-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.profile-actions button{padding:11px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:600}
+.profile-save{background:var(--primary);color:white}.profile-cancel{background:#edf2f6;color:var(--text)}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.layout{display:block}.sidebar{width:100%;border-right:0;border-bottom:1px solid var(--border);padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.nav-label{grid-column:1/-1}.logout-link{margin-top:0}.main{padding:16px}.welcome h1{font-size:24px}.stats{grid-template-columns:1fr 1fr}.topbar{padding:13px}.brand h2{font-size:18px}}
+@media(max-width:420px){.stats{grid-template-columns:1fr}.profile-info small{display:none}.profile-card{padding:18px}}
 </style>
 </head>
-
 <body>
 
 <header class="topbar">
   <div class="brand">
-    <div class="logo">A</div>
+    <div class="logo">▦</div>
     <div>
       <h2>Asset<span>Nexa</span></h2>
       <p>IT ASSET LIFECYCLE MANAGEMENT</p>
     </div>
   </div>
-
-  <div class="system-title">
-    IT Asset Lifecycle, Maintenance and Management System
-  </div>
-
- 
+  <button class="profile-button" type="button" onclick="openProfile()">
+    <img id="topProfilePhoto" class="avatar" alt="Profile photo" style="display:none">
+    <span id="topProfileInitial" class="avatar">P</span>
+    <span class="profile-info">
+      <strong id="topProfileName">My Profile</strong>
+      <small>View / Edit Profile</small>
+    </span>
+  </button>
 </header>
 
 <div class="layout">
-
   <aside class="sidebar">
-    <div class="nav-label">WORKSPACE</div>
-
-    <a class="nav-link active" href="dashboard.html">
-      <span class="nav-icon">⌂</span>
-      <span class="nav-text">Dashboard</span>
-    </a>
-
-    <a class="nav-link" href="employee.html">
-      <span class="nav-icon">♙</span>
-      <span class="nav-text">Employee</span>
-    </a>
-
-    <a class="nav-link" href="asset.html">
-      <span class="nav-icon">▣</span>
-      <span class="nav-text">Asset</span>
-    </a>
-
-    <a class="nav-link" href="maintenance.html">
-      <span class="nav-icon">⚒</span>
-      <span class="nav-text">Maintenance</span>
-    </a>
-
-    <a class="nav-link" href="emi.html">
-      <span class="nav-icon">＄</span>
-      <span class="nav-text">EMI</span>
-    </a>
-
-    <a class="nav-link" href="disposal.html">
-      <span class="nav-icon">♻</span>
-      <span class="nav-text">Disposal</span>
-    </a>
-
-    <a class="nav-link" href="reports.html">
-      <span class="nav-icon">▤</span>
-      <span class="nav-text">Reports</span>
-    </a>
-
-    <button class="nav-link logout-link" onclick="logout()">
-      <span class="nav-icon">⇥</span>
-      <span class="nav-text">Logout</span>
-    </button>
+    <div class="nav-label">MAIN MENU</div>
+    <button class="nav-link active" onclick="openModule('Dashboard')">🏠 Dashboard</button>
+    <button class="nav-link" onclick="openModule('Employee')">👥 Employee Management</button>
+    <button class="nav-link" onclick="openModule('Asset')">💻 Asset Management</button>
+    <button class="nav-link" onclick="openModule('Maintenance')">🛠 Maintenance</button>
+    <button class="nav-link" onclick="openModule('EMI')">💳 EMI Management</button>
+    <button class="nav-link" onclick="openModule('Disposal')">♻ Asset Disposal</button>
+    <button class="nav-link" onclick="openModule('Reports')">📊 Reports</button>
+    <button class="nav-link logout-link" onclick="logout()">🚪 Logout</button>
   </aside>
 
   <main class="main">
-
     <section class="welcome">
       <div>
-        <div class="eyebrow">OVERVIEW / WORKSPACE</div>
-        <h1>Dashboard</h1>
-        <p class="subtitle">
-          Welcome to the IT Asset Management System
-        </p>
+        <div class="eyebrow">OVERVIEW</div>
+        <h1>Welcome to AssetNexa</h1>
+        <p class="subtitle">IT Asset Lifecycle &amp; Maintenance Management System</p>
       </div>
-
       <div class="date-box" id="currentDate"></div>
     </section>
 
     <div class="section-heading">
-      <h2>System Overview</h2>
-      <span>At-a-glance summary</span>
+      <h2>Dashboard Overview</h2>
     </div>
 
     <section class="stats">
-
-      <article class="stat-card">
-        <div class="stat-icon blue">♟</div>
-        <h3>Total Employees</h3>
-        <strong>12</strong>
-        <small>Registered employees</small>
-      </article>
-
-      <article class="stat-card">
-        <div class="stat-icon green">▣</div>
-        <h3>Total Assets</h3>
-        <strong>25</strong>
-        <small>Registered assets</small>
-      </article>
-
-      <article class="stat-card">
-        <div class="stat-icon orange">⚒</div>
-        <h3>Pending Maintenance</h3>
-        <strong>4</strong>
-        <small>Open complaints</small>
-      </article>
-
-      <article class="stat-card">
-        <div class="stat-icon purple">▣</div>
-        <h3>Total EMI Records</h3>
-        <strong>18</strong>
-        <small>EMI installments</small>
-      </article>
-
-      <article class="stat-card">
-        <div class="stat-icon mint">♻</div>
-        <h3>Disposed Assets</h3>
-        <strong>3</strong>
-        <small>Total disposals</small>
-      </article>
-
-      <article class="stat-card">
-        <div class="stat-icon sky">▤</div>
-        <h3>Reports</h3>
-        <strong>6</strong>
-        <small>Available reports</small>
-      </article>
-
-    </section>
-
-    <div class="section-heading">
-      <h2>Analytics &amp; Status</h2>
-      <span>Illustrative sample data</span>
-    </div>
-
-    <section class="charts">
-
-      <article class="panel">
-        <h3>Asset Status</h3>
-        <p class="panel-subtitle">Distribution by current status</p>
-
-        <div class="donut-area">
-          <div class="donut asset-donut">
-            <div class="donut-center">
-              <strong>25</strong>
-              <span>Total Assets</span>
-            </div>
-          </div>
-
-          <ul class="legend">
-            <li><span class="dot" style="background:#3986e8"></span>In Use <b>18</b></li>
-            <li><span class="dot" style="background:#35c48c"></span>Maintenance <b>4</b></li>
-            <li><span class="dot" style="background:#ffbd3d"></span>Disposed <b>3</b></li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="panel">
-        <h3>Maintenance Status</h3>
-        <p class="panel-subtitle">Service request overview</p>
-
-        <div class="bar-chart">
-          <div class="bar-column">
-            <span class="bar-value">4</span>
-            <div class="bar" style="height:44%;background:#f16c79"></div>
-            <span class="bar-label">Open</span>
-          </div>
-
-          <div class="bar-column">
-            <span class="bar-value">3</span>
-            <div class="bar" style="height:33%;background:#ffbd3d"></div>
-            <span class="bar-label">In Progress</span>
-          </div>
-
-          <div class="bar-column">
-            <span class="bar-value">6</span>
-            <div class="bar" style="height:67%;background:#35c48c"></div>
-            <span class="bar-label">Resolved</span>
-          </div>
-
-          <div class="bar-column">
-            <span class="bar-value">9</span>
-            <div class="bar" style="height:100%;background:#3986e8"></div>
-            <span class="bar-label">Closed</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="panel">
-        <h3>Asset Category</h3>
-        <p class="panel-subtitle">Inventory by equipment type</p>
-
-        <div class="donut-area">
-          <div class="donut category-donut">
-            <div class="donut-center">
-              <strong>25</strong>
-              <span>Assets</span>
-            </div>
-          </div>
-
-          <ul class="legend">
-            <li><span class="dot" style="background:#3986e8"></span>Laptop <b>12</b></li>
-            <li><span class="dot" style="background:#35c48c"></span>Desktop <b>6</b></li>
-            <li><span class="dot" style="background:#ffbd3d"></span>Mobile <b>4</b></li>
-            <li><span class="dot" style="background:#8b65e8"></span>Others <b>3</b></li>
-          </ul>
-        </div>
-      </article>
-
+      <article class="stat-card"><div class="stat-icon blue">💻</div><h3>Total Assets</h3><strong>25</strong><small>Registered assets</small></article>
+      <article class="stat-card"><div class="stat-icon green">👥</div><h3>Total Employees</h3><strong>18</strong><small>Registered employees</small></article>
+      <article class="stat-card"><div class="stat-icon orange">🛠</div><h3>Maintenance Requests</h3><strong>12</strong><small>All requests</small></article>
+      <article class="stat-card"><div class="stat-icon purple">💳</div><h3>EMI Records</h3><strong>8</strong><small>Payment records</small></article>
+      <article class="stat-card"><div class="stat-icon mint">♻</div><h3>Disposed Assets</h3><strong>3</strong><small>Disposal records</small></article>
+      <article class="stat-card"><div class="stat-icon sky">📊</div><h3>Reports</h3><strong>6</strong><small>Available reports</small></article>
     </section>
 
     <section class="bottom-grid">
-
       <article class="panel">
         <div class="activity-header">
-          <div>
-            <h3>Recent Activities</h3>
-            <p class="panel-subtitle">Latest module updates</p>
-          </div>
-
-          <input
-            type="search"
-            class="search"
-            id="activitySearch"
-            placeholder="Search activities..."
-          >
+          <div><h3>Recent Activities</h3><p class="panel-subtitle">Latest module updates</p></div>
+          <input type="search" class="search" id="activitySearch" placeholder="Search activities...">
         </div>
-
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Module</th>
-                <th>Description</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
+            <thead><tr><th>Date</th><th>Module</th><th>Description</th><th>Status</th></tr></thead>
             <tbody id="activityRows">
-              <tr>
-                <td>07 Oct 2026</td>
-                <td><span class="module-chip">Asset</span></td>
-                <td>Laptop assigned to employee</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
-
-              <tr>
-                <td>07 Oct 2026</td>
-                <td><span class="module-chip">Maintenance</span></td>
-                <td>New maintenance complaint</td>
-                <td><span class="status in-progress">In Progress</span></td>
-              </tr>
-
-              <tr>
-                <td>06 Oct 2026</td>
-                <td><span class="module-chip">EMI</span></td>
-                <td>EMI payment received</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
-
-              <tr>
-                <td>06 Oct 2026</td>
-                <td><span class="module-chip">Employee</span></td>
-                <td>New employee registered</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
-
-              <tr>
-                <td>05 Oct 2026</td>
-                <td><span class="module-chip">Disposal</span></td>
-                <td>Asset disposal recorded</td>
-                <td><span class="status completed">Completed</span></td>
-              </tr>
+              <tr><td>07 Oct 2026</td><td><span class="module-chip">Asset</span></td><td>Laptop assigned to employee</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>07 Oct 2026</td><td><span class="module-chip">Maintenance</span></td><td>New maintenance complaint</td><td><span class="status in-progress">In Progress</span></td></tr>
+              <tr><td>06 Oct 2026</td><td><span class="module-chip">EMI</span></td><td>EMI payment received</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>06 Oct 2026</td><td><span class="module-chip">Employee</span></td><td>New employee registered</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>05 Oct 2026</td><td><span class="module-chip">Disposal</span></td><td>Asset disposal recorded</td><td><span class="status completed">Completed</span></td></tr>
             </tbody>
           </table>
         </div>
       </article>
-
       <aside class="banner">
         <div class="banner-icon">▧ ⚙</div>
         <h3>Manage Your Assets Smarter, Not Harder!</h3>
-        <p>
-          Track assets, handle maintenance, manage EMI and disposal
-          — all in one place.
-        </p>
-        <button onclick="openModule('Asset')">
-          Explore Assets →
-        </button>
+        <p>Track assets, handle maintenance, manage EMI and disposal — all in one place.</p>
+        <button onclick="openModule('Asset')">Explore Assets →</button>
       </aside>
-
     </section>
 
-    <footer class="footer">
-      © 2026 AssetNexa | IT Asset Lifecycle, Maintenance and Management System
-    </footer>
-
+    <footer class="footer">© 2026 AssetNexa | IT Asset Lifecycle, Maintenance and Management System</footer>
   </main>
 </div>
 
+<!-- PROFILE FORM -->
+<div class="profile-modal" id="profileModal">
+  <section class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="profile-card-header">
+      <h2 id="profileTitle">My Profile</h2>
+      <button class="profile-close" type="button" onclick="closeProfile()" aria-label="Close">×</button>
+    </div>
+    <form id="profileForm">
+      <div class="profile-photo-area">
+        <img id="profilePhotoPreview" class="profile-photo-preview" alt="Profile preview" style="display:none">
+        <div id="profilePhotoInitial" class="avatar" style="width:100px;height:100px;margin:0 auto 10px;font-size:32px">P</div>
+        <label for="profilePhoto" class="photo-label">📷 Upload Profile Photo</label>
+        <input id="profilePhoto" type="file" accept="image/*">
+        <small style="display:block;color:#8795a5;margin-top:7px">Image file, maximum 2 MB</small>
+      </div>
+      <div class="profile-form-group">
+        <label for="profileName">Full Name *</label>
+        <input id="profileName" type="text" placeholder="Enter your full name" required maxlength="80">
+      </div>
+      <div class="profile-form-group">
+        <label for="profileEmployeeId">Employee ID *</label>
+        <input id="profileEmployeeId" type="text" placeholder="Enter employee ID" required maxlength="30">
+      </div>
+      <div class="profile-form-group">
+        <label for="profileEmail">Email Address *</label>
+        <input id="profileEmail" type="email" placeholder="Enter email address" required maxlength="120">
+      </div>
+      <div class="profile-form-group">
+        <label for="profilePhone">Phone Number *</label>
+        <input id="profilePhone" type="tel" placeholder="Enter 10-digit phone number" required inputmode="numeric" pattern="[0-9]{10}" maxlength="10">
+      </div>
+      <div class="profile-actions">
+        <button class="profile-cancel" type="button" onclick="closeProfile()">Cancel</button>
+        <button class="profile-save" type="submit">Save Profile</button>
+      </div>
+    </form>
+  </section>
+</div>
+
 <script>
-// Preserve login protection.
+/* If your login page uses sessionStorage login, keep this check.
+   If you want to test the dashboard directly, comment out the next 3 lines. */
 if (sessionStorage.getItem("loggedIn") !== "true") {
   window.location.replace("index.html");
 }
 
-// Display current date.
 document.getElementById("currentDate").textContent =
   "📅 " + new Date().toLocaleDateString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
+    day: "2-digit", month: "short", year: "numeric"
   });
 
-// Use the username if the login page stores it.
 const storedUser =
   sessionStorage.getItem("userName") ||
-  sessionStorage.getItem("username");
+  sessionStorage.getItem("username") || "";
 
-if (storedUser) {
-  document.getElementById("userName").textContent = storedUser;
-}
-
-// Preserve the existing module page names.
 function openModule(moduleName) {
   const modulePages = {
     Employee: "employee.html",
@@ -981,31 +213,155 @@ function openModule(moduleName) {
     Disposal: "disposal.html",
     Reports: "reports.html"
   };
-
+  if (moduleName === "Dashboard") return;
   if (modulePages[moduleName]) {
     window.location.href = modulePages[moduleName];
+  } else {
+    alert(moduleName + " page link is not configured yet.");
   }
 }
 
-// Search recent activity rows.
 const activitySearch = document.getElementById("activitySearch");
-const activityRows = document.querySelectorAll("#activityRows tr");
-
 activitySearch.addEventListener("input", function () {
   const query = this.value.toLowerCase().trim();
-
-  activityRows.forEach(function (row) {
-    row.style.display =
-      row.textContent.toLowerCase().includes(query) ? "" : "none";
+  document.querySelectorAll("#activityRows tr").forEach(function (row) {
+    row.style.display = row.textContent.toLowerCase().includes(query) ? "" : "none";
   });
 });
 
-// Logout.
+const profileModal = document.getElementById("profileModal");
+const profileForm = document.getElementById("profileForm");
+const profilePhotoInput = document.getElementById("profilePhoto");
+let selectedProfilePhoto = "";
+
+function updateProfileDisplay(profile) {
+  const name = profile.name || storedUser || "My Profile";
+  const initial = name.trim().charAt(0).toUpperCase() || "P";
+  document.getElementById("topProfileName").textContent = name;
+  document.getElementById("topProfileInitial").textContent = initial;
+  document.getElementById("profilePhotoInitial").textContent = initial;
+
+  const topPhoto = document.getElementById("topProfilePhoto");
+  const preview = document.getElementById("profilePhotoPreview");
+  if (profile.photo) {
+    topPhoto.src = profile.photo;
+    topPhoto.style.display = "block";
+    document.getElementById("topProfileInitial").style.display = "none";
+    preview.src = profile.photo;
+    preview.style.display = "inline-block";
+    document.getElementById("profilePhotoInitial").style.display = "none";
+  } else {
+    topPhoto.removeAttribute("src");
+    topPhoto.style.display = "none";
+    document.getElementById("topProfileInitial").style.display = "grid";
+    preview.removeAttribute("src");
+    preview.style.display = "none";
+    document.getElementById("profilePhotoInitial").style.display = "grid";
+  }
+}
+
+function loadProfile() {
+  let profile = {};
+  try {
+    const saved = localStorage.getItem("assetNexaProfile");
+    profile = saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error("Unable to load profile:", error);
+  }
+
+  document.getElementById("profileName").value = profile.name || storedUser || "";
+  document.getElementById("profileEmployeeId").value = profile.employeeId || "";
+  document.getElementById("profileEmail").value = profile.email || "";
+  document.getElementById("profilePhone").value = profile.phone || "";
+  selectedProfilePhoto = profile.photo || "";
+  profilePhotoInput.value = "";
+
+  updateProfileDisplay({
+    ...profile,
+    name: profile.name || storedUser || "My Profile"
+  });
+}
+
+function openProfile() {
+  loadProfile();
+  profileModal.classList.add("show");
+}
+
+function closeProfile() {
+  profileModal.classList.remove("show");
+}
+
+profilePhotoInput.addEventListener("change", function () {
+  const file = this.files && this.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select a valid image.");
+    this.value = "";
+    return;
+  }
+  if (file.size > 2 * 1024 * 1024) {
+    alert("Photo size must be 2 MB or less.");
+    this.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function () {
+    selectedProfilePhoto = reader.result;
+    const preview = document.getElementById("profilePhotoPreview");
+    preview.src = selectedProfilePhoto;
+    preview.style.display = "inline-block";
+    document.getElementById("profilePhotoInitial").style.display = "none";
+  };
+  reader.readAsDataURL(file);
+});
+
+profileForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const profile = {
+    name: document.getElementById("profileName").value.trim(),
+    employeeId: document.getElementById("profileEmployeeId").value.trim(),
+    email: document.getElementById("profileEmail").value.trim(),
+    phone: document.getElementById("profilePhone").value.trim(),
+    photo: selectedProfilePhoto
+  };
+
+  if (!profile.name || !profile.employeeId || !profile.email || !profile.phone) {
+    alert("Please fill in all profile details.");
+    return;
+  }
+  if (!/^[0-9]{10}$/.test(profile.phone)) {
+    alert("Please enter a valid 10-digit phone number.");
+    return;
+  }
+
+  try {
+    localStorage.setItem("assetNexaProfile", JSON.stringify(profile));
+    updateProfileDisplay(profile);
+    closeProfile();
+    alert("Profile saved successfully!");
+  } catch (error) {
+    alert("Profile could not be saved. Try using a smaller photo.");
+    console.error("Unable to save profile:", error);
+  }
+});
+
+profileModal.addEventListener("click", function (event) {
+  if (event.target === profileModal) closeProfile();
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") closeProfile();
+});
+
+loadProfile();
+
 function logout() {
   sessionStorage.removeItem("loggedIn");
   window.location.href = "index.html";
 }
 </script>
-
 </body>
 </html>
