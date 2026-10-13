@@ -835,36 +835,44 @@ td {
   gap: 12px;
 }
 
+```css
 .social-options {
-  display: none;
-  flex-direction: column;
-  gap: 9px;
-  align-items: flex-end;
-}
-
-.social-options.show {
   display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 162px;
 }
 
-.social-btn {
+.social-options .social-btn {
   display: flex;
   align-items: center;
   gap: 10px;
-  min-width: 150px;
-  padding: 12px 16px;
-  background: white;
-  border: 1px solid #e2eaf1;
-  border-radius: 10px;
-  color: #183451;
-  font-size: 13px;
+  width: 162px;
+  height: 40px;
+  min-height: 40px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  background: #fff;
+  color: #24384d;
+  border: 1px solid #e0e7ef;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: 600;
+  line-height: 1;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(0,0,0,.12);
+  white-space: nowrap;
 }
 
-.social-btn:hover {
-  transform: translateY(-2px);
+.social-options .social-btn svg {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  max-width: 22px;
+  flex-shrink: 0;
+  display: block;
+  fill: currentColor;
 }
+```
 
 .share-main {
   padding: 13px 20px;
