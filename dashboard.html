@@ -842,9 +842,12 @@ td {
   gap: 6px;
   width: 162px;
 }
+  .social-options.show {
+  display: flex;
+}
 
 .social-options .social-btn {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 10px;
   width: 162px;
@@ -1531,9 +1534,13 @@ function logout() {
   window.location.href = "index.html";
 }
   
+```javascript
 function toggleSocialShare() {
-  document.getElementById("socialOptions")
-    .classList.toggle("show");
+  const socialOptions = document.getElementById("socialOptions");
+
+  if (socialOptions) {
+    socialOptions.classList.toggle("show");
+  }
 }
 
 function shareSocial(platform) {
@@ -1579,7 +1586,6 @@ function shareSocial(platform) {
 
 <div class="social-options" id="socialOptions">
 
-  ```html
 <a href="#" class="social-btn whatsapp"
      onclick="shareSocial('whatsapp'); return false;">
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1588,7 +1594,6 @@ function shareSocial(platform) {
     </svg>
     WhatsApp
   </a>
-```
 
   <a href="#" class="social-btn linkedin"
      onclick="shareSocial('linkedin'); return false;">
