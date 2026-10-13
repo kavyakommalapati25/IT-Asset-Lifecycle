@@ -1534,12 +1534,18 @@ function logout() {
   window.location.href = "index.html";
 }
   
-```javascript
-function toggleSocialShare() {
-  const socialOptions = document.getElementById("socialOptions");
+function () {
+  const options = document.getElementById("socialOptions");
 
-  if (socialOptions) {
-    socialOptions.classList.toggle("show");
+  if (!options) {
+    alert("Social share options not found!");
+    return;
+  }
+
+  if (options.style.display === "flex") {
+    options.style.display = "none";
+  } else {
+    options.style.display = "flex";
   }
 }
 
@@ -1622,7 +1628,7 @@ function shareSocial(platform) {
 </div>
 
 
-  <button type="button" class="share-main" onclick="toggleSocialShare()">
+  <button type="button" class="share-main" onclick="()">
     ↗ Share
   </button>
 </div>
