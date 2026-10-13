@@ -1,57 +1,63 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset - IT Asset Lifecycle</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f1f5f9;
             min-height: 100vh;
+            color: #1e293b;
         }
 
         .header {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            background: linear-gradient(100deg, #10243e, #174a70);
             color: white;
-            padding: 18px;
+            padding: 22px;
             text-align: center;
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 23px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            box-shadow: 0 3px 12px rgba(15, 35, 60, 0.15);
         }
 
         .container {
             width: 95%;
-            max-width: 1200px;
-            margin: 35px auto;
+            max-width: 1350px;
+            margin: 30px auto;
         }
 
-        .form-box {
-            background: rgba(255, 255, 255, 0.95);
+        .form-box,
+        .report-box {
+            background: #ffffff;
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
-            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(15, 35, 60, 0.06);
+            margin-bottom: 26px;
         }
 
         .form-box h1 {
             text-align: center;
-            color: #087f8c;
-            margin-bottom: 25px;
+            color: #153b5b;
+            margin: 0 0 28px;
+            font-size: 29px;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 18px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 21px;
         }
 
         .form-group {
@@ -60,502 +66,730 @@
         }
 
         .form-group label {
-            margin-bottom: 7px;
-            color: #087f8c;
-            font-weight: bold;
+            margin-bottom: 8px;
+            color: #334e68;
+            font-size: 14px;
+            font-weight: 650;
         }
 
         input,
         select {
             width: 100%;
-            padding: 11px;
-            border: 1px solid #b7dfe2;
-            border-radius: 8px;
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
             font-size: 14px;
+            font-family: inherit;
+            background: #ffffff;
+            color: #1e293b;
             outline: none;
+            transition: 0.2s;
         }
 
         input:focus,
         select:focus {
-            border-color: #39a96b;
-            box-shadow: 0 0 5px rgba(57, 169, 107, 0.25);
+            border-color: #2878b5;
+            box-shadow: 0 0 0 3px rgba(40, 120, 181, 0.12);
         }
 
         .buttons {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 28px;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 12px 23px;
             margin: 5px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 650;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
         }
 
         .save-btn {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
-            color: white;
+            background: #176b52;
+            color: #ffffff;
+        }
+
+        .save-btn:hover {
+            background: #11543f;
         }
 
         .clear-btn {
-            background: #e8f4f4;
-            color: #087f8c;
-            border: 1px solid #b7dfe2;
+            background: #edf3f8;
+            color: #24445f;
+            border-color: #d5e0ea;
+        }
+
+        .clear-btn:hover {
+            background: #e0eaf3;
         }
 
         .back-btn {
             background: #ffffff;
-            color: #087f8c;
-            border: 1px solid #b7dfe2;
+            color: #245c87;
+            border-color: #b9ccdc;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        .save-btn:hover {
-            background: linear-gradient(90deg, #087f8c, #2d8f5b);
-        }
-
-        .clear-btn:hover,
         .back-btn:hover {
-            background: #e3f9e5;
+            background: #f0f6fb;
         }
 
         .message {
             text-align: center;
-            margin-top: 15px;
-            font-weight: bold;
+            margin: 18px 0 0;
+            font-size: 14px;
+            font-weight: 650;
+            line-height: 1.7;
+        }
+
+        .success-message {
+            color: #176b52;
+        }
+
+        .error-message {
+            color: #c0392b;
         }
 
         .report-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
             overflow-x: auto;
         }
 
-        .report-box h2 {
-            color: #087f8c;
-            margin-top: 0;
+        .report-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .report-heading h2 {
+            color: #153b5b;
+            margin: 0;
+            font-size: 23px;
+        }
+
+        .search-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .search-area input {
+            width: 220px;
+        }
+
+        .search-btn {
+            background: #245c87;
+            color: #ffffff;
+            padding: 12px 17px;
+        }
+
+        .search-btn:hover {
+            background: #17476c;
+        }
+
+        .reset-search-btn {
+            background: #edf3f8;
+            color: #24445f;
+            border-color: #d5e0ea;
+            padding: 12px 15px;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            min-width: 1000px;
+            min-width: 1050px;
         }
 
         th {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
-            color: white;
-            padding: 12px;
+            background: #173d5b;
+            color: #ffffff;
+            padding: 14px 12px;
             text-align: center;
+            font-size: 13px;
+            white-space: nowrap;
         }
 
         td {
-            padding: 11px;
+            padding: 13px 12px;
             text-align: center;
-            border-bottom: 1px solid #d5eeee;
+            border-bottom: 1px solid #e6edf3;
+            font-size: 14px;
+            white-space: nowrap;
         }
 
-        tr:nth-child(even) {
-            background: #f1fbf8;
+        tbody tr:nth-child(even) {
+            background: #f5f8fc;
         }
 
-        tr:hover {
-            background: #e3f9e5;
+        tbody tr:hover {
+            background: #eaf3fa;
+        }
+
+        .asset-id-cell {
+            color: #245c87;
+            font-weight: 700;
+        }
+
+        .status-active {
+            color: #176b52;
+            font-weight: 700;
+        }
+
+        .status-inactive {
+            color: #b45309;
+            font-weight: 700;
+        }
+
+        .no-record {
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .record-count {
+            margin: 15px 0 0;
+            color: #64748b;
+            font-size: 13px;
         }
 
         @media (max-width: 900px) {
-
             .form-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
         }
 
         @media (max-width: 600px) {
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
 
             .container {
-                width: 95%;
+                width: 94%;
+                margin: 18px auto;
             }
 
+            .form-box,
+            .report-box {
+                padding: 18px;
+            }
+
+            .report-heading {
+                align-items: stretch;
+            }
+
+            .search-area {
+                width: 100%;
+            }
+
+            .search-area input {
+                flex: 1;
+                width: 100%;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
     <div class="header">
-        IT Asset Lifecycle & Maintenance
+        IT Asset Lifecycle &amp; Maintenance Management
     </div>
-
 
     <div class="container">
 
-
-        <!-- ASSET FORM -->
+        <!-- ASSET REGISTRATION FORM -->
 
         <div class="form-box">
 
             <h1>Asset Registration</h1>
 
+            <form id="assetForm" onsubmit="saveAsset(event)">
 
-            <div class="form-grid">
+                <div class="form-grid">
 
+                    <!-- Asset ID is generated automatically -->
 
-                <div class="form-group">
+                    <div class="form-group">
+                        <label for="asset_name">Asset Name</label>
+                        <input type="text" id="asset_name"
+                               placeholder="Enter Asset Name" required>
+                    </div>
 
-                    <label>Asset ID</label>
+                    <div class="form-group">
+                        <label for="asset_type">Asset Type</label>
+                        <input type="text" id="asset_type"
+                               placeholder="Enter Asset Type" required>
+                    </div>
 
-                    <input
-                        type="text"
-                        id="asset_id"
-                        placeholder="Enter Asset ID">
+                    <div class="form-group">
+                        <label for="asset_date">Purchase Date</label>
+                        <input type="text" id="asset_date"
+                               placeholder="DD.MM.YYYY"
+                               pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.[0-9]{4}"
+                               title="Enter date as DD.MM.YYYY" required>
+                    </div>
 
-                </div>
+                    <div class="form-group">
+                        <label for="cost">Cost (₹)</label>
+                        <input type="number" id="cost"
+                               placeholder="Enter Cost"
+                               min="0.01" step="0.01" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="warranty">Warranty End Date</label>
+                        <input type="text" id="warranty"
+                               placeholder="DD.MM.YYYY"
+                               pattern="(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.[0-9]{4}"
+                               title="Enter date as DD.MM.YYYY" required>
+                    </div>
 
-                <div class="form-group">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" required>
+                            <option value="">Select Status</option>
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                    </div>
 
-                    <label>Asset Name</label>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location"
+                               placeholder="Enter Location" required>
+                    </div>
 
-                    <input
-                        type="text"
-                        id="asset_name"
-                        placeholder="Enter Asset Name">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Asset Type</label>
-
-                    <input
-                        type="text"
-                        id="asset_type"
-                        placeholder="Enter Asset Type">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Date</label>
-
-                    <input
-                        type="text"
-                        id="asset_date"
-                        placeholder="DD.MM.YYYY">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Cost</label>
-
-                    <input
-                        type="text"
-                        id="cost"
-                        placeholder="Enter Cost">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Warranty</label>
-
-                    <input
-                        type="text"
-                        id="warranty"
-                        placeholder="DD.MM.YYYY">
+                    <div class="form-group">
+                        <label for="emp_id">Employee ID</label>
+                        <input type="text" id="emp_id"
+                               placeholder="Enter Employee ID" required>
+                    </div>
 
                 </div>
 
+                <div class="buttons">
+                    <button type="submit" class="save-btn">
+                        Save Asset
+                    </button>
 
-                <div class="form-group">
+                    <button type="button" class="clear-btn"
+                            onclick="clearForm()">
+                        Clear
+                    </button>
 
-                    <label>Status</label>
-
-                    <select id="status">
-
-                        <option value="">
-                            Select Status
-                        </option>
-
-                        <option value="ACTIVE">
-                            ACTIVE
-                        </option>
-
-                        <option value="INACTIVE">
-                            INACTIVE
-                        </option>
-
-                    </select>
-
+                    <button type="button" class="back-btn"
+                            onclick="goDashboard()">
+                        Back to Dashboard
+                    </button>
                 </div>
 
+            </form>
 
-                <div class="form-group">
-
-                    <label>Location</label>
-
-                    <input
-                        type="text"
-                        id="location"
-                        placeholder="Enter Location">
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Employee ID</label>
-
-                    <input
-                        type="text"
-                        id="emp_id"
-                        placeholder="Enter Employee ID">
-
-                </div>
-
-
-            </div>
-
-
-            <div class="buttons">
-
-                <button
-                    class="save-btn"
-                    onclick="saveAsset()">
-
-                    Save Asset
-
-                </button>
-
-
-                <button
-                    class="clear-btn"
-                    onclick="clearForm()">
-
-                    Clear
-
-                </button>
-
-
-                <button
-                    class="back-btn"
-                    onclick="goDashboard()">
-
-                    Back to Dashboard
-
-                </button>
-
-            </div>
-
-
-            <p
-                id="message"
-                class="message">
-            </p>
-
+            <p id="message" class="message" aria-live="polite"></p>
 
         </div>
 
-
-
-        <!-- ASSET REPORT -->
+        <!-- ASSET REPORT AND SEARCH -->
 
         <div class="report-box">
 
-            <h2>Asset Report</h2>
+            <div class="report-heading">
 
+                <h2>Asset Report</h2>
 
-            <table>
+                <div class="search-area">
+                    <input type="search" id="searchAssetId"
+                           placeholder="Search by Asset ID"
+                           aria-label="Search by Asset ID"
+                           onkeydown="if(event.key === 'Enter'){event.preventDefault(); searchAsset();}">
 
-                <thead>
+                    <button type="button" class="search-btn"
+                            onclick="searchAsset()">
+                        Search
+                    </button>
 
-                    <tr>
+                    <button type="button" class="reset-search-btn"
+                            onclick="resetSearch()">
+                        Clear Search
+                    </button>
+                </div>
 
-                        <th>Asset ID</th>
-                        <th>Asset Name</th>
-                        <th>Asset Type</th>
-                        <th>Date</th>
-                        <th>Cost</th>
-                        <th>Warranty</th>
-                        <th>Status</th>
-                        <th>Location</th>
-                        <th>Employee ID</th>
+            </div>
 
-                    </tr>
+            <div class="table-wrap">
 
-                </thead>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Asset Name</th>
+                            <th>Asset Type</th>
+                            <th>Date</th>
+                            <th>Cost</th>
+                            <th>Warranty</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th>Employee ID</th>
+                        </tr>
+                    </thead>
 
+                    <tbody id="assetTableBody"></tbody>
+                </table>
 
-                <tbody>
+            </div>
 
-                    <tr>
-
-                        <td>ASS01</td>
-                        <td>LAPTOP</td>
-                        <td>IT EQUIPMENT</td>
-                        <td>12.09.2026</td>
-                        <td>50,000</td>
-                        <td>28.09.2027</td>
-                        <td>ACTIVE</td>
-                        <td>OFFICE</td>
-                        <td>1001</td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <p id="recordCount" class="record-count"></p>
 
         </div>
 
-
     </div>
 
-
     <script>
-
-
         /* LOGIN SESSION CHECK */
 
         if (sessionStorage.getItem("loggedIn") !== "true") {
-
             window.location.href = "index.html";
-
         }
 
+        /*
+         * DEMO STORAGE
+         * The initial sample record is added only on first setup.
+         * Existing records are preserved in this browser.
+         */
 
+        const STORAGE_KEY = "itAssetLifecycleRecords";
+        const COUNTER_KEY = "itAssetLifecycleNextId";
 
-        /* SAVE ASSET */
+        function getAssets() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                return saved ? JSON.parse(saved) : null;
+            } catch (error) {
+                return null;
+            }
+        }
 
-        function saveAsset() {
+        function initializeAssets() {
+            const existing = getAssets();
 
-            let assetId =
-                document.getElementById("asset_id").value;
-
-            let assetName =
-                document.getElementById("asset_name").value;
-
-            let assetType =
-                document.getElementById("asset_type").value;
-
-            let assetDate =
-                document.getElementById("asset_date").value;
-
-            let cost =
-                document.getElementById("cost").value;
-
-            let warranty =
-                document.getElementById("warranty").value;
-
-            let status =
-                document.getElementById("status").value;
-
-            let location =
-                document.getElementById("location").value;
-
-            let empId =
-                document.getElementById("emp_id").value;
-
-            let message =
-                document.getElementById("message");
-
-
-            if (
-                assetId === "" ||
-                assetName === "" ||
-                assetType === "" ||
-                assetDate === "" ||
-                cost === "" ||
-                warranty === "" ||
-                status === "" ||
-                location === "" ||
-                empId === ""
-            ) {
-
-                message.style.color = "red";
-
-                message.innerHTML =
-                    "Please fill all the fields.";
-
+            if (existing !== null && Array.isArray(existing)) {
                 return;
-
             }
 
+            const sampleAssets = [{
+                asset_id: "ASS01",
+                asset_name: "LAPTOP",
+                asset_type: "IT EQUIPMENT",
+                asset_date: "12.09.2026",
+                cost: "50000",
+                warranty: "28.09.2027",
+                status: "ACTIVE",
+                location: "OFFICE",
+                emp_id: "1001"
+            }];
 
-            message.style.color = "green";
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(sampleAssets)
+            );
 
-            message.innerHTML =
-                "Asset record saved successfully!";
-
+            localStorage.setItem(COUNTER_KEY, "2");
         }
 
+        /*
+         * AUTOMATIC UNIQUE ASSET ID
+         * Example: ASS002, ASS003, ASS004...
+         */
 
+        function generateAssetId(assets) {
+            let nextId = parseInt(
+                localStorage.getItem(COUNTER_KEY) || "2",
+                10
+            );
 
-        /* CLEAR FORM */
+            if (!Number.isFinite(nextId) || nextId < 2) {
+                nextId = 2;
+            }
+
+            let assetId;
+
+            do {
+                assetId = "ASS" + String(nextId).padStart(3, "0");
+                nextId++;
+            } while (
+                assets.some(asset =>
+                    asset.asset_id.toUpperCase() === assetId
+                )
+            );
+
+            localStorage.setItem(COUNTER_KEY, String(nextId));
+
+            return assetId;
+        }
+
+        function showMessage(text, isError = false) {
+            const message = document.getElementById("message");
+
+            message.textContent = text;
+            message.className = "message " +
+                (isError ? "error-message" : "success-message");
+        }
+
+        /*
+         * SAVE ASSET
+         */
+
+        function saveAsset(event) {
+            event.preventDefault();
+
+            const form = document.getElementById("assetForm");
+
+            if (!form.reportValidity()) {
+                return;
+            }
+
+            const assets = getAssets() || [];
+
+            const assetDate =
+                document.getElementById("asset_date").value.trim();
+
+            const warranty =
+                document.getElementById("warranty").value.trim();
+
+            if (!isValidDate(assetDate) || !isValidDate(warranty)) {
+                showMessage(
+                    "Please enter valid dates in DD.MM.YYYY format.",
+                    true
+                );
+                return;
+            }
+
+            const asset = {
+                asset_id: generateAssetId(assets),
+                asset_name: document.getElementById("asset_name")
+                    .value.trim(),
+                asset_type: document.getElementById("asset_type")
+                    .value.trim(),
+                asset_date: assetDate,
+                cost: document.getElementById("cost").value,
+                warranty: warranty,
+                status: document.getElementById("status").value,
+                location: document.getElementById("location")
+                    .value.trim(),
+                emp_id: document.getElementById("emp_id")
+                    .value.trim()
+            };
+
+            if (
+                !asset.asset_name ||
+                !asset.asset_type ||
+                !asset.location ||
+                !asset.emp_id
+            ) {
+                showMessage("Please fill all the fields.", true);
+                return;
+            }
+
+            assets.push(asset);
+
+            try {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(assets)
+                );
+            } catch (error) {
+                showMessage(
+                    "Unable to save data in this browser.",
+                    true
+                );
+                return;
+            }
+
+            renderAssets(assets);
+
+            showMessage(
+                "Asset registered successfully! Your Asset ID is: " +
+                asset.asset_id
+            );
+
+            form.reset();
+        }
+
+        /*
+         * VALIDATE DD.MM.YYYY
+         */
+
+        function isValidDate(value) {
+            const match = value.match(
+                /^(\d{2})\.(\d{2})\.(\d{4})$/
+            );
+
+            if (!match) return false;
+
+            const day = Number(match[1]);
+            const month = Number(match[2]);
+            const year = Number(match[3]);
+
+            const date = new Date(year, month - 1, day);
+
+            return date.getFullYear() === year &&
+                date.getMonth() === month - 1 &&
+                date.getDate() === day;
+        }
+
+        /*
+         * DISPLAY ASSET REPORT
+         */
+
+        function renderAssets(assets) {
+            const tbody = document.getElementById("assetTableBody");
+
+            tbody.replaceChildren();
+
+            if (assets.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+
+                cell.colSpan = 9;
+                cell.className = "no-record";
+                cell.textContent = "No asset records found.";
+
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                assets.forEach(asset => {
+                    const row = document.createElement("tr");
+
+                    const values = [
+                        asset.asset_id,
+                        asset.asset_name,
+                        asset.asset_type,
+                        asset.asset_date,
+                        Number(asset.cost).toLocaleString("en-IN"),
+                        asset.warranty,
+                        asset.status,
+                        asset.location,
+                        asset.emp_id
+                    ];
+
+                    values.forEach((value, index) => {
+                        const cell = document.createElement("td");
+                        cell.textContent = value ?? "";
+
+                        if (index === 0) {
+                            cell.className = "asset-id-cell";
+                        }
+
+                        if (index === 6) {
+                            cell.className =
+                                value === "ACTIVE"
+                                    ? "status-active"
+                                    : "status-inactive";
+                        }
+
+                        row.appendChild(cell);
+                    });
+
+                    tbody.appendChild(row);
+                });
+            }
+
+            document.getElementById("recordCount").textContent =
+                "Records displayed: " + assets.length;
+        }
+
+        /*
+         * SEARCH BY UNIQUE ASSET ID
+         */
+
+        function searchAsset() {
+            const searchValue = document.getElementById("searchAssetId")
+                .value.trim().toUpperCase();
+
+            const assets = getAssets() || [];
+
+            if (!searchValue) {
+                renderAssets(assets);
+                showMessage(
+                    "Enter an Asset ID to search.",
+                    true
+                );
+                return;
+            }
+
+            const results = assets.filter(asset =>
+                asset.asset_id.toUpperCase() === searchValue
+            );
+
+            renderAssets(results);
+
+            if (results.length === 0) {
+                showMessage(
+                    "No asset found with ID: " + searchValue,
+                    true
+                );
+            } else {
+                showMessage(
+                    "Asset found successfully: " + searchValue
+                );
+            }
+        }
+
+        /*
+         * RESET SEARCH AND SHOW ALL ASSETS
+         */
+
+        function resetSearch() {
+            document.getElementById("searchAssetId").value = "";
+            renderAssets(getAssets() || []);
+
+            document.getElementById("message").textContent = "";
+            document.getElementById("message").className = "message";
+        }
+
+        /*
+         * CLEAR REGISTRATION FORM
+         */
 
         function clearForm() {
+            document.getElementById("assetForm").reset();
 
-            document.getElementById("asset_id").value = "";
-
-            document.getElementById("asset_name").value = "";
-
-            document.getElementById("asset_type").value = "";
-
-            document.getElementById("asset_date").value = "";
-
-            document.getElementById("cost").value = "";
-
-            document.getElementById("warranty").value = "";
-
-            document.getElementById("status").value = "";
-
-            document.getElementById("location").value = "";
-
-            document.getElementById("emp_id").value = "";
-
-            document.getElementById("message").innerHTML = "";
-
+            document.getElementById("message").textContent = "";
+            document.getElementById("message").className = "message";
         }
 
-
-
-        /* BACK TO DASHBOARD */
+        /*
+         * BACK TO DASHBOARD
+         */
 
         function goDashboard() {
-
-            window.location.href =
-                "dashboard.html";
-
+            window.location.href = "dashboard.html";
         }
 
+        /*
+         * INITIAL PAGE LOAD
+         */
 
+        initializeAssets();
+        renderAssets(getAssets() || []);
     </script>
 
-
 </body>
-
 </html>
