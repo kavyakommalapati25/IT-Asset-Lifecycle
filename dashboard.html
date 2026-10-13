@@ -823,6 +823,48 @@ td {
   }
 }
 
+/* Share menu */
+.share-menu-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.share-submenu {
+  display: none;
+  margin: 2px 0 8px 36px;
+  padding: 7px;
+  background: #f7fbfd;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.share-submenu.show {
+  display: block;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 7px;
+  background: white;
+  color: #344b62;
+  cursor: pointer;
+  text-align: left;
+}
+
+.share-option:hover {
+  background: #e1f6f3;
+}
+
+.share-toggle[aria-expanded="true"] {
+  color: var(--primary);
+  background: #e1f6f3;
+}
+
 </style>
 </head>
 
@@ -956,6 +998,32 @@ td {
       <span class="nav-icon">▤</span>
       <span class="nav-text">Reports</span>
     </a>
+    
+<div class="share-menu-wrap">
+  <button type="button"
+    class="nav-link share-toggle"
+    id="shareToggle"
+    aria-expanded="false">
+    <span class="nav-icon">↗</span>
+    <span class="nav-text">Share</span>
+  </button>
+
+  <div class="share-submenu" id="shareSubmenu">
+    <button class="share-option" data-share="whatsapp">
+      🟢 WhatsApp
+    </button>
+    <button class="share-option" data-share="facebook">
+      🔵 Facebook
+    </button>
+    <button class="share-option" data-share="x">
+      𝕏 Twitter / X
+    </button>
+    <button class="share-option" data-share="linkedin">
+      🔷 LinkedIn
+    </button>
+  </div>
+</div>
+
 
     <button class="nav-link logout-link" onclick="logout()">
       <span class="nav-icon">⇥</span>
@@ -1418,6 +1486,37 @@ activitySearch.addEventListener("input", function () {
     toggle.setAttribute("aria-expanded", "false");
   });
 })();
+
+const shareToggle = document.getElementById("shareToggle");
+const shareSubmenu = document.getElementById("shareSubmenu");
+
+shareToggle.addEventListener("click", function () {
+  const open = shareSubmenu.classList.toggle("show");
+  shareToggle.setAttribute("aria-expanded", String(open));
+});
+
+shareSubmenu.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-share]");
+  if (!button) return;
+
+  const url = window.location.href.split("#")[0];
+  const text = "Check out AssetNexa - IT Asset Management";
+  const u = encodeURIComponent(url);
+  const t = encodeURIComponent(text);
+
+  const links = {
+    whatsapp: "https://wa.me/?text=" + encodeURIComponent(text + " " + url),
+    facebook: "https://www.facebook.com/sharer/sharer.php?u=" + u,
+    x: "https://twitter.com/intent/tweet?text=" + t + "&url=" + u,
+    linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=" + u
+  };
+
+  window.open(links[button.dataset.share],
+    "_blank", "noopener,noreferrer");
+
+  shareSubmenu.classList.remove("show");
+  shareToggle.setAttribute("aria-expanded", "false");
+});
 
 
 // Logout.
