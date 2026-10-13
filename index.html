@@ -1,188 +1,390 @@
-// DEMO OTP VARIABLES
-let generatedOTP = "";
-let otpExpiry = 0;
-let otpVerified = false;
-let otpAttempts = 0;
+<!DOCTYPE html>
+<html lang="en">
 
-// SHOW FORGOT PASSWORD
-function showForgotPassword() {
-    document.getElementById("loginSection").style.display = "none";
-    document.getElementById("resetSection").style.display = "block";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM</title>
 
-    document.getElementById("resetForm").reset();
-
-    document.getElementById("resetUsername").value =
-        document.getElementById("username").value.trim();
-
-    document.getElementById("usernameStep").style.display = "block";
-    document.getElementById("otpStep").style.display = "none";
-    document.getElementById("passwordStep").style.display = "none";
-
-    document.getElementById("resetMessage").textContent = "";
-
-    generatedOTP = "";
-    otpExpiry = 0;
-    otpVerified = false;
-    otpAttempts = 0;
-}
-
-// BACK TO LOGIN
-function showLogin() {
-    document.getElementById("resetSection").style.display = "none";
-    document.getElementById("loginSection").style.display = "block";
-
-    document.getElementById("message").textContent = "";
-    document.getElementById("resetMessage").textContent = "";
-
-    document.getElementById("resetForm").reset();
-
-    generatedOTP = "";
-    otpVerified = false;
-    otpAttempts = 0;
-}
-
-// SEND DEMO OTP
-function sendDemoOTP() {
-    const username =
-        document.getElementById("resetUsername").value.trim();
-
-    const message = document.getElementById("resetMessage");
-
-    if (!username) {
-        message.style.color = "red";
-        message.textContent = "Please enter your registered username.";
-        return;
-    }
-
-    if (username.toLowerCase() === "admin") {
-        message.style.color = "red";
-        message.textContent =
-            "Default admin password cannot be reset using demo OTP.";
-        return;
-    }
-
-    let users;
-
-    try {
-        users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
-
-        if (!Array.isArray(users)) {
-            users = [];
-        }
-    } catch (error) {
-        message.style.color = "red";
-        message.textContent = "Unable to read registered users.";
-        return;
-    }
-
-    const user = users.find(item =>
-        item.username &&
-        item.username.toLowerCase() === username.toLowerCase()
-    );
-
-    if (!user) {
-        message.style.color = "red";
-        message.textContent = "Registered username not found.";
-        return;
-    }
-
-    // Generate a six-digit DEMO OTP
-    generatedOTP = String(
-        Math.floor(100000 + Math.random() * 900000)
-    );
-
-    // OTP expires after 5 minutes
-    otpExpiry = Date.now() + 5 * 60 * 1000;
-
-    otpVerified = false;
-    otpAttempts = 0;
-
-    document.getElementById("otpInput").value = "";
-    document.getElementById("newPassword").value = "";
-    document.getElementById("confirmPassword").value = "";
-
-    document.getElementById("otpStep").style.display = "block";
-    document.getElementById("passwordStep").style.display = "none";
-
-    message.style.color = "#087f8c";
-    message.textContent =
-        "DEMO OTP: " + generatedOTP +
-        " | Valid for 5 minutes. This OTP is displayed for project demonstration only.";
-}
-
-// VERIFY DEMO OTP
-function verifyDemoOTP() {
-    const enteredOTP =
-        document.getElementById("otpInput").value.trim();
-
-    const message = document.getElementById("resetMessage");
-
-    if (!generatedOTP) {
-        message.style.color = "red";
-        message.textContent = "Please generate an OTP first.";
-        return;
-    }
-
-    if (Date.now() > otpExpiry) {
-        generatedOTP = "";
-        otpVerified = false;
-
-        message.style.color = "red";
-        message.textContent = "OTP expired. Please request a new OTP.";
-        return;
-    }
-
-    if (otpAttempts >= 5) {
-        generatedOTP = "";
-        otpVerified = false;
-
-        message.style.color = "red";
-        message.textContent =
-            "Too many incorrect attempts. Request a new OTP.";
-        return;
-    }
-
-    if (!/^\d{6}$/.test(enteredOTP) ||
-        enteredOTP !== generatedOTP) {
-
-        otpAttempts++;
-
-        message.style.color = "red";
-        message.textContent =
-            "Invalid OTP. Attempts remaining: " +
-            (5 - otpAttempts);
-
-        if (otpAttempts >= 5) {
-            generatedOTP = "";
+    <style>
+        * {
+            box-sizing: border-box;
         }
 
-        return;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            min-height: 100vh;
+        }
 
-    otpVerified = true;
-    generatedOTP = "";
+        .header {
+            min-height: 65px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px 35px;
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-    document.getElementById("passwordStep").style.display = "block";
+        .main {
+            min-height: calc(100vh - 65px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    message.style.color = "green";
-    message.textContent =
-        "OTP verified successfully. You can now change your password.";
-}
+        .login-box {
+            width: 100%;
+            max-width: 405px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            text-align: center;
+        }
 
-// SAVE NEW PASSWORD ONLY AFTER OTP VERIFICATION
-document.getElementById("resetForm").addEventListener(
-    "submit",
-    function(event) {
+        .login-box h1 {
+            color: #087f8c;
+            margin-bottom: 25px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0a6ed1;
+            box-shadow: 0 0 0 2px rgba(10, 110, 209, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
+        }
+
+        #message,
+        #resetMessage {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .login-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .register-text {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .register-text a,
+        .forgot-link,
+        .back-link {
+            color: #0b5ed7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-text a:hover,
+        .forgot-link:hover,
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-row {
+            text-align: right;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        .reset-box {
+            display: none;
+        }
+
+        .reset-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                font-size: 17px;
+                padding: 15px 18px;
+            }
+
+            .login-box {
+                padding: 25px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM
+    </div>
+
+    <div class="main">
+
+        <div class="login-box">
+
+            <img src="logo.png"
+                 class="login-logo"
+                 alt="IT Asset Lifecycle Logo">
+
+            <!-- EXISTING LOGIN SECTION -->
+            <div id="loginSection">
+
+                <h1>Welcome</h1>
+
+                <div class="subtitle">
+                    Login to access the Asset Management System
+                </div>
+
+                <form id="loginForm">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                        required>
+
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required>
+
+                    <div class="forgot-row">
+                        <a href="#" class="forgot-link"
+                           onclick="showForgotPassword(); return false;">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <p class="register-text">
+                    Not registered?
+                    <a href="register.html">Register here</a>
+                </p>
+
+                <div id="message" role="status" aria-live="polite"></div>
+
+            </div>
+
+            <!-- NEW FORGOT PASSWORD SECTION -->
+            <div id="resetSection" class="reset-box">
+
+                <h1>Reset Password</h1>
+
+                <p class="reset-description">
+                    Enter your registered username and choose a new password.
+                </p>
+
+                <form id="resetForm">
+
+                    <label for="resetUsername">Registered Username</label>
+                    <input
+                        type="text"
+                        id="resetUsername"
+                        placeholder="Enter your registered username"
+                        autocomplete="username"
+                        required>
+
+                    <label for="newPassword">New Password</label>
+                    <input
+                        type="password"
+                        id="newPassword"
+                        placeholder="Enter new password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required>
+
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter new password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required>
+
+                    <button type="submit">Save New Password</button>
+
+                </form>
+
+                <div id="resetMessage"
+                     role="status"
+                     aria-live="polite"></div>
+
+                <a href="#" class="back-link"
+                   onclick="showLogin(); return false;">
+                    Back to Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script>
+    // EXISTING LOGIN FUNCTIONALITY
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault();
+        login();
+    });
 
-        const message = document.getElementById("resetMessage");
+    function login() {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("message");
 
-        if (!otpVerified) {
+        if (!username || !password) {
             message.style.color = "red";
-            message.textContent =
-                "Please verify the OTP before changing your password.";
+            message.textContent = "Please enter username and password.";
             return;
         }
+
+        // Existing admin login remains unchanged
+        if (username === "admin" && password === "admin123") {
+            sessionStorage.setItem("loggedIn", "true");
+            sessionStorage.setItem("currentUser", "admin");
+
+            message.style.color = "green";
+            message.textContent = "Login successful!";
+
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 500);
+
+            return;
+        }
+
+        // Check registered users
+        let users;
+
+        try {
+            users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
+
+            if (!Array.isArray(users)) {
+                users = [];
+            }
+        } catch (error) {
+            users = [];
+        }
+
+        const user = users.find(item =>
+            item.username &&
+            item.username.toLowerCase() === username.toLowerCase() &&
+            item.password === password
+        );
+
+        if (user) {
+            sessionStorage.setItem("loggedIn", "true");
+            sessionStorage.setItem("currentUser", user.username);
+
+            message.style.color = "green";
+            message.textContent = "Login successful!";
+
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 500);
+        } else {
+            message.style.color = "red";
+            message.textContent = "Invalid username or password.";
+        }
+    }
+
+    // SHOW FORGOT PASSWORD SECTION
+    function showForgotPassword() {
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("resetSection").style.display = "block";
+
+        document.getElementById("resetUsername").value =
+            document.getElementById("username").value.trim();
+
+        document.getElementById("resetMessage").textContent = "";
+        document.getElementById("resetForm").reset();
+
+        // Preserve the username that was entered on the login page
+        document.getElementById("resetUsername").value =
+            document.getElementById("username").value.trim();
+    }
+
+    // RETURN TO LOGIN SECTION
+    function showLogin() {
+        document.getElementById("resetSection").style.display = "none";
+        document.getElementById("loginSection").style.display = "block";
+
+        document.getElementById("message").textContent = "";
+        document.getElementById("resetMessage").textContent = "";
+        document.getElementById("resetForm").reset();
+    }
+
+    // SAVE NEW PASSWORD FOR A REGISTERED USER
+    document.getElementById("resetForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
         const username =
             document.getElementById("resetUsername").value.trim();
@@ -193,25 +395,33 @@ document.getElementById("resetForm").addEventListener(
         const confirmPassword =
             document.getElementById("confirmPassword").value;
 
-        if (Date.now() > otpExpiry) {
-            otpVerified = false;
-            message.style.color = "red";
-            message.textContent =
-                "OTP expired. Please restart password recovery.";
+        const resetMessage =
+            document.getElementById("resetMessage");
+
+        if (!username || !newPassword || !confirmPassword) {
+            resetMessage.style.color = "red";
+            resetMessage.textContent = "Please complete all fields.";
+            return;
+        }
+
+        if (username.toLowerCase() === "admin") {
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "The default admin password cannot be reset using this form.";
             return;
         }
 
         if (newPassword.length < 6) {
-            message.style.color = "red";
-            message.textContent =
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
                 "Password must contain at least 6 characters.";
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            message.style.color = "red";
-            message.textContent =
-                "Passwords do not match.";
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "New password and confirm password do not match.";
             return;
         }
 
@@ -224,8 +434,9 @@ document.getElementById("resetForm").addEventListener(
                 users = [];
             }
         } catch (error) {
-            message.style.color = "red";
-            message.textContent = "Unable to read registered users.";
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "Unable to read registered users. Please try again.";
             return;
         }
 
@@ -235,16 +446,16 @@ document.getElementById("resetForm").addEventListener(
         );
 
         if (userIndex === -1) {
-            otpVerified = false;
-            message.style.color = "red";
-            message.textContent = "Registered user not found.";
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "Username not found. Please enter your registered username.";
             return;
         }
 
         if (users[userIndex].password === newPassword) {
-            message.style.color = "red";
-            message.textContent =
-                "Please choose a different password.";
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "Please choose a password different from your current password.";
             return;
         }
 
@@ -253,25 +464,22 @@ document.getElementById("resetForm").addEventListener(
         try {
             localStorage.setItem("assetUsers", JSON.stringify(users));
         } catch (error) {
-            message.style.color = "red";
-            message.textContent = "Unable to save the password.";
+            resetMessage.style.color = "red";
+            resetMessage.textContent =
+                "Unable to save the password. Please try again.";
             return;
         }
 
-        otpVerified = false;
-        generatedOTP = "";
-        otpExpiry = 0;
-
-        message.style.color = "green";
-        message.textContent =
-            "Password updated successfully! Please log in with your new password.";
-
-        document.getElementById("username").value = username;
-        document.getElementById("password").value = "";
+        resetMessage.style.color = "green";
+        resetMessage.textContent =
+            "Password updated successfully! You can now log in with your new password.";
 
         document.getElementById("resetForm").reset();
-        document.getElementById("usernameStep").style.display = "block";
-        document.getElementById("otpStep").style.display = "none";
-        document.getElementById("passwordStep").style.display = "none";
+        document.getElementById("username").value = username;
+        document.getElementById("password").value = "";
     }
-);
+    );
+</script>
+
+</body>
+</html>
