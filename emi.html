@@ -418,4 +418,1104 @@ tbody tr:hover {
     font-size: 10px;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 
+    padding-top: 9px;
+}
+
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .receipt-paper {
+        padding: 20px;
+    }
+
+    .receipt-footer {
+        position: static;
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .form-box, .report-box, .payments-box {
+        padding: 18px;
+    }
+
+    .report-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .receipt-overlay {
+        padding: 8px;
+    }
+
+    .receipt-top {
+        gap: 10px;
+    }
+
+    .company-name {
+        font-size: 22px;
+    }
+
+    .stamp {
+        width: 88px;
+        height: 88px;
+    }
+
+    .stamp-name {
+        font-size: 11px;
+    }
+
+    .receipt-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-paper {
+        padding: 14px;
+    }
+
+    .signature-area {
+        margin-top: 28px;
+    }
+}
+
+/* PRINT ONLY THE RECEIPT */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+
+    #receiptOverlay,
+    #receiptOverlay * {
+        visibility: visible !important;
+    }
+
+    #receiptOverlay {
+        display: block !important;
+        position: absolute;
+        inset: 0;
+        background: white;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .receipt-panel {
+        box-shadow: none;
+        border: 0;
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    .receipt-toolbar {
+        display: none !important;
+    }
+
+    .receipt-paper {
+        border: 0;
+        padding: 20px;
+        min-height: 0;
+    }
+
+    .receipt-footer {
+        position: static;
+        margin-top: 35px;
+    }
+
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    AssetNexa | IT Asset Lifecycle &amp; Maintenance
+</div>
+
+<div class="container">
+
+    <!-- EMI REGISTRATION FORM -->
+    <section class="form-box">
+        <h1>EMI Registration</h1>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="customer_name">Customer / Employee Name</label>
+                <input id="customer_name" type="text"
+                       maxlength="80" placeholder="Enter full name"
+                       autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input id="mobile" type="tel"
+                       maxlength="15" placeholder="Enter mobile number"
+                       autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+                <label for="emp_id">Employee ID</label>
+                <input id="emp_id" type="text"
+                       maxlength="40" placeholder="Enter Employee ID">
+            </div>
+
+            <div class="form-group">
+                <label for="asset_id">Asset ID</label>
+                <input id="asset_id" type="text"
+                       maxlength="40" placeholder="Enter Asset ID">
+            </div>
+
+            <div class="form-group">
+                <label for="emi_type">EMI Type</label>
+                <select id="emi_type">
+                    <option value="">Select EMI Type</option>
+                    <option value="MONTHLY">MONTHLY</option>
+                    <option value="QUARTERLY">QUARTERLY</option>
+                    <option value="YEARLY">YEARLY</option>
+                    <option value="HALF YEAR">HALF YEAR</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Per-instalment Amount (₹)</label>
+                <input id="amount" type="number"
+                       min="0.01" step="0.01"
+                       placeholder="Enter instalment amount">
+            </div>
+
+            <div class="form-group">
+                <label for="date">Start Date</label>
+                <input id="date" type="text"
+                       placeholder="DD.MM.YYYY" maxlength="10">
+            </div>
+
+            <div class="form-group">
+                <label for="date_end">End Date</label>
+                <input id="date_end" type="text"
+                       placeholder="DD.MM.YYYY" maxlength="10">
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status">
+                    <option value="">Select Status</option>
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="INACTIVE">INACTIVE</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button type="button" class="save-btn" onclick="saveEMI()">
+                Save EMI &amp; Generate Receipt
+            </button>
+
+            <button type="button" class="clear-btn" onclick="clearForm()">
+                Clear
+            </button>
+
+            <button type="button" class="back-btn" onclick="goDashboard()">
+                Back to Dashboard
+            </button>
+        </div>
+
+        <p id="message" class="message" role="status" aria-live="polite"></p>
+
+        <p class="hint">
+            The amount is the per-instalment amount, not necessarily the total
+            asset price. Saving an EMI creates a registration receipt only;
+            it does not confirm that any payment was received.
+        </p>
+    </section>
+
+    <!-- EMI REPORT -->
+    <section class="report-box">
+        <div class="report-heading">
+            <h2>EMI Report</h2>
+
+            <div class="search-box">
+                <input type="search" id="emiSearch"
+                       placeholder="Search Employee ID, Asset ID or EMI ID..."
+                       oninput="searchEMI()"
+                       aria-label="Search EMI report">
+            </div>
+        </div>
+
+        <table id="emiTable">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Customer Name</th>
+                    <th>Asset ID</th>
+                    <th>EMI ID</th>
+                    <th>EMI Type</th>
+                    <th>Instalment Amount</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Receipts / Actions</th>
+                </tr>
+            </thead>
+            <tbody id="emiRows"></tbody>
+        </table>
+
+        <p id="noResults">No matching EMI records found.</p>
+    </section>
+
+    <!-- DEMO PAYMENT TRACKING -->
+    <section class="payments-box">
+        <div class="report-heading">
+            <h2>Payment Tracking (Demo)</h2>
+            <span class="hint">
+                Use “Record Payment” only when you want to create a demo payment entry.
+            </span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Payment Receipt No.</th>
+                    <th>EMI ID</th>
+                    <th>Customer</th>
+                    <th>Amount (₹)</th>
+                    <th>Date &amp; Time</th>
+                    <th>Payment Method</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="paymentRows"></tbody>
+        </table>
+
+        <p id="noPayments" class="hint">
+            No payment entries recorded. EMI registration alone does not mean payment was received.
+        </p>
+    </section>
+
+</div>
+
+<!-- RECEIPT PREVIEW -->
+<div class="receipt-overlay" id="receiptOverlay"
+     role="dialog" aria-modal="true" aria-label="Receipt preview">
+
+    <div class="receipt-panel">
+        <div class="receipt-toolbar">
+            <div>
+                <button class="primary-btn" type="button" onclick="printReceipt()">
+                    Print / Save PDF
+                </button>
+
+                <button class="secondary-btn" type="button" onclick="closeReceipt()">
+                    Close Preview
+                </button>
+            </div>
+
+            <span class="hint">
+                In the print dialog, choose “Save as PDF” to save a PDF copy.
+            </span>
+        </div>
+
+        <div id="receiptPaper" class="receipt-paper"></div>
+    </div>
+</div>
+
+<script>
+"use strict";
+
+/* LOGIN SESSION CHECK */
+if (sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+}
+
+const EMI_STORAGE_KEY = "assetNexaEmiRecords";
+const PAYMENT_STORAGE_KEY = "assetNexaEmiPayments";
+const LEGACY_STORAGE_KEY = "itAssetEmiRecords";
+
+const money = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2
+});
+
+/* ORIGINAL DEMO RECORDS PRESERVED */
+const demoRows = [
+    {
+        employeeId: "EMP001", customerName: "", mobile: "",
+        assetId: "AST001", emiId: "EMI001",
+        emiType: "MONTHLY", amount: 5000,
+        startDate: "10.01.2026", endDate: "13.12.2026", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP010", customerName: "", mobile: "",
+        assetId: "AST0010", emiId: "EMI0010",
+        emiType: "MONTHLY", amount: 5000,
+        startDate: "01.10.2026", endDate: "30.09.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP002", customerName: "", mobile: "",
+        assetId: "AST002", emiId: "EMI002",
+        emiType: "MONTHLY", amount: 3500,
+        startDate: "10.02.2026", endDate: "13.01.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP003", customerName: "", mobile: "",
+        assetId: "AST003", emiId: "EMI003",
+        emiType: "QUARTERLY", amount: 9000,
+        startDate: "01.02.2026", endDate: "28.02.2028", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP004", customerName: "", mobile: "",
+        assetId: "AST004", emiId: "EMI004",
+        emiType: "MONTHLY", amount: 4500,
+        startDate: "01.04.2026", endDate: "31.03.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP005", customerName: "", mobile: "",
+        assetId: "AST005", emiId: "EMI005",
+        emiType: "YEARLY", amount: 4800,
+        startDate: "01.05.2026", endDate: "01.05.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP006", customerName: "", mobile: "",
+        assetId: "AST006", emiId: "EMI006",
+        emiType: "MONTHLY", amount: 6000,
+        startDate: "01.06.2026", endDate: "31.05.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP007", customerName: "", mobile: "",
+        assetId: "AST007", emiId: "EMI007",
+        emiType: "QUARTERLY", amount: 12000,
+        startDate: "01.07.2026", endDate: "01.07.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP008", customerName: "", mobile: "",
+        assetId: "AST008", emiId: "EMI008",
+        emiType: "MONTHLY", amount: 4000,
+        startDate: "01.08.2026", endDate: "31.07.2027", status: "ACTIVE"
+    },
+    {
+        employeeId: "EMP009", customerName: "", mobile: "",
+        assetId: "AST009", emiId: "EMI009",
+        emiType: "HALF YEAR", amount: 18000,
+        startDate: "01.09.2026", endDate: "01.09.2027", status: "ACTIVE"
+    }
+];
+
+function readJSON(key, fallback) {
+    try {
+        const raw = localStorage.getItem(key);
+
+        if (!raw) {
+            return fallback;
+        }
+
+        const parsed = JSON.parse(raw);
+
+        return Array.isArray(parsed) ? parsed : fallback;
+    } catch (error) {
+        console.warn("Could not read localStorage key:", key, error);
+        return fallback;
+    }
+}
+
+function writeJSON(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (error) {
+        alert("The browser could not save this record. Check browser storage space.");
+        console.error(error);
+        return false;
+    }
+}
+
+function safeText(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function(ch) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[ch];
+    });
+}
+
+function normalizeRecord(r) {
+    return {
+        employeeId: String(r.employeeId ?? r.empId ?? r.emp_id ?? "").trim(),
+        customerName: String(r.customerName ?? r.name ?? "").trim(),
+        mobile: String(r.mobile ?? r.mobileNumber ?? "").trim(),
+        assetId: String(r.assetId ?? r.asset_id ?? "").trim(),
+        emiId: String(r.emiId ?? r.emi_id ?? "").trim(),
+        emiType: String(r.emiType ?? r.emi_type ?? "").trim().toUpperCase(),
+        amount: Number(String(r.amount ?? "0").replace(/,/g, "")) || 0,
+        startDate: String(r.startDate ?? r.date ?? r.start_date ?? "").trim(),
+        endDate: String(r.endDate ?? r.dateEnd ?? r.date_end ?? "").trim(),
+        status: String(r.status ?? "ACTIVE").trim().toUpperCase(),
+        createdAt: r.createdAt || "",
+        registrationReceiptNo: r.registrationReceiptNo || "",
+        registrationReceiptTime: r.registrationReceiptTime || ""
+    };
+}
+
+/*
+ Safe migration:
+ - Uses current AssetNexa records if available.
+ - Otherwise imports legacy records.
+ - Otherwise uses the demo records.
+ - Keeps old records and adds any missing demo rows.
+*/
+function migrateAndLoadRecords() {
+    let current = readJSON(EMI_STORAGE_KEY, null);
+
+    if (!Array.isArray(current)) {
+        const old = readJSON(LEGACY_STORAGE_KEY, null);
+
+        current = Array.isArray(old)
+            ? old.map(normalizeRecord)
+            : null;
+    }
+
+    if (!current) {
+        current = demoRows.map(normalizeRecord);
+    }
+
+    current = current.map(normalizeRecord);
+
+    const ids = new Set(
+        current.map(r => r.emiId.toLowerCase())
+    );
+
+    demoRows.forEach(function(d) {
+        if (!ids.has(d.emiId.toLowerCase())) {
+            current.push(normalizeRecord(d));
+            ids.add(d.emiId.toLowerCase());
+        }
+    });
+
+    const used = new Set();
+
+    current = current.filter(function(r) {
+        if (!r.emiId || used.has(r.emiId.toLowerCase())) {
+            return false;
+        }
+
+        used.add(r.emiId.toLowerCase());
+        return true;
+    });
+
+    writeJSON(EMI_STORAGE_KEY, current);
+    return current;
+}
+
+let emiRecords = migrateAndLoadRecords();
+let paymentRecords = readJSON(PAYMENT_STORAGE_KEY, []);
+
+function makeUniqueId(prefix, existingValues) {
+    const existing = new Set(
+        existingValues.map(v => String(v).toUpperCase())
+    );
+
+    let id;
+
+    do {
+        const stamp = new Date().toISOString()
+            .replace(/[-:.TZ]/g, "")
+            .slice(0, 14);
+
+        const random = Math.floor(Math.random() * 9000 + 1000);
+
+        id = prefix + "-" + stamp + "-" + random;
+    } while (existing.has(id.toUpperCase()));
+
+    return id;
+}
+
+function nextEmiId() {
+    let max = 0;
+
+    emiRecords.forEach(function(r) {
+        const match = String(r.emiId).match(/^EMI(\d+)$/i);
+
+        if (match) {
+            max = Math.max(max, Number(match[1]));
+        }
+    });
+
+    let candidate;
+
+    do {
+        max += 1;
+        candidate = "EMI" + String(max).padStart(3, "0");
+    } while (
+        emiRecords.some(r => r.emiId.toLowerCase() === candidate.toLowerCase())
+    );
+
+    return candidate;
+}
+
+function formatDateTime(value) {
+    return new Date(value).toLocaleString("en-IN", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
+}
+
+function validDateFormat(value) {
+    const match = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(value);
+
+    if (!match) {
+        return false;
+    }
+
+    const day = Number(match[1]);
+    const month = Number(match[2]);
+    const year = Number(match[3]);
+
+    const date = new Date(year, month - 1, day);
+
+    return date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day;
+}
+
+function dateValue(value) {
+    const match = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(value);
+
+    if (!match) {
+        return NaN;
+    }
+
+    return new Date(
+        Number(match[3]),
+        Number(match[2]) - 1,
+        Number(match[1])
+    ).getTime();
+}
+
+function setMessage(text, color) {
+    const message = document.getElementById("message");
+
+    message.textContent = text;
+    message.style.color = color || "green";
+}
+
+/* SAVE EMI AND CREATE REGISTRATION RECEIPT */
+function saveEMI() {
+    const customerName = document.getElementById("customer_name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const employeeId = document.getElementById("emp_id").value.trim();
+    const assetId = document.getElementById("asset_id").value.trim();
+    const emiType = document.getElementById("emi_type").value;
+    const amountText = document.getElementById("amount").value.trim();
+    const amount = Number(amountText);
+    const startDate = document.getElementById("date").value.trim();
+    const endDate = document.getElementById("date_end").value.trim();
+    const status = document.getElementById("status").value;
+
+    if (
+        !customerName ||
+        !mobile ||
+        !employeeId ||
+        !assetId ||
+        !emiType ||
+        !amountText ||
+        !startDate ||
+        !endDate ||
+        !status
+    ) {
+        setMessage("Please fill in all fields.", "red");
+        return;
+    }
+
+    const digits = mobile.replace(/\D/g, "");
+
+    if (digits.length < 10 || digits.length > 15) {
+        setMessage("Enter a valid mobile number with 10 to 15 digits.", "red");
+        return;
+    }
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+        setMessage("Per-instalment amount must be greater than zero.", "red");
+        return;
+    }
+
+    if (!validDateFormat(startDate) || !validDateFormat(endDate)) {
+        setMessage("Enter valid dates in DD.MM.YYYY format.", "red");
+        return;
+    }
+
+    if (dateValue(endDate) < dateValue(startDate)) {
+        setMessage("End Date must be on or after Start Date.", "red");
+        return;
+    }
+
+    const now = new Date().toISOString();
+
+    const record = {
+        customerName,
+        mobile,
+        employeeId,
+        assetId,
+        emiType,
+        amount,
+        startDate,
+        endDate,
+        status,
+        emiId: nextEmiId(),
+        createdAt: now,
+        registrationReceiptNo: makeUniqueId(
+            "ANX-REG",
+            emiRecords.map(r => r.registrationReceiptNo).filter(Boolean)
+                .concat(paymentRecords.map(p => p.receiptNo))
+        ),
+        registrationReceiptTime: now
+    };
+
+    emiRecords.push(record);
+
+    if (!writeJSON(EMI_STORAGE_KEY, emiRecords)) {
+        emiRecords.pop();
+        return;
+    }
+
+    renderEMI();
+    clearForm(false);
+
+    setMessage(
+        "EMI " + record.emiId +
+        " saved. Registration receipt generated; payment is NOT confirmed.",
+        "green"
+    );
+
+    showReceipt(record, "REGISTRATION");
+}
+
+/* CLEAR FORM */
+function clearForm(clearMessage = true) {
+    [
+        "customer_name",
+        "mobile",
+        "emp_id",
+        "asset_id",
+        "amount",
+        "date",
+        "date_end"
+    ].forEach(function(id) {
+        document.getElementById(id).value = "";
+    });
+
+    ["emi_type", "status"].forEach(function(id) {
+        document.getElementById(id).value = "";
+    });
+
+    if (clearMessage) {
+        document.getElementById("message").textContent = "";
+    }
+}
+
+/* SEARCH BY EMPLOYEE ID, ASSET ID, EMI ID, CUSTOMER OR MOBILE */
+function searchEMI() {
+    const term = document.getElementById("emiSearch")
+        .value.trim().toLowerCase();
+
+    const rows = document.querySelectorAll("#emiRows tr");
+    let visible = 0;
+
+    rows.forEach(function(row) {
+        const matches = row.dataset.search.includes(term);
+
+        row.style.display = matches ? "" : "none";
+
+        if (matches) {
+            visible++;
+        }
+    });
+
+    document.getElementById("noResults").style.display =
+        visible === 0 ? "block" : "none";
+}
+
+/* RENDER EMI REPORT */
+function renderEMI() {
+    const tbody = document.getElementById("emiRows");
+    tbody.innerHTML = "";
+
+    emiRecords.forEach(function(r, index) {
+        const tr = document.createElement("tr");
+
+        tr.dataset.search = [
+            r.employeeId,
+            r.assetId,
+            r.emiId,
+            r.customerName,
+            r.mobile
+        ].join(" ").toLowerCase();
+
+        const statusClass = r.status === "ACTIVE"
+            ? "status-pill"
+            : "status-pill status-inactive";
+
+        tr.innerHTML = `
+            <td>${safeText(r.employeeId)}</td>
+            <td>${safeText(r.customerName || "—")}</td>
+            <td>${safeText(r.assetId)}</td>
+            <td>${safeText(r.emiId)}</td>
+            <td>${safeText(r.emiType)}</td>
+            <td>${safeText(money.format(r.amount))}</td>
+            <td>${safeText(r.startDate)}</td>
+            <td>${safeText(r.endDate)}</td>
+            <td><span class="${statusClass}">${safeText(r.status)}</span></td>
+            <td class="action-cell">
+                <button class="small-btn primary-btn"
+                        type="button" data-reg="${index}">
+                    Registration Receipt
+                </button>
+                <button class="small-btn secondary-btn"
+                        type="button" data-pay="${index}">
+                    Record Payment
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll("[data-reg]").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            showReceipt(emiRecords[Number(btn.dataset.reg)], "REGISTRATION");
+        });
+    });
+
+    tbody.querySelectorAll("[data-pay]").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            recordPayment(emiRecords[Number(btn.dataset.pay)]);
+        });
+    });
+
+    searchEMI();
+}
+
+/*
+ DEMO PAYMENT ENTRY:
+ The user must deliberately choose Record Payment.
+ This does not verify a bank, payment gateway or SAP transaction.
+*/
+function recordPayment(record) {
+    const amountText = prompt(
+        "Enter the instalment amount to record for this DEMO payment (₹):",
+        String(record.amount)
+    );
+
+    if (amountText === null) {
+        return;
+    }
+
+    const amount = Number(amountText.trim());
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+        alert("Enter a valid amount greater than zero.");
+        return;
+    }
+
+    const method = prompt(
+        "Enter demo payment method (for example: Cash, UPI, Bank Transfer):",
+        "UPI"
+    );
+
+    if (method === null) {
+        return;
+    }
+
+    if (!method.trim()) {
+        alert("Payment method is required.");
+        return;
+    }
+
+    const timestamp = new Date().toISOString();
+
+    const receiptNo = makeUniqueId(
+        "ANX-PAY",
+        paymentRecords.map(p => p.receiptNo).concat(
+            emiRecords.map(r => r.registrationReceiptNo).filter(Boolean)
+        )
+    );
+
+    const payment = {
+        receiptNo,
+        emiId: record.emiId,
+        customerName: record.customerName,
+        mobile: record.mobile,
+        employeeId: record.employeeId,
+        assetId: record.assetId,
+        emiType: record.emiType,
+        amount,
+        paymentMethod: method.trim(),
+        timestamp,
+        kind: "PAYMENT_DEMO"
+    };
+
+    paymentRecords.unshift(payment);
+
+    if (!writeJSON(PAYMENT_STORAGE_KEY, paymentRecords)) {
+        paymentRecords.shift();
+        return;
+    }
+
+    renderPayments();
+    showReceipt(payment, "PAYMENT");
+}
+
+/* RENDER PAYMENT TRACKING */
+function renderPayments() {
+    const tbody = document.getElementById("paymentRows");
+    tbody.innerHTML = "";
+
+    paymentRecords.forEach(function(p, index) {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${safeText(p.receiptNo)}</td>
+            <td>${safeText(p.emiId)}</td>
+            <td>${safeText(p.customerName || p.employeeId)}</td>
+            <td>${safeText(money.format(p.amount))}</td>
+            <td>${safeText(formatDateTime(p.timestamp))}</td>
+            <td>${safeText(p.paymentMethod)}</td>
+            <td>
+                <button type="button"
+                        class="small-btn primary-btn"
+                        data-pay-receipt="${index}">
+                    View Receipt
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById("noPayments").style.display =
+        paymentRecords.length ? "none" : "block";
+
+    tbody.querySelectorAll("[data-pay-receipt]").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            showReceipt(
+                paymentRecords[Number(btn.dataset.payReceipt)],
+                "PAYMENT"
+            );
+        });
+    });
+}
+
+/* RECEIPT PREVIEW WITH COMPANY STAMP AND SIGNATURE PLACEHOLDER */
+function showReceipt(record, type) {
+    const isPayment = type === "PAYMENT";
+
+    const receiptNo = isPayment
+        ? record.receiptNo
+        : (record.registrationReceiptNo ||
+           "ANX-REG-LEGACY-" + record.emiId);
+
+    const timestamp = isPayment
+        ? record.timestamp
+        : (record.registrationReceiptTime ||
+           record.createdAt ||
+           new Date().toISOString());
+
+    const title = isPayment
+        ? "Payment Receipt"
+        : "EMI Registration Receipt";
+
+    const stateText = isPayment
+        ? "DEMO PAYMENT ENTRY — NOT GATEWAY VERIFIED"
+        : "REGISTRATION ONLY — PAYMENT NOT CONFIRMED";
+
+    const amountLabel = isPayment
+        ? "Amount recorded"
+        : "Per-instalment amount";
+
+    const methodRow = isPayment
+        ? `<tr>
+               <td>Payment method entered</td>
+               <td>${safeText(record.paymentMethod)}</td>
+           </tr>`
+        : "";
+
+    const receiptPaper = document.getElementById("receiptPaper");
+
+    receiptPaper.innerHTML = `
+        <div class="receipt-top">
+            <div>
+                <div class="company-name">AssetNexa</div>
+                <div class="company-subtitle">
+                    IT Asset Lifecycle, Maintenance &amp; Management System
+                </div>
+                <div class="company-subtitle">
+                    System-generated project receipt
+                </div>
+            </div>
+
+            <div class="stamp" aria-label="AssetNexa company stamp">
+                <div class="stamp-name">ASSETNEXA</div>
+                <div class="stamp-text">IT ASSET<br>LIFECYCLE</div>
+                <div class="stamp-text">COMPANY STAMP</div>
+            </div>
+        </div>
+
+        <div class="receipt-title">${title}</div>
+        <div class="receipt-status">${stateText}</div>
+
+        <div class="receipt-meta">
+            <div><strong>Receipt No:</strong> ${safeText(receiptNo)}</div>
+            <div><strong>Date &amp; Time:</strong> ${safeText(formatDateTime(timestamp))}</div>
+            <div><strong>EMI ID:</strong> ${safeText(record.emiId)}</div>
+            <div><strong>Receipt Type:</strong> ${
+                isPayment ? "Payment entry (demo)" : "Registration"
+            }</div>
+        </div>
+
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Customer &amp; EMI Details</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Customer / Employee Name</td>
+                    <td>${safeText(record.customerName ||
+                        "Not supplied in legacy demo record")}</td>
+                </tr>
+
+                <tr>
+                    <td>Mobile Number</td>
+                    <td>${safeText(record.mobile ||
+                        "Not supplied in legacy demo record")}</td>
+                </tr>
+
+                <tr>
+                    <td>Employee ID</td>
+                    <td>${safeText(record.employeeId)}</td>
+                </tr>
+
+                <tr>
+                    <td>Asset ID</td>
+                    <td>${safeText(record.assetId)}</td>
+                </tr>
+
+                <tr>
+                    <td>EMI Type</td>
+                    <td>${safeText(record.emiType)}</td>
+                </tr>
+
+                <tr>
+                    <td>EMI Start Date</td>
+                    <td>${safeText(record.startDate || "—")}</td>
+                </tr>
+
+                <tr>
+                    <td>EMI End Date</td>
+                    <td>${safeText(record.endDate || "—")}</td>
+                </tr>
+
+                <tr>
+                    <td>EMI Status</td>
+                    <td>${safeText(record.status || "—")}</td>
+                </tr>
+
+                ${methodRow}
+
+                <tr class="total-row">
+                    <td>${amountLabel}</td>
+                    <td>${safeText(money.format(Number(record.amount) || 0))}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="receipt-note">
+            ${
+                isPayment
+                ? "This is a frontend demonstration record created by the user in this browser. It is not independently verified by a bank, payment gateway, or SAP system."
+                : "This receipt confirms that EMI registration details were saved in this browser only. It is not proof of payment, asset ownership, or SAP registration. No payment has been confirmed by this registration receipt."
+            }
+            Amount shown is the per-instalment amount where applicable.
+        </div>
+
+        <div class="signature-area">
+            <div class="signature-block">
+                <div class="signature-line"></div>
+                <div class="signature-label">Authorized Signatory</div>
+                <div>Signature / stamp placeholder</div>
+            </div>
+        </div>
+
+        <div class="receipt-footer">
+            AssetNexa • Keep this receipt for your records •
+            Browser demo only; no SAP backend connected
+        </div>
+    `;
+
+    document.getElementById("receiptOverlay").style.display = "flex";
+}
+
+/* CLOSE RECEIPT */
+function closeReceipt() {
+    document.getElementById("receiptOverlay").style.display = "none";
+}
+
+/* PRINT OR SAVE AS PDF */
+function printReceipt() {
+    window.print();
+}
+
+/* BACK TO DASHBOARD */
+function goDashboard() {
+    window.location.href = "dashboard.html";
+}
+
+/* CLOSE PREVIEW BY CLICKING OUTSIDE */
+document.getElementById("receiptOverlay").addEventListener("click", function(event) {
+    if (event.target.id === "receiptOverlay") {
+        closeReceipt();
+    }
+});
+
+/* ESC KEY CLOSES PREVIEW */
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeReceipt();
+    }
+});
+
+/* INITIALIZE TABLES */
+renderEMI();
+renderPayments();
+</script>
+
+</body>
+</html>
