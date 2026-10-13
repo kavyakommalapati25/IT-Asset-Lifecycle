@@ -14,12 +14,12 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
+            background: linear-gradient(135deg, #eef2f7, #e8edf5);
             min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            background: linear-gradient(90deg, #243b64, #456b9a);
             color: white;
             padding: 18px;
             text-align: center;
@@ -38,13 +38,13 @@
             background: rgba(255, 255, 255, 0.96);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            box-shadow: 0 8px 25px rgba(36, 59, 100, 0.14);
             margin-bottom: 30px;
         }
 
         .form-box h1 {
             text-align: center;
-            color: #087f8c;
+            color: #243b64;
             margin-bottom: 25px;
         }
 
@@ -61,7 +61,7 @@
 
         label {
             margin-bottom: 7px;
-            color: #087f8c;
+            color: #243b64;
             font-weight: bold;
         }
 
@@ -69,7 +69,7 @@
         select {
             width: 100%;
             padding: 11px;
-            border: 1px solid #b7dfe2;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 14px;
         }
@@ -77,12 +77,7 @@
         input:focus,
         select:focus {
             outline: none;
-            border-color: #39a96b;
-        }
-
-        input[readonly] {
-            background: #e8f4ff;
-            font-weight: bold;
+            border-color: #456b9a;
         }
 
         .buttons {
@@ -101,20 +96,20 @@
         }
 
         .save-btn {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            background: linear-gradient(90deg, #243b64, #456b9a);
             color: white;
         }
 
         .clear-btn {
-            background: #e8f4f4;
-            color: #087f8c;
-            border: 1px solid #b7dfe2;
+            background: #e8edf5;
+            color: #243b64;
+            border: 1px solid #cbd5e1;
         }
 
         .back-btn {
             background: white;
-            color: #087f8c;
-            border: 1px solid #b7dfe2;
+            color: #243b64;
+            border: 1px solid #cbd5e1;
         }
 
         button:hover {
@@ -133,8 +128,24 @@
         }
 
         .report-box h2 {
-            color: #087f8c;
+            color: #243b64;
             margin-top: 0;
+        }
+
+        .search-group {
+            max-width: 520px;
+            margin: 18px 0 10px;
+        }
+
+        .search-group input {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 8px rgba(36, 59, 100, 0.06);
+        }
+
+        .search-group input:focus {
+            border-color: #456b9a;
+            box-shadow: 0 0 0 3px rgba(69, 107, 154, 0.12);
         }
 
         table {
@@ -144,7 +155,7 @@
         }
 
         th {
-            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            background: linear-gradient(90deg, #243b64, #456b9a);
             color: white;
             padding: 12px;
             text-align: center;
@@ -153,15 +164,15 @@
         td {
             padding: 11px;
             text-align: center;
-            border-bottom: 1px solid #d5eeee;
+            border-bottom: 1px solid #dbe2ea;
         }
 
         tr:nth-child(even) {
-            background: #f1fbf8;
+            background: #f7f9fc;
         }
 
         tr:hover {
-            background: #e3f9e5;
+            background: #e8edf5;
         }
 
         @media (max-width: 700px) {
@@ -189,16 +200,12 @@
 
     <div class="container">
 
+        <!-- EMPLOYEE REGISTRATION -->
         <div class="form-box">
             <h1>Employee Registration</h1>
 
             <form id="employeeForm">
                 <div class="form-grid">
-
-                    <div class="form-group">
-                        <label for="emp_id">Employee ID</label>
-                        <input type="text" id="emp_id" readonly>
-                    </div>
 
                     <div class="form-group">
                         <label for="emp_name">Employee Name</label>
@@ -257,8 +264,20 @@
                 role="status" aria-live="polite"></p>
         </div>
 
+        <!-- EMPLOYEE REPORT -->
         <div class="report-box">
             <h2>Employee Report</h2>
+
+            <!-- EMPLOYEE SEARCH BAR -->
+            <div class="search-group">
+                <input
+                    type="search"
+                    id="employeeSearch"
+                    placeholder="Search by Employee ID, Name, Department, Email, Phone or Status..."
+                    aria-label="Search employees"
+                    oninput="searchEmployees()"
+                >
+            </div>
 
             <table id="employeeTable">
                 <thead>
@@ -280,60 +299,70 @@
                         <td>ABCDEF@</td><td>7569081161</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1002</td><td>—</td>
                         <td>SK HASMA</td><td>20</td>
                         <td>GHIJKLM@</td><td>6308897651</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1003</td><td>—</td>
                         <td>K RAVINDRA</td><td>30</td>
                         <td>ASDFGHJ@</td><td>9908855642</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1004</td><td>—</td>
                         <td>ASHOK</td><td>40</td>
                         <td>ASHOK@GMAI</td><td>9876543210</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1005</td><td>—</td>
                         <td>RAHUL</td><td>50</td>
                         <td>RAHUL@GMAI</td><td>9876543211</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1006</td><td>—</td>
                         <td>PRIYA</td><td>60</td>
                         <td>PRIYA@GMAI</td><td>9876543212</td>
                         <td>INACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1007</td><td>—</td>
                         <td>PRIYA</td><td>10</td>
                         <td>PRIYA@GMAI</td><td>9876543210</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1008</td><td>—</td>
                         <td>ANJALI</td><td>80</td>
                         <td>ANJALI@GMAI</td><td>9876543214</td>
                         <td>INACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1009</td><td>—</td>
                         <td>MAHESH</td><td>90</td>
                         <td>MAHESH@GMAI</td><td>9876543215</td>
                         <td>ACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>1010</td><td>—</td>
                         <td>DIVYA</td><td>100</td>
                         <td>DIVYA@GMAI</td><td>9876543216</td>
                         <td>INACTIVE</td>
                     </tr>
+
                     <tr>
                         <td>E008</td><td>—</td>
                         <td>RIYA</td><td>22</td>
@@ -358,6 +387,7 @@
                 const data = JSON.parse(
                     localStorage.getItem(STORAGE_KEY) || "[]"
                 );
+
                 return Array.isArray(data) ? data : [];
             } catch (error) {
                 return [];
@@ -402,7 +432,8 @@
 
                 if (match) {
                     maxNumber = Math.max(
-                        maxNumber, Number(match[1])
+                        maxNumber,
+                        Number(match[1])
                     );
                 }
             });
@@ -444,6 +475,8 @@
             getEmployees().forEach(employee => {
                 addEmployeeRow(employee, true);
             });
+
+            searchEmployees();
         }
 
         // Save employee details.
@@ -475,10 +508,10 @@
             try {
                 const employees = getEmployees();
 
-                // Generate ID only when Save Employee is clicked.
+                // Generate ID when Save Employee is clicked.
                 employee.empId = generateEmployeeId();
 
-                // Generate the registration number.
+                // Generate registration number.
                 employee.registrationNumber =
                     generateRegistrationNumber();
 
@@ -490,7 +523,7 @@
                     JSON.stringify(employees)
                 );
 
-                // Update the report immediately.
+                // Update report immediately.
                 renderSavedEmployees();
 
                 message.style.color = "green";
@@ -502,9 +535,6 @@
 
                 employeeForm.reset();
 
-                // Keep Employee ID blank after saving.
-                document.getElementById("emp_id").value = "";
-
             } catch (error) {
                 console.error("Employee save error:", error);
                 message.style.color = "red";
@@ -513,10 +543,9 @@
             }
         });
 
-        // Clear all form fields and keep Employee ID blank.
+        // Clear all form fields.
         function clearForm() {
             employeeForm.reset();
-            document.getElementById("emp_id").value = "";
             message.textContent = "";
         }
 
@@ -525,18 +554,28 @@
             window.location.href = "dashboard.html";
         }
 
+        // Search by any displayed employee detail.
+        function searchEmployees() {
+            const query = document.getElementById("employeeSearch")
+                .value.trim().toLowerCase();
+
+            employeeRows.querySelectorAll("tr").forEach(row => {
+                const rowText = row.textContent.toLowerCase();
+
+                row.style.display =
+                    rowText.includes(query) ? "" : "none";
+            });
+        }
+
         // Login protection.
         if (sessionStorage.getItem("loggedIn") !== "true") {
             window.location.replace("index.html");
         }
 
-        // Load records when the page opens.
+        // Load saved records when the page opens.
         renderSavedEmployees();
 
-        // Do not display an Employee ID by default.
-        document.getElementById("emp_id").value = "";
     </script>
 
 </body>
 </html>
-
