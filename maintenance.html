@@ -194,6 +194,27 @@
             }
 
         }
+        .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.report-header h2 {
+    margin: 0;
+    color: #087f8c;
+}
+
+.search-box {
+    width: 280px;
+    padding: 11px 15px;
+    border: 1px solid #b7dfe2;
+    border-radius: 8px;
+    font-size: 14px;
+}
 
     </style>
 
@@ -344,7 +365,17 @@
 
         <div class="report-box">
 
-            <h2>Maintenance Report</h2>
+            <div class="report-header">
+    <h2>Maintenance Report</h2>
+
+    <input
+        type="text"
+        id="reportSearch"
+        class="search-box"
+        placeholder="🔍 Search maintenance records..."
+        oninput="searchMaintenance()"
+    >
+</div>
 
 
             <table>
