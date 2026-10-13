@@ -29,7 +29,7 @@
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1250px;
             margin: 35px auto;
         }
 
@@ -100,7 +100,7 @@
             color: white;
         }
 
-        .clear-btn, .back-btn {
+        .clear-btn, .back-btn, .search-btn {
             background: #e8f4f4;
             color: #087f8c;
             border: 1px solid #b7dfe2;
@@ -114,6 +114,14 @@
             text-align: center;
             margin-top: 15px;
             font-weight: bold;
+        }
+
+        .search-box {
+            display: grid;
+            grid-template-columns: 200px 1fr auto auto;
+            gap: 12px;
+            margin: 20px 0;
+            align-items: center;
         }
 
         .table-wrapper {
@@ -130,6 +138,7 @@
             background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
             padding: 12px;
+            white-space: nowrap;
         }
 
         td {
@@ -142,8 +151,22 @@
             background: #f1fbf8;
         }
 
-        @media (max-width: 700px) {
+        tbody tr:hover {
+            background: #e3f9e5;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        @media (max-width: 800px) {
             .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
                 grid-template-columns: 1fr;
             }
 
@@ -166,6 +189,7 @@
 
     <div class="container">
 
+        <!-- DISPOSAL REGISTRATION -->
         <div class="form-box">
             <h1>Disposal Registration</h1>
 
@@ -173,23 +197,23 @@
                 <div class="form-grid">
 
                     <div class="form-group">
+                        <label for="employee_id">Employee ID</label>
+                        <input type="text" id="employee_id"
+                               placeholder="Enter Employee ID" required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="asset_id">Asset ID</label>
-                        <input
-                            type="text"
-                            id="asset_id"
-                            placeholder="Enter Asset ID"
-                            required>
+                        <input type="text" id="asset_id"
+                               placeholder="Enter Asset ID" required>
                     </div>
 
                     <div class="form-group">
                         <label for="disposal_date">Disposal Date</label>
-                        <input
-                            type="text"
-                            id="disposal_date"
-                            placeholder="DD.MM.YYYY"
-                            pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
-                            title="Enter date as DD.MM.YYYY"
-                            required>
+                        <input type="text" id="disposal_date"
+                               placeholder="DD.MM.YYYY"
+                               pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                               title="Enter date as DD.MM.YYYY" required>
                     </div>
 
                     <div class="form-group">
@@ -222,10 +246,8 @@
                         Clear
                     </button>
 
-                    <button
-                        type="button"
-                        class="back-btn"
-                        onclick="goDashboard()">
+                    <button type="button" class="back-btn"
+                            onclick="goDashboard()">
                         Back to Dashboard
                     </button>
                 </div>
@@ -234,14 +256,37 @@
             <p id="message" class="message" role="status"></p>
         </div>
 
+        <!-- DISPOSAL REPORT -->
         <div class="report-box">
             <h2>Disposal Report</h2>
+
+            <!-- SEARCH BAR -->
+            <div class="search-box">
+                <select id="searchField" aria-label="Search field">
+                    <option value="asset">Search by Asset ID</option>
+                    <option value="employee">Search by Employee ID</option>
+                </select>
+
+                <input type="text" id="searchInput"
+                       placeholder="Enter Asset ID to search">
+
+                <button type="button" class="search-btn"
+                        onclick="searchRecords()">
+                    Search
+                </button>
+
+                <button type="button" class="clear-btn"
+                        onclick="clearSearch()">
+                    Clear Search
+                </button>
+            </div>
 
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th>Disposal ID</th>
+                            <th>Employee ID</th>
                             <th>Asset ID</th>
                             <th>Disposal Date</th>
                             <th>Disposal Type</th>
@@ -252,6 +297,8 @@
                     <tbody id="disposalTableBody"></tbody>
                 </table>
             </div>
+
+            <p id="searchMessage" class="message" role="status"></p>
         </div>
 
     </div>
@@ -263,17 +310,19 @@
 
         const STORAGE_KEY = "itAssetDisposalRecords";
 
+        // Employee IDs for the existing records were not provided.
+        // They are intentionally left blank rather than guessed.
         const initialRecords = [
-            { id: 6001, asset: "1001", date: "20.09.2026", type: "SOLD", status: "COMPLETED" },
-            { id: 6002, asset: "1002", date: "22.09.2026", type: "DONATED", status: "COMPLETED" },
-            { id: 6003, asset: "1003", date: "25.09.2026", type: "SCRAPPED", status: "COMPLETED" },
-            { id: 6004, asset: "1004", date: "28.09.2026", type: "SCRAPPED", status: "DISPOSED" },
-            { id: 6005, asset: "1005", date: "29.09.2026", type: "SOLD", status: "COMPLETED" },
-            { id: 6006, asset: "1006", date: "30.09.2026", type: "DONATED", status: "COMPLETED" },
-            { id: 6007, asset: "1007", date: "30.09.2026", type: "SCRAPPED", status: "DISPOSED" },
-            { id: 6008, asset: "1008", date: "01.10.2026", type: "SOLD", status: "COMPLETED" },
-            { id: 6009, asset: "1009", date: "02.10.2026", type: "DONATED", status: "COMPLETED" },
-            { id: 6010, asset: "1010", date: "02.10.2026", type: "SCRAPPED", status: "DISPOSED" }
+            { id: 6001, employee: "", asset: "1001", date: "20.09.2026", type: "SOLD", status: "COMPLETED" },
+            { id: 6002, employee: "", asset: "1002", date: "22.09.2026", type: "DONATED", status: "COMPLETED" },
+            { id: 6003, employee: "", asset: "1003", date: "25.09.2026", type: "SCRAPPED", status: "COMPLETED" },
+            { id: 6004, employee: "", asset: "1004", date: "28.09.2026", type: "SCRAPPED", status: "DISPOSED" },
+            { id: 6005, employee: "", asset: "1005", date: "29.09.2026", type: "SOLD", status: "COMPLETED" },
+            { id: 6006, employee: "", asset: "1006", date: "30.09.2026", type: "DONATED", status: "COMPLETED" },
+            { id: 6007, employee: "", asset: "1007", date: "30.09.2026", type: "SCRAPPED", status: "DISPOSED" },
+            { id: 6008, employee: "", asset: "1008", date: "01.10.2026", type: "SOLD", status: "COMPLETED" },
+            { id: 6009, employee: "", asset: "1009", date: "02.10.2026", type: "DONATED", status: "COMPLETED" },
+            { id: 6010, employee: "", asset: "1010", date: "02.10.2026", type: "SCRAPPED", status: "DISPOSED" }
         ];
 
         function loadRecords() {
@@ -282,7 +331,12 @@
 
                 if (saved !== null) {
                     const records = JSON.parse(saved);
-                    return Array.isArray(records) ? records : [...initialRecords];
+                    return Array.isArray(records)
+                        ? records.map(record => ({
+                            ...record,
+                            employee: record.employee || ""
+                        }))
+                        : [...initialRecords];
                 }
 
                 localStorage.setItem(
@@ -298,17 +352,31 @@
 
         let disposalRecords = loadRecords();
 
-        function displayRecords() {
+        function displayRecords(records = disposalRecords) {
             const tableBody =
                 document.getElementById("disposalTableBody");
 
             tableBody.replaceChildren();
 
-            disposalRecords.forEach(record => {
+            if (records.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+
+                cell.colSpan = 6;
+                cell.className = "no-results";
+                cell.textContent = "No matching disposal records found.";
+
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+                return;
+            }
+
+            records.forEach(record => {
                 const row = document.createElement("tr");
 
                 [
                     record.id,
+                    record.employee || "—",
                     record.asset,
                     record.date,
                     record.type,
@@ -323,9 +391,74 @@
             });
         }
 
+        function searchRecords() {
+            const searchField =
+                document.getElementById("searchField").value;
+
+            const searchValue =
+                document.getElementById("searchInput")
+                    .value.trim().toLowerCase();
+
+            const searchMessage =
+                document.getElementById("searchMessage");
+
+            if (!searchValue) {
+                displayRecords();
+                searchMessage.style.color = "#087f8c";
+                searchMessage.textContent =
+                    "Enter an Employee ID or Asset ID to search.";
+                return;
+            }
+
+            const filteredRecords = disposalRecords.filter(record => {
+                const fieldValue = searchField === "employee"
+                    ? record.employee
+                    : record.asset;
+
+                return String(fieldValue || "")
+                    .toLowerCase()
+                    .includes(searchValue);
+            });
+
+            displayRecords(filteredRecords);
+
+            searchMessage.style.color = "#087f8c";
+            searchMessage.textContent =
+                filteredRecords.length + " matching record(s) found.";
+        }
+
+        function clearSearch() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("searchMessage").textContent = "";
+            displayRecords();
+        }
+
+        document.getElementById("searchField")
+            .addEventListener("change", function() {
+                document.getElementById("searchInput").value = "";
+                document.getElementById("searchInput").placeholder =
+                    this.value === "employee"
+                        ? "Enter Employee ID to search"
+                        : "Enter Asset ID to search";
+
+                document.getElementById("searchMessage").textContent = "";
+                displayRecords();
+            });
+
+        document.getElementById("searchInput")
+            .addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    searchRecords();
+                }
+            });
+
         document.getElementById("disposalForm")
             .addEventListener("submit", function(event) {
                 event.preventDefault();
+
+                const employeeId =
+                    document.getElementById("employee_id").value.trim();
 
                 const assetId =
                     document.getElementById("asset_id").value.trim();
@@ -339,8 +472,7 @@
                 const disposalStatus =
                     document.getElementById("disposal_status").value;
 
-                const message =
-                    document.getElementById("message");
+                const message = document.getElementById("message");
 
                 const dateMatch = disposalDate.match(
                     /^(\d{2})\.(\d{2})\.(\d{4})$/
@@ -356,7 +488,6 @@
                 const day = Number(dateMatch[1]);
                 const month = Number(dateMatch[2]);
                 const year = Number(dateMatch[3]);
-
                 const date = new Date(year, month - 1, day);
 
                 if (
@@ -369,11 +500,9 @@
                     return;
                 }
 
-                const duplicateAsset = disposalRecords.some(
-                    record => record.asset === assetId
-                );
-
-                if (duplicateAsset) {
+                if (disposalRecords.some(record =>
+                    record.asset === assetId
+                )) {
                     message.style.color = "red";
                     message.textContent =
                         "A disposal record already exists for this Asset ID.";
@@ -388,6 +517,7 @@
 
                 const newRecord = {
                     id: nextId,
+                    employee: employeeId,
                     asset: assetId,
                     date: disposalDate,
                     type: disposalType,
@@ -405,11 +535,12 @@
                     disposalRecords.pop();
                     message.style.color = "red";
                     message.textContent =
-                        "Could not save in this browser. Check browser storage settings.";
+                        "Unable to save this record in browser storage.";
                     return;
                 }
 
                 displayRecords();
+                clearSearch();
 
                 message.style.color = "green";
                 message.textContent =
