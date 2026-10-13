@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Asset Lifecycle Management</title>
+    <title>IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -14,350 +14,220 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dff6ff, #e3f9e5);
             min-height: 100vh;
+        }
+
+        .header {
+            height: 65px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 35px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .main {
+            height: calc(100vh - 65px);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #d8f3e8, #e8f5e9);
         }
 
         .login-box {
-            background: white;
-            width: 380px;
-            max-width: 92%;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            width: 360px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 120, 140, 0.18);
+            text-align: center;
         }
 
-        h2 {
-            text-align: center;
-            color: #087f5b;
-            margin-bottom: 8px;
+        .login-box h1 {
+            color: #087f8c;
+            margin-bottom: 25px;
         }
 
         .subtitle {
             text-align: center;
             color: #666;
-            font-size: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         label {
             display: block;
-            margin-top: 15px;
-            margin-bottom: 6px;
+            margin-top: 18px;
+            margin-bottom: 7px;
             font-weight: bold;
             color: #333;
         }
 
         input {
-            width: 100%;
+            width: 90%;
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            outline: none;
+            margin: 8px 0;
+            border: 1px solid #b7dfe2;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: left;
+            box-sizing: border-box;
         }
 
         input:focus {
-            border-color: #087f5b;
+            outline: none;
+            border-color: #0a6ed1;
         }
 
         button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 18px;
-            border: none;
-            border-radius: 7px;
-            background: #087f5b;
+            width: 96%;
+            padding: 13px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #0b8f9c, #39a96b);
             color: white;
+            border: none;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
         }
 
         button:hover {
-            background: #066b4c;
+            background: linear-gradient(90deg, #087f8c, #2d8f5b);
         }
 
-        .forgot-link {
-            display: block;
-            text-align: right;
-            margin-top: 10px;
-            color: #087f5b;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .register-link {
+        #message {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        .login-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .register-text {
+            margin-top: 15px;
             font-size: 14px;
         }
 
-        a {
-            color: #087f5b;
+        .register-text a {
+            color: #0b5ed7;
             text-decoration: none;
             font-weight: bold;
         }
 
-        #forgotBox {
-            display: none;
-            margin-top: 22px;
-            padding-top: 18px;
-            border-top: 1px solid #ddd;
+        .register-text a:hover {
+            text-decoration: underline;
         }
 
-        #message {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-            overflow-wrap: anywhere;
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #087f5b;
-            cursor: pointer;
-            font-size: 14px;
-        }
     </style>
+
 </head>
 
 <body>
 
-    <div class="login-box">
+    <div class="header">
+        IT ASSET LIFECYCLE, MAINTENANCE AND MANAGEMENT SYSTEM
+    </div>
 
-        <h2>ALHUMA</h2>
+    <div class="main">
 
-        <p class="subtitle">
-            IT Asset Lifecycle, Maintenance and Management System
-        </p>
+        <div class="login-box">
 
-        <!-- LOGIN FORM -->
-        <div id="loginBox">
+            <img src="logo.png"
+                 class="login-logo"
+                 alt="IT Asset Lifecycle Logo">
 
-            <form onsubmit="login(event)">
+            <h1>Welcome</h1>
 
-                <label for="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    placeholder="Enter username"
-                    required
-                >
-
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    required
-                >
-
-                <span class="forgot-link" onclick="showForgotPassword()">
-                    Forgot Password?
-                </span>
-
-                <button type="submit">Login</button>
-
-            </form>
-
-            <div class="register-link">
-                Don't have an account?
-                <a href="register.html">Register Here</a>
+            <div class="subtitle">
+                Login to access the Asset Management System
             </div>
 
-        </div>
+            <label>Username</label>
 
-        <!-- FORGOT PASSWORD FORM -->
-        <div id="forgotBox">
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username">
 
-            <h3 style="text-align:center; color:#087f5b;">
-                Reset Password
-            </h3>
+            <label>Password</label>
 
-            <form onsubmit="resetPassword(event)">
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password">
 
-                <label for="resetUsername">Username</label>
-                <input
-                    type="text"
-                    id="resetUsername"
-                    placeholder="Enter your username"
-                    required
-                >
+            <button onclick="login()">
+                Login
+            </button>
 
-                <label for="newPassword">New Password</label>
-                <input
-                    type="password"
-                    id="newPassword"
-                    placeholder="Enter new password"
-                    minlength="6"
-                    required
-                >
+            <p class="register-text">
+                Not registered?
+                <a href="register.html">Register here</a>
+            </p>
 
-                <label for="confirmPassword">Confirm Password</label>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm new password"
-                    minlength="6"
-                    required
-                >
-
-                <button type="submit">Reset Password</button>
-
-            </form>
-
-            <span class="back-link" onclick="hideForgotPassword()">
-                ← Back to Login
-            </span>
+            <div id="message"></div>
 
         </div>
-
-        <div id="message" role="status"></div>
 
     </div>
 
-    <script>
-        // LOGIN FUNCTION
-        function login(event) {
-            event.preventDefault();
+<script>
 
-            const username =
-                document.getElementById("username").value.trim();
+function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
 
-            const password =
-                document.getElementById("password").value;
+    if (!username || !password) {
+        message.style.color = "red";
+        message.textContent = "Please enter username and password.";
+        return;
+    }
 
-            const message = document.getElementById("message");
+    // Existing admin login
+    if (username === "admin" && password === "admin123") {
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("currentUser", "admin");
+        message.style.color = "green";
+        message.textContent = "Login successful!";
 
-            // Admin login
-            if (username === "admin" && password === "admin123") {
-                message.style.color = "green";
-                message.textContent = "Admin login successful!";
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 500);
+        return;
+    }
 
-                // Change dashboard.html to your actual dashboard filename.
-                setTimeout(function () {
-                    window.location.href = "dashboard.html";
-                }, 700);
+    // Check registered users
+    const users = JSON.parse(localStorage.getItem("assetUsers") || "[]");
 
-                return;
-            }
+    const user = users.find(
+        item =>
+            item.username.toLowerCase() === username.toLowerCase() &&
+            item.password === password
+    );
 
-            // Registered user login
-            const users = JSON.parse(
-                localStorage.getItem("assetUsers") || "[]"
-            );
+    if (user) {
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("currentUser", user.username);
 
-            const user = users.find(function (item) {
-                return item.username === username &&
-                       item.password === password;
-            });
+        message.style.color = "green";
+        message.textContent = "Login successful!";
 
-            if (user) {
-                message.style.color = "green";
-                message.textContent = "Login successful!";
-
-                // Change dashboard.html to your actual dashboard filename.
-                setTimeout(function () {
-                    window.location.href = "dashboard.html";
-                }, 700);
-            } else {
-                message.style.color = "red";
-                message.textContent =
-                    "Invalid username or password!";
-            }
-        }
-
-        // SHOW FORGOT PASSWORD FORM
-        function showForgotPassword() {
-            document.getElementById("loginBox").style.display = "none";
-            document.getElementById("forgotBox").style.display = "block";
-            document.getElementById("message").textContent = "";
-        }
-
-        // BACK TO LOGIN
-        function hideForgotPassword() {
-            document.getElementById("forgotBox").style.display = "none";
-            document.getElementById("loginBox").style.display = "block";
-            document.getElementById("message").textContent = "";
-
-            document.getElementById("resetUsername").value = "";
-            document.getElementById("newPassword").value = "";
-            document.getElementById("confirmPassword").value = "";
-        }
-
-        // RESET PASSWORD
-        function resetPassword(event) {
-            event.preventDefault();
-
-            const username =
-                document.getElementById("resetUsername").value.trim();
-
-            const newPassword =
-                document.getElementById("newPassword").value;
-
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            const message = document.getElementById("message");
-
-            if (username === "admin") {
-                message.style.color = "red";
-                message.textContent =
-                    "Admin password cannot be reset here.";
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                message.style.color = "red";
-                message.textContent =
-                    "Password must contain at least 6 characters.";
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                message.style.color = "red";
-                message.textContent =
-                    "Passwords do not match!";
-                return;
-            }
-
-            const users = JSON.parse(
-                localStorage.getItem("assetUsers") || "[]"
-            );
-
-            const userIndex = users.findIndex(function (item) {
-                return item.username === username;
-            });
-
-            if (userIndex === -1) {
-                message.style.color = "red";
-                message.textContent =
-                    "Username not found. Please check your username.";
-                return;
-            }
-
-            users[userIndex].password = newPassword;
-
-            localStorage.setItem(
-                "assetUsers",
-                JSON.stringify(users)
-            );
-
-            message.style.color = "green";
-            message.textContent =
-                "Password reset successful! Please log in.";
-
-            document.getElementById("forgotBox").style.display = "none";
-            document.getElementById("loginBox").style.display = "block";
-
-            document.getElementById("username").value = username;
-            document.getElementById("password").value = "";
-        }
-    </script>
-
-</body>
-</html>
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 500);
+    } else {
+        message.style.color = "red";
+        message.textContent = "Invalid username or password.";
+    }
+}
+</script>
