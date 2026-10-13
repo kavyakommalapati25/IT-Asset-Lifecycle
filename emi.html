@@ -1,724 +1,421 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMI Billing - AssetNexa</title>
+<title>EMI - AssetNexa</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef2f7,#e8edf5);color:#243b64}
-.header{background:linear-gradient(90deg,#243b64,#456b9a);color:#fff;padding:18px;text-align:center;font-size:22px;font-weight:bold}
-.container{width:95%;max-width:1300px;margin:30px auto}
-.form-box,.report-box{background:#fff;padding:28px;border-radius:16px;box-shadow:0 8px 25px rgba(36,59,100,.14);margin-bottom:28px}
-h1,h2{color:#243b64}
-h1{text-align:center;margin-top:0}
-.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.form-group{display:flex;flex-direction:column}
-.form-group label{margin-bottom:7px;font-weight:bold}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff;color:#243b64}
-input:focus,select:focus{outline:2px solid #b8d1f0;border-color:#456b9a}
-.buttons{text-align:center;margin-top:24px}
-button{padding:11px 17px;margin:4px;border:0;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer}
-button:hover{opacity:.88}
-.save-btn,.primary-btn{background:linear-gradient(90deg,#243b64,#456b9a);color:#fff}
-.clear-btn{background:#e8edf5;color:#243b64;border:1px solid #cbd5e1}
-.back-btn,.secondary-btn{background:#fff;color:#243b64;border:1px solid #cbd5e1}
-.small-btn{padding:7px 9px;font-size:12px;margin:2px}
-.message{text-align:center;margin-top:16px;font-weight:bold;overflow-wrap:anywhere}
-.note{font-size:13px;color:#64748b;line-height:1.5}
-.report-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.report-heading h2{margin:0}
-.search-box{width:400px;max-width:100%}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;margin-top:18px;min-width:1350px}
-th{background:linear-gradient(90deg,#243b64,#456b9a);color:#fff;padding:12px;white-space:nowrap}
-td{padding:10px;text-align:center;border-bottom:1px solid #dbe2ea}
-tbody tr:nth-child(even){background:#f4f7fb}
-tbody tr:hover{background:#e5edf8}
-.empty-message{display:none;text-align:center;padding:20px;color:#64748b}
-.status-active{color:#137547;font-weight:bold}
-.status-inactive{color:#b45309;font-weight:bold}
-.paid-label{color:#137547;font-weight:bold}
-.unpaid-label{color:#b45309;font-weight:bold}
-
-/* Modal and receipt */
-.overlay{position:fixed;inset:0;background:rgba(15,23,42,.68);z-index:1000;display:none;overflow-y:auto;padding:24px 12px}
-.overlay.open{display:flex;align-items:flex-start;justify-content:center}
-.dialog{width:100%;max-width:760px;margin:auto;background:#fff;border-radius:12px;overflow:hidden;color:#1e293b}
-.dialog-actions{padding:12px;text-align:right;background:#f1f5f9;border-bottom:1px solid #dbe2ea}
-.receipt{padding:34px;color:#1e293b}
-.receipt-brand{background:linear-gradient(90deg,#243b64,#456b9a);color:white;margin:-34px -34px 25px;padding:24px 34px}
-.receipt-brand h2{color:#fff;margin:0 0 7px}
-.receipt-brand p{margin:0}
-.receipt-title{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid #243b64;padding-bottom:14px}
-.receipt-title h3{margin:0}
-.receipt-badge{display:inline-block;background:#e0f2e9;color:#166534;padding:7px 12px;border-radius:5px;font-weight:bold;font-size:12px}
-.receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 25px;margin-top:24px}
-.receipt-field{padding-bottom:9px;border-bottom:1px solid #e2e8f0;overflow-wrap:anywhere}
-.receipt-field span{display:block;font-size:12px;color:#64748b;margin-bottom:5px}
-.receipt-field strong{font-size:14px}
-.receipt-total{margin-top:25px;padding:18px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe}
-.receipt-total span{display:block;font-size:13px;color:#475569}
-.receipt-total strong{display:block;font-size:25px;margin-top:6px;color:#243b64;overflow-wrap:anywhere}
-.receipt-note{margin-top:22px;padding:12px;background:#f8fafc;border-left:4px solid #456b9a;font-size:12px;line-height:1.6}
-.receipt-footer{text-align:center;margin-top:24px;font-size:12px;color:#64748b}
-.payment-form{padding:25px}
-.payment-form h2{margin-top:0}
-.payment-form .form-grid{grid-template-columns:1fr 1fr}
-.payment-warning{font-size:13px;color:#92400e;background:#fffbeb;padding:12px;border-radius:8px;line-height:1.5}
-@media(max-width:850px){.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:580px){
- .form-grid,.receipt-grid,.payment-form .form-grid{grid-template-columns:1fr}
- .form-box,.report-box{padding:18px}
- .receipt{padding:22px}
- .receipt-brand{margin:-22px -22px 22px;padding:22px}
- .report-heading{align-items:stretch;flex-direction:column}
- .search-box{width:100%}
-}
-@media print{
- body *{visibility:hidden!important}
- #receiptOverlay,#receiptOverlay *{visibility:visible!important}
- #receiptOverlay{display:block!important;position:absolute;inset:0;padding:0;background:#fff;overflow:visible}
- #receiptDialog{max-width:none;width:100%;border-radius:0;overflow:visible}
- .dialog-actions{display:none!important}
- .receipt{padding:18mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .receipt-brand{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-}
-</style>
-</head>
-<body>
-
-<div class="header">IT Asset Lifecycle &amp; Maintenance</div>
-
-<div class="container">
-<section class="form-box">
-<h1>EMI Registration &amp; Billing</h1>
-
-<form id="emiForm">
-<div class="form-grid">
- <div class="form-group">
-  <label for="emp_id">Employee ID *</label>
-  <input id="emp_id" type="text" maxlength="40" placeholder="Enter Employee ID" required>
- </div>
- <div class="form-group">
-  <label for="customer_name">Customer / Employee Name *</label>
-  <input id="customer_name" type="text" maxlength="100" placeholder="Enter full name" required>
- </div>
- <div class="form-group">
-  <label for="mobile">Mobile Number *</label>
-  <input id="mobile" type="tel" maxlength="15" inputmode="tel" placeholder="Enter mobile number" required>
- </div>
- <div class="form-group">
-  <label for="asset_id">Asset ID *</label>
-  <input id="asset_id" type="text" maxlength="40" placeholder="Enter Asset ID" required>
- </div>
- <div class="form-group">
-  <label for="emi_type">EMI Type *</label>
-  <select id="emi_type" required>
-   <option value="">Select EMI Type</option>
-   <option value="MONTHLY">MONTHLY</option>
-   <option value="QUARTERLY">QUARTERLY</option>
-   <option value="YEARLY">YEARLY</option>
-   <option value="HALF YEAR">HALF YEAR</option>
-  </select>
- </div>
- <div class="form-group">
-  <label for="amount">Amount per Instalment *</label>
-  <input id="amount" type="number" min="0.01" step="0.01" placeholder="Enter instalment amount" required>
- </div>
- <div class="form-group">
-  <label for="date">Start Date *</label>
-  <input id="date" type="text" placeholder="DD.MM.YYYY" maxlength="10" required>
- </div>
- <div class="form-group">
-  <label for="date_end">End Date *</label>
-  <input id="date_end" type="text" placeholder="DD.MM.YYYY" maxlength="10" required>
- </div>
- <div class="form-group">
-  <label for="status">Status *</label>
-  <select id="status" required>
-   <option value="">Select Status</option>
-   <option value="ACTIVE">ACTIVE</option>
-   <option value="INACTIVE">INACTIVE</option>
-  </select>
- </div>
-</div>
-
-<div class="buttons">
- <button type="submit" class="save-btn">Save EMI &amp; Generate Receipt</button>
- <button type="button" class="clear-btn" id="clearBtn">Clear</button>
- <button type="button" class="back-btn" id="backBtn">Back to Dashboard</button>
-</div>
-</form>
-
-<p id="message" class="message" role="status" aria-live="polite"></p>
-<p class="note">
-The amount entered is the amount per instalment. Registration receipts confirm
-plan registration only. Record a payment separately before issuing a payment receipt.
-</p>
-</section>
-
-<section class="report-box">
-<div class="report-heading">
- <h2>EMI Report &amp; Billing History</h2>
- <div class="search-box">
-  <input type="search" id="emiSearch"
-   placeholder="Search Employee ID, Asset ID, EMI ID or Receipt..."
-   aria-label="Search EMI records">
- </div>
-</div>
-
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
- <th>Employee ID</th><th>Customer Name</th><th>Mobile</th>
- <th>Asset ID</th><th>EMI ID</th><th>EMI Type</th>
- <th>Instalment Amount</th><th>Start Date</th><th>End Date</th>
- <th>Status</th><th>Receipt Number</th><th>Payments</th><th>Actions</th>
-</tr>
-</thead>
-<tbody id="emiRows"></tbody>
-</table>
-</div>
-<p id="noResults" class="empty-message">No matching EMI records found.</p>
-</section>
-</div>
-
-<!-- Receipt preview -->
-<div id="receiptOverlay" class="overlay" role="dialog" aria-modal="true" aria-label="Receipt preview">
- <div class="dialog" id="receiptDialog">
-  <div class="dialog-actions">
-   <button type="button" class="primary-btn" id="printBtn">Print / Save PDF</button>
-   <button type="button" class="secondary-btn" id="closeReceiptBtn">Close</button>
-  </div>
-  <div id="receiptContent" class="receipt"></div>
- </div>
-</div>
-
-<!-- Record payment -->
-<div id="paymentOverlay" class="overlay" role="dialog" aria-modal="true" aria-label="Record instalment payment">
- <div class="dialog">
-  <div class="payment-form">
-   <h2>Record Instalment Payment</h2>
-   <p id="paymentEmiInfo" class="note"></p>
-   <p class="payment-warning">
-    Only record a payment after you have actually received or verified it.
-    This demo does not process money or connect to a bank.
-   </p>
-   <form id="paymentForm">
-    <div class="form-grid">
-     <div class="form-group">
-      <label for="paymentAmount">Amount Received *</label>
-      <input id="paymentAmount" type="number" min="0.01" step="0.01" required>
-     </div>
-     <div class="form-group">
-      <label for="paymentDate">Payment Date *</label>
-      <input id="paymentDate" type="date" required>
-     </div>
-     <div class="form-group">
-      <label for="paymentMethod">Payment Method *</label>
-      <select id="paymentMethod" required>
-       <option value="">Select Method</option>
-       <option value="CASH">Cash</option>
-       <option value="UPI">UPI</option>
-       <option value="BANK TRANSFER">Bank Transfer</option>
-       <option value="CARD">Card</option>
-       <option value="OTHER">Other</option>
-      </select>
-     </div>
-     <div class="form-group">
-      <label for="paymentReference">Payment Reference</label>
-      <input id="paymentReference" maxlength="100" placeholder="Optional transaction reference">
-     </div>
-    </div>
-    <div class="buttons">
-     <button class="save-btn" type="submit">Save Payment &amp; Generate Receipt</button>
-     <button class="clear-btn" type="button" id="cancelPaymentBtn">Cancel</button>
-    </div>
-    <p id="paymentMessage" class="message" role="status"></p>
-   </form>
-  </div>
- </div>
-</div>
-
-<script>
-"use strict";
-
-/* Keep existing login session protection. */
-if (sessionStorage.getItem("loggedIn") !== "true") {
-    window.location.replace("index.html");
+* {
+    box-sizing: border-box;
 }
 
-const STORAGE_KEY = "assetNexaEmiRecordsV2";
-const LEGACY_KEY = "assetNexaEmiRecordsV1";
-
-const demoRecords = [
- {empId:"EMP001",assetId:"AST001",emiId:"EMI001",emiType:"MONTHLY",amount:5000,date:"10.01.2026",dateEnd:"13.12.2026",status:"ACTIVE"},
- {empId:"EMP010",assetId:"AST0010",emiId:"EMI0010",emiType:"MONTHLY",amount:5000,date:"01.10.2026",dateEnd:"30.09.2027",status:"ACTIVE"},
- {empId:"EMP002",assetId:"AST002",emiId:"EMI002",emiType:"MONTHLY",amount:3500,date:"10.02.2026",dateEnd:"13.01.2027",status:"ACTIVE"},
- {empId:"EMP003",assetId:"AST003",emiId:"EMI003",emiType:"QUARTERLY",amount:9000,date:"01.02.2026",dateEnd:"29.02.2028",status:"ACTIVE"},
- {empId:"EMP004",assetId:"AST004",emiId:"EMI004",emiType:"MONTHLY",amount:4500,date:"01.04.2026",dateEnd:"31.03.2027",status:"ACTIVE"},
- {empId:"EMP005",assetId:"AST005",emiId:"EMI005",emiType:"YEARLY",amount:4800,date:"01.05.2026",dateEnd:"01.05.2027",status:"ACTIVE"},
- {empId:"EMP006",assetId:"AST006",emiId:"EMI006",emiType:"MONTHLY",amount:6000,date:"01.06.2026",dateEnd:"31.05.2027",status:"ACTIVE"},
- {empId:"EMP007",assetId:"AST007",emiId:"EMI007",emiType:"QUARTERLY",amount:12000,date:"01.07.2026",dateEnd:"01.07.2027",status:"ACTIVE"},
- {empId:"EMP008",assetId:"AST008",emiId:"EMI008",emiType:"MONTHLY",amount:4000,date:"01.08.2026",dateEnd:"31.07.2027",status:"ACTIVE"},
- {empId:"EMP009",assetId:"AST009",emiId:"EMI009",emiType:"HALF YEAR",amount:18000,date:"01.09.2026",dateEnd:"01.09.2027",status:"ACTIVE"}
-];
-
-let records = [];
-let selectedEmiId = null;
-let currentReceipt = null;
-
-function showMessage(text, isError=false) {
- const el=document.getElementById("message");
- el.textContent=text;
- el.style.color=isError?"#b91c1c":"#137547";
+:root {
+    --navy: #243b64;
+    --blue: #456b9a;
+    --pale: #eef2f7;
+    --line: #cbd5e1;
 }
 
-function saveRecords() {
- try {
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(records));
-  return true;
- } catch(error) {
-  showMessage("Could not save records. Check browser storage settings.",true);
-  return false;
- }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef2f7, #e8edf5);
+    min-height: 100vh;
+    color: #172033;
 }
 
-function normalizeRecord(r) {
- return {
-  empId:String(r.empId||r.employeeId||""),
-  customerName:String(r.customerName||r.name||""),
-  mobile:String(r.mobile||""),
-  assetId:String(r.assetId||""),
-  emiId:String(r.emiId||""),
-  emiType:String(r.emiType||"MONTHLY"),
-  amount:Number(r.amount)||0,
-  date:String(r.date||""),
-  dateEnd:String(r.dateEnd||""),
-  status:String(r.status||"ACTIVE"),
-  receiptNo:String(r.receiptNo||""),
-  registeredAt:String(r.registeredAt||""),
-  payments:Array.isArray(r.payments)?r.payments:[],
-  legacy:!r.receiptNo
- };
+.header {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-function loadRecords() {
- try {
-  const current=localStorage.getItem(STORAGE_KEY);
-  if(current!==null) {
-   const parsed=JSON.parse(current);
-   if(!Array.isArray(parsed)) throw new Error("Invalid records");
-   records=parsed.map(normalizeRecord);
-   return;
-  }
-
-  /* Migrate compatible records saved by an earlier version. */
-  const legacy=localStorage.getItem(LEGACY_KEY);
-  if(legacy!==null) {
-   const parsed=JSON.parse(legacy);
-   if(Array.isArray(parsed)) {
-    records=parsed.map(normalizeRecord);
-    if(saveRecords()) return;
-   }
-  }
-
-  /* Seed the original report examples on first use. */
-  records=demoRecords.map(r=>normalizeRecord(r));
-  saveRecords();
- } catch(error) {
-  records=demoRecords.map(r=>normalizeRecord(r));
-  showMessage("Saved records could not be read. Existing demo examples are displayed.",true);
- }
+.container {
+    width: 95%;
+    max-width: 1250px;
+    margin: 32px auto;
 }
 
-function escapeHtml(value) {
- return String(value??"").replace(/[&<>"']/g,ch=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- })[ch]);
+.form-box,
+.report-box,
+.payments-box {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(36, 59, 100, 0.14);
+    margin-bottom: 28px;
 }
 
-function makeNextId(prefix,values,width) {
- let max=0;
- values.forEach(value=>{
-  const match=String(value||"").match(new RegExp("^"+prefix+"(\\d+)$","i"));
-  if(match) max=Math.max(max,Number(match[1]));
- });
- return prefix+String(max+1).padStart(width,"0");
+h1, h2 {
+    color: var(--navy);
 }
 
-function nextEmiId() {
- return makeNextId("EMI",records.map(r=>r.emiId),4);
+.form-box h1 {
+    text-align: center;
+    margin: 0 0 25px;
 }
 
-function nextReceiptNo() {
- return makeNextId("RCPT",records.map(r=>r.receiptNo),6);
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
 }
 
-function nextPaymentReceiptNo() {
- const ids=[];
- records.forEach(r=>(r.payments||[]).forEach(p=>ids.push(p.receiptNo)));
- return makeNextId("PAY",ids,6);
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
-function localDateTime() {
- return new Date().toLocaleString("en-IN",{
-  day:"2-digit",month:"2-digit",year:"numeric",
-  hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true
- });
+label {
+    margin-bottom: 7px;
+    color: var(--navy);
+    font-weight: bold;
 }
 
-function makeReference() {
- return "REF-"+Date.now().toString(36).toUpperCase()+"-"+
-  Math.random().toString(36).slice(2,7).toUpperCase();
+input, select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: white;
 }
 
-function parseDate(value) {
- const m=String(value).match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
- if(!m) return null;
- const d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);
- const result=new Date(y,mo-1,d);
- if(result.getFullYear()!==y||result.getMonth()!==mo-1||result.getDate()!==d) return null;
- return result;
+input:focus, select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 5px #456b9a33;
 }
 
-function formatDateInput(value) {
- const m=String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
- return m?m[3]+"."+m[2]+"."+m[1]:"";
+.buttons {
+    text-align: center;
+    margin-top: 24px;
 }
 
-function formatAmount(value) {
- return Number(value).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+button {
+    padding: 11px 18px;
+    margin: 4px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-function renderTable() {
- const tbody=document.getElementById("emiRows");
- const query=document.getElementById("emiSearch").value.trim().toLowerCase();
-
- const filtered=records.filter(r=>{
-  const paymentCount=(r.payments||[]).length;
-  return [
-   r.empId,r.customerName,r.mobile,r.assetId,r.emiId,r.receiptNo,r.emiType,r.status,
-   ...((r.payments||[]).map(p=>p.receiptNo))
-  ].some(v=>String(v||"").toLowerCase().includes(query));
- });
-
- tbody.innerHTML=filtered.map(r=>{
-  const paymentCount=(r.payments||[]).length;
-  const receiptButton=r.receiptNo
-   ? `<button class="small-btn primary-btn" data-action="registration" data-id="${escapeHtml(r.emiId)}">Registration Receipt</button>`
-   : `<span class="note">Legacy record</span>`;
-
-  const latestPayment=paymentCount
-   ? `<button class="small-btn secondary-btn" data-action="payment-receipt" data-id="${escapeHtml(r.emiId)}">Payment Receipt</button>`
-   : "";
-
-  return `<tr>
-   <td>${escapeHtml(r.empId)}</td>
-   <td>${escapeHtml(r.customerName||"—")}</td>
-   <td>${escapeHtml(r.mobile||"—")}</td>
-   <td>${escapeHtml(r.assetId)}</td>
-   <td>${escapeHtml(r.emiId)}</td>
-   <td>${escapeHtml(r.emiType)}</td>
-   <td>${formatAmount(r.amount)}</td>
-   <td>${escapeHtml(r.date)}</td>
-   <td>${escapeHtml(r.dateEnd)}</td>
-   <td class="${r.status==="ACTIVE"?"status-active":"status-inactive"}">${escapeHtml(r.status)}</td>
-   <td>${escapeHtml(r.receiptNo||"Not generated")}</td>
-   <td>${paymentCount}</td>
-   <td>
-    ${receiptButton}
-    <button class="small-btn primary-btn" data-action="record-payment" data-id="${escapeHtml(r.emiId)}">Record Payment</button>
-    ${latestPayment}
-   </td>
-  </tr>`;
- }).join("");
-
- document.getElementById("noResults").style.display=filtered.length?"none":"block";
+button:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
 }
 
-function clearForm(clearMessage=true) {
- document.getElementById("emiForm").reset();
- if(clearMessage) document.getElementById("message").textContent="";
+.save-btn, .primary-btn {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    color: white;
 }
 
-function saveEMI(event) {
- event.preventDefault();
-
- const empId=document.getElementById("emp_id").value.trim();
- const customerName=document.getElementById("customer_name").value.trim();
- const mobile=document.getElementById("mobile").value.trim();
- const assetId=document.getElementById("asset_id").value.trim();
- const emiType=document.getElementById("emi_type").value;
- const amount=Number(document.getElementById("amount").value);
- const date=document.getElementById("date").value.trim();
- const dateEnd=document.getElementById("date_end").value.trim();
- const status=document.getElementById("status").value;
-
- if(!empId||!customerName||!mobile||!assetId||!emiType||!date||!dateEnd||!status) {
-  showMessage("Please fill in all required fields.",true);
-  return;
- }
-
- if(!/^[0-9+()\-\s]{7,15}$/.test(mobile)) {
-  showMessage("Enter a valid mobile number (7–15 characters).",true);
-  return;
- }
-
- if(!Number.isFinite(amount)||amount<=0) {
-  showMessage("Enter an instalment amount greater than zero.",true);
-  return;
- }
-
- const start=parseDate(date),end=parseDate(dateEnd);
- if(!start||!end) {
-  showMessage("Enter valid dates in DD.MM.YYYY format.",true);
-  return;
- }
- if(end<start) {
-  showMessage("End Date cannot be earlier than Start Date.",true);
-  return;
- }
-
- const record={
-  empId,customerName,mobile,assetId,emiId:nextEmiId(),emiType,
-  amount:Number(amount.toFixed(2)),date,dateEnd,status,
-  receiptNo:nextReceiptNo(),
-  registeredAt:localDateTime(),
-  registrationReference:makeReference(),
-  payments:[],
-  legacy:false
- };
-
- records.push(record);
- if(!saveRecords()) {
-  records.pop();
-  return;
- }
-
- renderTable();
- clearForm(false);
- showMessage("EMI registered successfully. Registration receipt generated.",false);
- openReceipt(record.emiId,"registration");
+.clear-btn, .secondary-btn {
+    background: #e8edf5;
+    color: var(--navy);
+    border: 1px solid var(--line);
 }
 
-function findRecord(emiId) {
- return records.find(r=>r.emiId===emiId);
+.back-btn {
+    background: white;
+    color: var(--navy);
+    border: 1px solid var(--line);
 }
 
-function recordPayment(emiId) {
- const r=findRecord(emiId);
- if(!r) return;
-
- selectedEmiId=emiId;
- document.getElementById("paymentForm").reset();
- document.getElementById("paymentMessage").textContent="";
- document.getElementById("paymentDate").value=new Date().toISOString().slice(0,10);
- document.getElementById("paymentAmount").value=Number(r.amount).toFixed(2);
- document.getElementById("paymentEmiInfo").textContent=
-  "EMI "+r.emiId+" | Employee "+r.empId+" | Asset "+r.assetId+
-  " | Instalment amount: "+formatAmount(r.amount);
- document.getElementById("paymentOverlay").classList.add("open");
+.small-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+    margin: 2px;
 }
 
-function savePayment(event) {
- event.preventDefault();
-
- const r=findRecord(selectedEmiId);
- if(!r) {
-  showPaymentMessage("EMI record was not found.",true);
-  return;
- }
-
- const amount=Number(document.getElementById("paymentAmount").value);
- const date=document.getElementById("paymentDate").value;
- const method=document.getElementById("paymentMethod").value;
- const reference=document.getElementById("paymentReference").value.trim();
-
- if(!Number.isFinite(amount)||amount<=0||!date||!method) {
-  showPaymentMessage("Enter a valid amount, payment date, and method.",true);
-  return;
- }
-
- const selectedDate=new Date(date+"T00:00:00");
- if(Number.isNaN(selectedDate.getTime())) {
-  showPaymentMessage("Enter a valid payment date.",true);
-  return;
- }
-
- const payment={
-  receiptNo:nextPaymentReceiptNo(),
-  paymentReference:reference||"Not provided",
-  amount:Number(amount.toFixed(2)),
-  paymentDate:formatDateInput(date),
-  paymentMethod:method,
-  recordedAt:localDateTime(),
-  transactionReference:makeReference()
- };
-
- r.payments=r.payments||[];
- r.payments.push(payment);
-
- if(!saveRecords()) {
-  r.payments.pop();
-  return;
- }
-
- document.getElementById("paymentOverlay").classList.remove("open");
- renderTable();
- showMessage("Payment record saved. Payment receipt "+payment.receiptNo+" generated.",false);
- openReceipt(r.emiId,"payment",payment.receiptNo);
+.message {
+    text-align: center;
+    margin: 14px 0 0;
+    font-weight: bold;
+    overflow-wrap: anywhere;
 }
 
-function showPaymentMessage(text,isError) {
- const el=document.getElementById("paymentMessage");
- el.textContent=text;
- el.style.color=isError?"#b91c1c":"#137547";
+.report-box, .payments-box {
+    overflow-x: auto;
 }
 
-function openReceipt(emiId,type,paymentReceiptNo="") {
- const r=findRecord(emiId);
- if(!r) {
-  showMessage("EMI record not found.",true);
-  return;
- }
-
- if(type==="registration"&&!r.receiptNo) {
-  showMessage("This older demo row has no registration receipt number.",true);
-  return;
- }
-
- let payment=null;
- if(type==="payment") {
-  payment=(r.payments||[]).find(p=>p.receiptNo===paymentReceiptNo);
-  if(!payment) {
-   payment=(r.payments||[])[(r.payments||[]).length-1];
-  }
-  if(!payment) {
-   showMessage("No payment has been recorded for this EMI.",true);
-   return;
-  }
- }
-
- currentReceipt={emiId,type,paymentReceiptNo:payment?payment.receiptNo:""};
- const isPayment=type==="payment";
- const receiptNumber=isPayment?payment.receiptNo:r.receiptNo;
- const title=isPayment?"EMI Payment Receipt":"EMI Registration Receipt";
- const badge=isPayment?"PAYMENT RECORDED":"REGISTRATION RECORDED";
- const amount=isPayment?payment.amount:r.amount;
-
- let extraFields="";
- if(isPayment) {
-  extraFields=`
-   <div class="receipt-field"><span>Payment Date</span><strong>${escapeHtml(payment.paymentDate)}</strong></div>
-   <div class="receipt-field"><span>Payment Method</span><strong>${escapeHtml(payment.paymentMethod)}</strong></div>
-   <div class="receipt-field"><span>Payment Reference</span><strong>${escapeHtml(payment.paymentReference)}</strong></div>
-   <div class="receipt-field"><span>Recorded Date &amp; Time</span><strong>${escapeHtml(payment.recordedAt)}</strong></div>
-   <div class="receipt-field"><span>Transaction Reference</span><strong>${escapeHtml(payment.transactionReference)}</strong></div>`;
- }
-
- document.getElementById("receiptContent").innerHTML=`
-  <div class="receipt-brand">
-   <h2>AssetNexa</h2>
-   <p>IT Asset Lifecycle, Maintenance &amp; Management System</p>
-  </div>
-  <div class="receipt-title">
-   <div>
-    <h3>${title}</h3>
-    <p>Receipt No: <strong>${escapeHtml(receiptNumber)}</strong></p>
-   </div>
-   <span class="receipt-badge">${badge}</span>
-  </div>
-  <div class="receipt-grid">
-   <div class="receipt-field"><span>Customer / Employee Name</span><strong>${escapeHtml(r.customerName||"Not available in legacy record")}</strong></div>
-   <div class="receipt-field"><span>Mobile Number</span><strong>${escapeHtml(r.mobile||"Not available in legacy record")}</strong></div>
-   <div class="receipt-field"><span>Employee ID</span><strong>${escapeHtml(r.empId)}</strong></div>
-   <div class="receipt-field"><span>Asset ID</span><strong>${escapeHtml(r.assetId)}</strong></div>
-   <div class="receipt-field"><span>EMI Number</span><strong>${escapeHtml(r.emiId)}</strong></div>
-   <div class="receipt-field"><span>EMI Type</span><strong>${escapeHtml(r.emiType)}</strong></div>
-   <div class="receipt-field"><span>Plan Start Date</span><strong>${escapeHtml(r.date)}</strong></div>
-   <div class="receipt-field"><span>Plan End Date</span><strong>${escapeHtml(r.dateEnd)}</strong></div>
-   <div class="receipt-field"><span>Plan Status</span><strong>${escapeHtml(r.status)}</strong></div>
-   ${isPayment?"":`
-    <div class="receipt-field"><span>Registration Date &amp; Time</span><strong>${escapeHtml(r.registeredAt||"Legacy demo record")}</strong></div>
-    <div class="receipt-field"><span>Registration Reference</span><strong>${escapeHtml(r.registrationReference||"Not available for legacy record")}</strong></div>`}
-   ${extraFields}
-  </div>
-  <div class="receipt-total">
-   <span>${isPayment?"Amount Recorded as Received":"Amount per Instalment (as registered)"}</span>
-   <strong>${formatAmount(amount)}</strong>
-  </div>
-  <div class="receipt-note">
-   <strong>Receipt information:</strong>
-   ${isPayment
-    ?"This receipt records a payment entry manually entered in the AssetNexa demo application. It is not independently verified by a bank or payment gateway."
-    :"This receipt confirms EMI plan registration only. It does not confirm that an instalment was paid or that money was received."}
-   <br>Amounts are displayed without a currency symbol because the currency has not been configured.
-  </div>
-  <div class="receipt-footer">
-   Generated by AssetNexa browser application.<br>
-   Keep this receipt for your records.
-  </div>
- `;
-
- document.getElementById("receiptOverlay").classList.add("open");
+.report-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
 }
 
-function closeReceipt() {
- document.getElementById("receiptOverlay").classList.remove("open");
- currentReceipt=null;
+.report-heading h2 {
+    margin: 0;
 }
 
-function closePayment() {
- document.getElementById("paymentOverlay").classList.remove("open");
- selectedEmiId=null;
+.search-box {
+    width: 360px;
+    max-width: 100%;
 }
 
-function printReceipt() {
- if(!currentReceipt) return;
- window.print();
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    min-width: 1000px;
 }
 
-document.getElementById("emiForm").addEventListener("submit",saveEMI);
-document.getElementById("paymentForm").addEventListener("submit",savePayment);
-document.getElementById("emiSearch").addEventListener("input",renderTable);
-document.getElementById("clearBtn").addEventListener("click",()=>clearForm());
-document.getElementById("backBtn").addEventListener("click",()=>window.location.href="dashboard.html");
-document.getElementById("printBtn").addEventListener("click",printReceipt);
-document.getElementById("closeReceiptBtn").addEventListener("click",closeReceipt);
-document.getElementById("cancelPaymentBtn").addEventListener("click",closePayment);
+th {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    color: white;
+    padding: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
 
-document.getElementById("emiRows").addEventListener("click",event=>{
- const button=event.target.closest("button[data-action]");
- if(!button) return;
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #dbe2ea;
+    vertical-align: middle;
+}
 
- const id=button.dataset.id;
- const action=button.dataset.action;
+tbody tr:nth-child(even) {
+    background: #f4f7fb;
+}
 
- if(action==="registration") openReceipt(id,"registration");
- if(action==="record-payment") recordPayment(id);
- if(action==="payment-receipt") openReceipt(id,"payment");
-});
+tbody tr:hover {
+    background: #e5edf8;
+}
 
-document.getElementById("receiptOverlay").addEventListener("click",event=>{
- if(event.target.id==="receiptOverlay") closeReceipt();
-});
-document.getElementById("paymentOverlay").addEventListener("click",event=>{
- if(event.target.id==="paymentOverlay") closePayment();
-});
-document.addEventListener("keydown",event=>{
- if(event.key==="Escape") {
-  closeReceipt();
-  closePayment();
- }
-});
+#noResults {
+    display: none;
+    text-align: center;
+    color: #64748b;
+    padding: 20px;
+    font-weight: bold;
+}
 
-loadRecords();
-renderTable();
-</script>
-</body>
-</html>
+.hint {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #526174;
+    margin-top: 12px;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #e4f5eb;
+    color: #166534;
+}
+
+.status-inactive {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.action-cell {
+    min-width: 190px;
+}
+
+/* RECEIPT PREVIEW */
+.receipt-overlay {
+    position: fixed;
+    inset: 0;
+    background: #0f172a99;
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: auto;
+    padding: 24px;
+}
+
+.receipt-panel {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 850px;
+    padding: 18px;
+    margin: auto;
+    box-shadow: 0 15px 50px #0003;
+}
+
+.receipt-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.receipt-paper {
+    border: 1px solid #d5dce7;
+    padding: 30px;
+    position: relative;
+    min-height: 600px;
+    color: #182235;
+    background: #fff;
+}
+
+.receipt-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 3px solid var(--navy);
+    padding-bottom: 18px;
+}
+
+.company-name {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: var(--navy);
+}
+
+.company-subtitle {
+    font-size: 12px;
+    color: #5b6474;
+    margin-top: 5px;
+}
+
+/* DECORATIVE COMPANY STAMP */
+.stamp {
+    width: 112px;
+    height: 112px;
+    border: 3px double #315c8d;
+    color: #315c8d;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    transform: rotate(-10deg);
+    flex-shrink: 0;
+    line-height: 1.25;
+    background: white;
+}
+
+.stamp-name {
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.stamp-text {
+    font-size: 9px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
+
+.receipt-title {
+    text-align: center;
+    color: var(--navy);
+    font-size: 22px;
+    font-weight: bold;
+    margin: 24px 0 6px;
+    text-transform: uppercase;
+}
+
+.receipt-status {
+    text-align: center;
+    color: #8a4b08;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    margin-bottom: 22px;
+}
+
+.receipt-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    background: #f4f7fb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.receipt-meta div {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.receipt-meta strong {
+    color: var(--navy);
+}
+
+.receipt-table {
+    min-width: 0;
+    margin: 0 0 20px;
+}
+
+.receipt-table th,
+.receipt-table td {
+    text-align: left;
+    padding: 11px;
+}
+
+.total-row td {
+    font-weight: bold;
+    background: #f4f7fb;
+}
+
+.receipt-note {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #526174;
+    margin-top: 18px;
+    border-top: 1px solid #dbe2ea;
+    padding-top: 12px;
+}
+
+/* SIGNATURE PLACEHOLDER */
+.signature-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 42px;
+}
+
+.signature-block {
+    text-align: center;
+    width: 220px;
+    font-size: 12px;
+    color: #334155;
+}
+
+.signature-line {
+    border-top: 1px solid #334155;
+    margin-bottom: 8px;
+    height: 1px;
+}
+
+.signature-label {
+    font-weight: bold;
+    color: var(--navy);
+    font-size: 13px;
+}
+
+.receipt-footer {
+    position: absolute;
+    bottom: 15px;
+    left: 30px;
+    right: 30px;
+    text-align: center;
+    font-size: 10px;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 
