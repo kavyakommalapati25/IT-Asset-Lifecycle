@@ -264,20 +264,6 @@
 
 
             <div class="form-grid">
-
-
-                <div class="form-group">
-
-                    <label>Maintenance ID</label>
-
-                    <input
-                        type="text"
-                        id="main_id"
-                        placeholder="Enter Maintenance ID">
-
-                </div>
-
-
                 <div class="form-group">
 
                     <label>Employee ID</label>
@@ -440,7 +426,7 @@
 
                     <tr>
 
-                        <th>Maintenance ID</th>
+                       
                         <th>Employee ID</th>
                         <th>Employee Details</th>
                         <th>Maintenance Type</th>
@@ -457,7 +443,7 @@
 
                     <tr>
 
-                        <td>1001</td>
+                       
                         <td>2222</td>
                         <td>6666</td>
                         <td>555</td>
@@ -469,7 +455,7 @@
 
                     <tr>
 
-                        <td>11</td>
+                       
                         <td>22</td>
                         <td></td>
                         <td></td>
@@ -481,7 +467,7 @@
 
                     <tr>
 
-                        <td>111</td>
+
                         <td>11</td>
                         <td></td>
                         <td>LLL</td>
@@ -493,7 +479,7 @@
 
                     <tr>
 
-                        <td>122</td>
+                       
                         <td>11</td>
                         <td>..</td>
                         <td>////</td>
@@ -505,7 +491,7 @@
 
                     <tr>
 
-                        <td>1222</td>
+                        
                         <td></td>
                         <td></td>
                         <td></td>
@@ -517,7 +503,7 @@
 
                     <tr>
 
-                        <td>2000</td>
+                      
                         <td>1001</td>
                         <td>5548</td>
                         <td>GFS</td>
@@ -529,7 +515,7 @@
 
                     <tr>
 
-                        <td>22222</td>
+                        
                         <td>22222</td>
                         <td>2222</td>
                         <td>222</td>
@@ -541,7 +527,7 @@
 
                     <tr>
 
-                        <td>22222222</td>
+                       
                         <td>1003</td>
                         <td>1002</td>
                         <td>SCREEN</td>
@@ -553,7 +539,7 @@
 
                     <tr>
 
-                        <td>A100</td>
+                        
                         <td>M1001</td>
                         <td></td>
                         <td>HARDWARE</td>
@@ -565,7 +551,7 @@
 
                     <tr>
 
-                        <td>M001</td>
+                        
                         <td>1001</td>
                         <td>1001</td>
                         <td>SOFTWARE</td>
@@ -577,7 +563,7 @@
 
                     <tr>
 
-                        <td>M002</td>
+                      
                         <td>1002</td>
                         <td>1002</td>
                         <td>HARDWARE</td>
@@ -589,7 +575,7 @@
 
                     <tr>
 
-                        <td>M003</td>
+                       
                         <td>1003</td>
                         <td>1003</td>
                         <td>NETWORK</td>
@@ -601,7 +587,7 @@
 
                     <tr>
 
-                        <td>M004</td>
+                        
                         <td>A004</td>
                         <td>E004</td>
                         <td>SOFTWARE</td>
@@ -637,8 +623,7 @@
 
         function saveMaintenance() {
 
-            let mainId =
-                document.getElementById("main_id").value;
+         
 
             let empId =
                 document.getElementById("emp_id").value;
@@ -690,8 +675,7 @@
 
         function clearForm() {
 
-            document.getElementById("main_id").value = "";
-
+           
             document.getElementById("emp_id").value = "";
 
             document.getElementById("emp_det").value = "";
@@ -727,14 +711,7 @@
                 document.getElementById("message");
 
 
-            if (mainId === "") {
-
-                message.style.color = "red";
-
-                message.innerHTML =
-                    "Please enter Maintenance ID first.";
-
-                return;
+         
 
             }
 
