@@ -1537,23 +1537,44 @@ function shareSocial(platform) {
 
 <!-- Social Media Share Buttons -->
 <div class="social-share">
-  <div class="social-options" id="socialOptions">
-    <a href="#" class="social-btn whatsapp" onclick="shareSocial('whatsapp'); return false;">
-      <span>🟢</span> WhatsApp
-    </a>
 
-    <a href="#" class="social-btn linkedin" onclick="shareSocial('linkedin'); return false;">
-      <span>🔵</span> LinkedIn
-    </a>
+<div class="social-options" id="socialOptions">
 
-    <a href="#" class="social-btn facebook" onclick="shareSocial('facebook'); return false;">
-      <span>🔵</span> Facebook
-    </a>
+  <a href="#" class="social-btn whatsapp"
+     onclick="shareSocial('whatsapp'); return false;">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5Z"/>
+      <path d="M8.5 7.5c-.4-.9-.8-.9-1.2-.9h-.7c-.3 0-.7.2-.9.6-.3.4-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.3 2.1 3.4 5.2 4.6 2.6 1 3.2.8 3.8.7.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5l-3.1-1.6-1 1.2c-.2.2-.4.3-.8.1a9.4 9.4 0 0 1-2.8-1.7 10.5 10.5 0 0 1-1.9-2.4c-.2-.4 0-.6.2-.8l.6-.7Z"/>
+    </svg>
+    WhatsApp
+  </a>
 
-    <a href="#" class="social-btn twitter" onclick="shareSocial('twitter'); return false;">
-      <span>𝕏</span> Twitter / X
-    </a>
-  </div>
+  <a href="#" class="social-btn linkedin"
+     onclick="shareSocial('linkedin'); return false;">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.45 2H3.55C2.7 2 2 2.7 2 3.55v16.9C2 21.3 2.7 22 3.55 22h16.9c.85 0 1.55-.7 1.55-1.55V3.55C22 2.7 21.3 2 20.45 2ZM8 18H5V9h3v9ZM6.5 7.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4ZM19 18h-3v-4.4c0-1.05-.02-2.4-1.46-2.4-1.47 0-1.69 1.14-1.69 2.32V18h-3V9h2.88v1.23h.04c.4-.71 1.38-1.46 2.84-1.46 3.04 0 3.39 2 3.39 4.6V18Z"/>
+    </svg>
+    LinkedIn
+  </a>
+
+  <a href="#" class="social-btn facebook"
+     onclick="shareSocial('facebook'); return false;">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.08V12h3.04V9.35c0-3 1.79-4.66 4.52-4.66 1.31 0 2.69.23 2.69.23v2.95h-1.51c-1.49 0-1.95.92-1.95 1.87V12h3.32l-.53 3.47h-2.79v8.38A12 12 0 0 0 24 12Z"/>
+    </svg>
+    Facebook
+  </a>
+
+  <a href="#" class="social-btn twitter"
+     onclick="shareSocial('twitter'); return false;">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.5 22H2.3l7.3-8.4L1.8 2h6.5l4.5 6.8Zm-1.1 17.8h1.7L7.3 4.1H5.5Z"/>
+    </svg>
+    Twitter / X
+  </a>
+
+</div>
+
 
   <button type="button" class="share-main" onclick="toggleSocialShare()">
     ↗ Share
