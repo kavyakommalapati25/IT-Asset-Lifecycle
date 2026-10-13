@@ -823,6 +823,72 @@ td {
   }
 }
 
+/* Floating Social Share Menu */
+.social-share {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.social-options {
+  display: none;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-end;
+}
+
+.social-options.show {
+  display: flex;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 150px;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid #e2eaf1;
+  border-radius: 10px;
+  color: #183451;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,.12);
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+}
+
+.share-main {
+  padding: 13px 20px;
+  border: none;
+  border-radius: 30px;
+  background: #087f8c;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0,0,0,.2);
+}
+
+.share-main:hover {
+  background: #066873;
+}
+
+@media (max-width: 600px) {
+  .social-share {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
 </style>
 </head>
 
@@ -1425,7 +1491,74 @@ function logout() {
   sessionStorage.removeItem("loggedIn");
   window.location.href = "index.html";
 }
+  
+function toggleSocialShare() {
+  document.getElementById("socialOptions")
+    .classList.toggle("show");
+}
+
+function shareSocial(platform) {
+  const pageUrl = window.location.href;
+  const message =
+    "Check out AssetNexa - IT Asset Lifecycle, Maintenance and Management System!";
+
+  const encodedUrl = encodeURIComponent(pageUrl);
+  const encodedMessage = encodeURIComponent(message);
+
+  const shareLinks = {
+    whatsapp:
+      "https://api.whatsapp.com/send?text=" +
+      encodeURIComponent(message + " " + pageUrl),
+
+    linkedin:
+      "https://www.linkedin.com/sharing/share-offsite/?url=" +
+      encodedUrl,
+
+    facebook:
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+      encodedUrl,
+
+    twitter:
+      "https://twitter.com/intent/tweet?text=" +
+      encodedMessage +
+      "&url=" + encodedUrl
+  };
+
+  if (shareLinks[platform]) {
+    window.open(
+      shareLinks[platform],
+      "_blank",
+      "noopener,noreferrer,width=650,height=550"
+    );
+  }
+}
+
 </script>
+
+<!-- Social Media Share Buttons -->
+<div class="social-share">
+  <div class="social-options" id="socialOptions">
+    <a href="#" class="social-btn whatsapp" onclick="shareSocial('whatsapp'); return false;">
+      <span>🟢</span> WhatsApp
+    </a>
+
+    <a href="#" class="social-btn linkedin" onclick="shareSocial('linkedin'); return false;">
+      <span>🔵</span> LinkedIn
+    </a>
+
+    <a href="#" class="social-btn facebook" onclick="shareSocial('facebook'); return false;">
+      <span>🔵</span> Facebook
+    </a>
+
+    <a href="#" class="social-btn twitter" onclick="shareSocial('twitter'); return false;">
+      <span>𝕏</span> Twitter / X
+    </a>
+  </div>
+
+  <button type="button" class="share-main" onclick="toggleSocialShare()">
+    ↗ Share
+  </button>
+</div>
 
 </body>
 </html>
